@@ -1,0 +1,126 @@
+# @package _global_
+
+defaults:
+  - train
+  - override /task: libero_uncond_2cam224_1e-4
+  - _self_
+
+ckpt: null
+gpu_id: 0
+
+model:
+  load_text_encoder: true
+  skip_dit_load_from_pretrain: true
+  action_dit_pretrained_path: null
+
+EVALUATION:
+  task_suite_name: libero_spatial
+  task_id: 0
+  num_trials: 50
+  output_dir: ./evaluate_results/libero/${hydra:runtime.choices.task}/${now:%Y%m%d_%H%M%S}
+
+  # Runtime behavior
+  env_num: 1
+  num_steps_wait: 30
+  replan_steps: 10
+  max_steps_override: null
+  binarize_gripper: true
+  use_action_ensembler: false
+  visualize_future_video: false
+
+  # Optional official V-JEPA 2-AC Best-of-K latent ranking. With T5 released
+  # before model loading, FastWAM and the FP32 ranker fit on one 24 GiB GPU.
+  vjepa2_ac:
+    enabled: false
+    num_action_candidates: 8
+    # Fixed LIBERO camera preset selected from the task-365 render comparison.
+    # This is the high/close robot-left view: canonical agentview rotated -60
+    # degrees around world Z. Quaternion uses MuJoCo's [w, x, y, z] order.
+    camera:
+      preset: robot_left_60_high
+      name: agentview
+      position: [0.3293, -0.5703643309324312, 1.6104]
+      quaternion: [0.8715703672034573, 0.4163865954915577, 0.1115704520011075, 0.23353657603906355]
+      fovy: 45.0
+      image_rotation_degrees: 180
+    # Optional JEPA gradient guidance. This is additive: when disabled, the
+    # existing Best-of-K rank()/NumPy adapter path is unchanged.
+    guidance:
+      enabled: false
+      # Optional zero-based flow steps after which guidance is applied. When
+      # set, this takes precedence over last_flow_steps. For example [6,7,8]
+      # inserts guidance at the 6->7, 7->8, and 8->9 boundaries.
+      after_flow_steps: null
+      last_flow_steps: 2
+      # Step size in FastWAM's normalized action-flow space after RMS
+      # normalization of the JEPA gradient.
+      step_size: 0.02
+      # Start with one V-JEPA2-AC transition (4 LIBERO low-level actions).
+      ac_steps: 1
+      # Diagnostic forward at the gradient-corrected clean action. Disable
+      # after calibration to remove this extra predictor call.
+      verify_descent: true
+    # `separate` is the current accuracy-preserving default: generate the
+    # reference future with infer_joint(K=1), then candidates with the released
+    # infer_action(K=8) path. `joint` retains the experimental single-pass path.
+    candidate_generation_mode: separate
+    # Keep execution/ranking aligned to complete FastWAM video intervals
+    # (8 low-level steps = 2 predicted future frames for LIBERO).
+    replan_steps: 8
+    # null means colocate V-JEPA2-AC with FastWAM on the worker's only
+    # visible GPU.  Override this only when the worker can see a second GPU.
+    device: null
+    # The official AC predictor's RoPE path promotes query/key to FP32, so
+    # casting the module to BF16 produces mixed-dtype SDPA inputs.
+    dtype: float32
+    checkpoint_path: /data/chenpengxu/jepa_wam_assets/vjepa2-ac-vitg.pt
+    repo_path: /data/chenpengxu/vjepa2
+    low_level_steps_per_ac_step: 4
+    max_ac_steps: 8
+    max_gripper_width: 0.08
+    # Robosuite OSC_POSE maps normalized [-1, 1] commands to these
+    # per-step metric / angular deltas before execution.
+    osc_position_scale: 0.05
+    osc_rotation_scale: 0.5
+
+  # Action inference
+  action_horizon: null
+  num_inference_steps: ${eval_num_inference_steps}
+  sigma_shift: null
+  text_cfg_scale: 1.0
+  negative_prompt: ""
+  rand_device: cpu
+  tiled: false
+  compile_action_infer: true
+  # When enabled, persist per-replan FastWAM/JEPA/environment timing in the
+  # task result JSON. Kept off for normal evaluation to avoid synchronization.
+  timing_enabled: false
+  # Persist per-flow-step clean-action estimates and convergence metrics. When enabled,
+  # LIBERO writes raw/summary CSVs and plots after the task rollout completes.
+  action_denoise_trace: false
+  # Encode every task prompt with T5 before FastWAM is constructed, cache the
+  # embeddings on CPU, then destroy T5.  This avoids ever keeping T5,
+  # FastWAM, and V-JEPA2-AC resident at the same time.
+  offload_text_encoder: false
+  text_encoder_batch_size: 8
+
+  # Optional external inputs
+  dataset_stats_path: null
+  device: cuda
+
+MULTIRUN:
+  create_only: false
+  task_file: null
+  task_suite_names:
+    - libero_10
+    - libero_goal
+    - libero_spatial
+    - libero_object
+  num_gpus: 8
+
+hydra:
+  job:
+    chdir: false
+  run:
+    dir: .
+  output_subdir: null

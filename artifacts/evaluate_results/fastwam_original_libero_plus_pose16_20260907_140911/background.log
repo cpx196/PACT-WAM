@@ -1,0 +1,41 @@
+Output root: /data/chenpengxu/FastWAM/evaluate_results/fastwam_original_libero_plus_pose16_20260907_140911
+GPUs: 2,3
+Seeds: 7 17 27 37
+Mode: original FastWAM single-sample baseline (V-JEPA disabled)
+Output root: /data/chenpengxu/FastWAM/evaluate_results/fastwam_original_libero_plus_pose16_20260907_140911
+GPUs: 2,3
+Seeds: 7 17 27 37
+Mode: original FastWAM single-sample baseline (V-JEPA disabled)
+Updated aggregate tables: /data/chenpengxu/FastWAM/evaluate_results/fastwam_original_libero_plus_pose16_20260907_140911/summary.csv and /data/chenpengxu/FastWAM/evaluate_results/fastwam_original_libero_plus_pose16_20260907_140911/summary.md
+Starting seed 7: /data/chenpengxu/FastWAM/evaluate_results/fastwam_original_libero_plus_pose16_20260907_140911/seed_7
+Using existing task list: /data/chenpengxu/FastWAM/experiments/libero/libero_plus_pose16_tasks.txt
+
+Starting persistent LIBERO worker pool...
+task: libero_uncond_2cam224_1e-4
+checkpoint: /data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224.pt
+GPUs: 2,3
+trials per task: 1
+task list: /data/chenpengxu/FastWAM/evaluate_results/fastwam_original_libero_plus_pose16_20260907_140911/seed_7/libero_plus_pose16_tasks.txt
+output: /data/chenpengxu/FastWAM/evaluate_results/fastwam_original_libero_plus_pose16_20260907_140911/seed_7
+forwarded overrides: seed=7 EVALUATION.dataset_stats_path=/data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224_dataset_stats.json EVALUATION.sigma_shift=5.0 EVALUATION.replan_steps=10 EVALUATION.visualize_future_video=false EVALUATION.vjepa2_ac.enabled=false EVALUATION.offload_text_encoder=true
+recovery: quarantine a crashed GPU and requeue its unfinished task
+started worker GPU2: /data/chenpengxu/FastWAM/evaluate_results/fastwam_original_libero_plus_pose16_20260907_140911/seed_7/.worker_pool/logs/worker_2.log
+started worker GPU3: /data/chenpengxu/FastWAM/evaluate_results/fastwam_original_libero_plus_pose16_20260907_140911/seed_7/.worker_pool/logs/worker_3.log
+[2026-09-07 14:10:09] completed=0/16 pending=16 active_workers=2
+[2026-09-07 14:11:09] completed=0/16 pending=16 active_workers=2
+[2026-09-07 14:12:09] completed=0/16 pending=16 active_workers=2
+[2026-09-07 14:13:10] completed=0/16 pending=16 active_workers=2
+[2026-09-07 14:14:10] completed=0/16 pending=16 active_workers=2
+[2026-09-07 14:15:10] completed=0/16 pending=14 active_workers=2
+2026-09-07 14:15:07,libero_object,1818,gpu=3,error=FileNotFoundError(2, 'No such file or directory')
+2026-09-07 14:15:09,libero_object,1839,gpu=2,error=FileNotFoundError(2, 'No such file or directory')
+
+Error executing job with overrides: ['task=libero_uncond_2cam224_1e-4', 'ckpt=/data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224.pt', 'seed=7', 'EVALUATION.output_dir=/data/chenpengxu/FastWAM/evaluate_results/fastwam_original_libero_plus_pose16_20260907_140911/seed_7', 'EVALUATION.num_trials=1', 'EVALUATION.dataset_stats_path=/data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224_dataset_stats.json', 'EVALUATION.sigma_shift=5.0', 'EVALUATION.replan_steps=10', 'EVALUATION.visualize_future_video=false', 'EVALUATION.vjepa2_ac.enabled=false', 'EVALUATION.offload_text_encoder=true', 'MULTIRUN.task_file=/data/chenpengxu/FastWAM/experiments/libero/libero_plus_pose16_tasks.txt', 'MULTIRUN.num_gpus=2']
+Traceback (most recent call last):
+  File "/data/chenpengxu/FastWAM/experiments/libero/run_libero_manager.py", line 331, in main
+    run_evaluation(
+  File "/data/chenpengxu/FastWAM/experiments/libero/run_libero_manager.py", line 289, in run_evaluation
+    raise RuntimeError(terminal_error)
+RuntimeError: worker GPU2 reported a task error; log: /data/chenpengxu/FastWAM/evaluate_results/fastwam_original_libero_plus_pose16_20260907_140911/seed_7/.worker_pool/logs/worker_2.log
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

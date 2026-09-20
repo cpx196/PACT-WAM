@@ -1,0 +1,76 @@
+Using existing task list: /data/chenpengxu/FastWAM/experiments/libero/task_lists/libero_plus_long_8_mixed_perturbations.txt
+
+Starting persistent LIBERO worker pool...
+task: libero_uncond_2cam224_1e-4
+checkpoint: /data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224.pt
+GPUs: 2
+trials per task: 1
+task list: /data/chenpengxu/FastWAM/evaluate_results/long8_one_jepa_vs_ten_control_20260916_long8_4gpu/ten_control/seed_27/libero_plus_long_8_mixed_perturbations.txt
+output: /data/chenpengxu/FastWAM/evaluate_results/long8_one_jepa_vs_ten_control_20260916_long8_4gpu/ten_control/seed_27
+forwarded overrides: seed=27 EVALUATION.dataset_stats_path=/data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224_dataset_stats.json EVALUATION.sigma_shift=5.0 EVALUATION.num_inference_steps=10 EVALUATION.replan_steps=8 EVALUATION.visualize_future_video=true EVALUATION.offload_text_encoder=true EVALUATION.timing_enabled=true EVALUATION.vjepa2_ac.enabled=false EVALUATION.vjepa2_ac.candidate_generation_mode=separate EVALUATION.vjepa2_ac.replan_steps=8 EVALUATION.vjepa2_ac.guidance.enabled=false
+recovery: quarantine a crashed GPU and requeue its unfinished task
+started worker GPU2: /data/chenpengxu/FastWAM/evaluate_results/long8_one_jepa_vs_ten_control_20260916_long8_4gpu/ten_control/seed_27/.worker_pool/logs/worker_2.log
+[2026-09-16 18:15:21] completed=0/8 pending=8 active_workers=1
+[2026-09-16 18:16:21] completed=0/8 pending=8 active_workers=1
+[2026-09-16 18:17:21] completed=0/8 pending=8 active_workers=1
+[2026-09-16 18:18:24] completed=0/8 pending=7 active_workers=1
+[2026-09-16 18:19:24] completed=0/8 pending=7 active_workers=1
+[2026-09-16 18:20:24] completed=0/8 pending=7 active_workers=1
+[2026-09-16 18:21:24] completed=1/8 pending=6 active_workers=1
+[2026-09-16 18:22:24] completed=1/8 pending=6 active_workers=1
+[2026-09-16 18:23:24] completed=2/8 pending=5 active_workers=1
+[2026-09-16 18:24:24] completed=3/8 pending=4 active_workers=1
+[2026-09-16 18:25:24] completed=4/8 pending=3 active_workers=1
+[2026-09-16 18:26:24] completed=4/8 pending=3 active_workers=1
+[2026-09-16 18:27:24] completed=5/8 pending=2 active_workers=1
+[2026-09-16 18:28:24] completed=6/8 pending=1 active_workers=1
+[2026-09-16 18:29:24] completed=7/8 pending=0 active_workers=1
+[2026-09-16 18:30:24] completed=7/8 pending=0 active_workers=1
+[2026-09-16 18:31:24] completed=8/8 pending=0 active_workers=1
+All workers exited; generating summary...
+
+=== Evaluation Results Summary ===
+
+Statistics for each task suite:
+
+libero_10:
+- Tasks completed: 8
+- Total attempts: 8
+- Successful attempts: 3
+- Success rate: 37.50%
+- Total time: 13m10s
+- Average time per task: 01m39s
+- Longest task time: 03m08s
+- Average future-video PSNR: 26.7729 dB
+
+Overall statistics:
+- Average success rate: 37.50%
+- Total time: 13m10s
+- Average time per task: 01m39s
+- Longest task time: 03m08s
+- Average future-video PSNR: 26.7729 dB
+
+=== Run Information ===
+Run ID: seed_27
+Results directory: /data/chenpengxu/FastWAM/evaluate_results/long8_one_jepa_vs_ten_control_20260916_long8_4gpu/ten_control/seed_27
+Summary file: /data/chenpengxu/FastWAM/evaluate_results/long8_one_jepa_vs_ten_control_20260916_long8_4gpu/ten_control/seed_27/summary.json
+Summary CSV: /data/chenpengxu/FastWAM/evaluate_results/long8_one_jepa_vs_ten_control_20260916_long8_4gpu/ten_control/seed_27/summary.csv
+Task success rates CSV: /data/chenpengxu/FastWAM/evaluate_results/long8_one_jepa_vs_ten_control_20260916_long8_4gpu/ten_control/seed_27/task_success_rates.csv
+
+=== Task Success Rates ===
+          Task                                                                                                            Description Success Rate (%) Future Video PSNR (dB)
+ libero_10_145                                                  put both the alphabet soup and the tomato sauce in the basket table 1           100.00                28.0583
+ libero_10_158                                                     put both the cream cheese box and the butter in the basket table 1             0.00                24.8618
+ libero_10_410                      put the black bowl in the bottom drawer of the cabinet and close it view 0 0 100 0 0 initstate 14             0.00                25.1047
+ libero_10_457 put the white mug on the left plate and put the yellow and white mug on the right plate view 0 0 100 0 0 initstate 115             0.00                27.6325
+ libero_10_931  put the white mug on the plate and put the chocolate pudding to the right of the plate view 0 0 100 352 4 initstate 0             0.00                27.9433
+libero_10_1027                                                         put both moka pots on the stove view 0 0 100 356 4 initstate 0             0.00                25.9997
+libero_10_1945                                                                     turn on the stove and put the moka pot on it add 7           100.00                26.3894
+libero_10_2046                                               put both the alphabet soup and the cream cheese box in the basket add 18           100.00                28.1940
+
+=== Results Table ===
+libero_10 Overall
+    37.50   37.50
+    98.69   98.69
+   187.95  187.95
+  26.7729 26.7729

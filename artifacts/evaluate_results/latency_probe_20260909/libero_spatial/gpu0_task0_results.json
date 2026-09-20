@@ -1,0 +1,89 @@
+{
+    "task_suite": "libero_spatial",
+    "task_id": 0,
+    "task_description": "pick up the black bowl between the plate and the ramekin and place it on the plate",
+    "successes": 0,
+    "total_episodes": 1,
+    "gpu_id": 0,
+    "success_episodes": [],
+    "failure_episodes": [
+        0
+    ],
+    "start_time": "2026-09-09 12:46:39",
+    "duration": 87.52889585494995,
+    "memory_snapshots": {
+        "fastwam_only_after_load": {
+            "allocated_gib": 12.551729679107666,
+            "reserved_gib": 12.732421875,
+            "peak_allocated_gib": 12.551729679107666,
+            "peak_reserved_gib": 12.732421875
+        },
+        "fastwam_plus_jepa_after_load": {
+            "allocated_gib": 17.544552326202393,
+            "reserved_gib": 17.7734375,
+            "peak_allocated_gib": 17.544552326202393,
+            "peak_reserved_gib": 17.7734375
+        },
+        "after_rollout": {
+            "allocated_gib": 17.544552326202393,
+            "reserved_gib": 19.494140625,
+            "peak_allocated_gib": 18.671136379241943,
+            "peak_reserved_gib": 19.494140625
+        }
+    },
+    "episode_future_video_psnr": [
+        29.666776130480155
+    ],
+    "future_video_psnr_mean": 29.666776130480155,
+    "episode_timings": [
+        {
+            "episode_wall_s": 81.01526178698987,
+            "replan_count": 3,
+            "policy_replan_total_s": 79.10486381687224,
+            "policy_replan_mean_s": 26.368287938957412,
+            "env_step_total_s": 0.6569653272163123,
+            "low_level_action_steps": 24,
+            "per_replan": [
+                {
+                    "preprocess_s": 0.004563523922115564,
+                    "infer_joint_s": 36.87180243595503,
+                    "infer_action_s": 39.98534275405109,
+                    "action_postprocess_s": 0.0005162060260772705,
+                    "jepa_rank_s": 0.3055116138420999,
+                    "jepa_encoder_phase_s": 0.1086219500284642,
+                    "jepa_predictor_total_s": 0.19341295887716115,
+                    "jepa_predictor_step_mean_s": 0.09670647943858057,
+                    "jepa_predictor_step_0_s": 0.09255531802773476,
+                    "jepa_predictor_step_1_s": 0.10085764084942639,
+                    "total_s": 77.17431964701973
+                },
+                {
+                    "preprocess_s": 0.003474391996860504,
+                    "infer_joint_s": 0.504022778943181,
+                    "infer_action_s": 0.2191857248544693,
+                    "action_postprocess_s": 0.0002302259672433138,
+                    "jepa_rank_s": 0.27992698596790433,
+                    "jepa_encoder_phase_s": 0.09304154198616743,
+                    "jepa_predictor_total_s": 0.18644773587584496,
+                    "jepa_predictor_step_mean_s": 0.09322386793792248,
+                    "jepa_predictor_step_0_s": 0.08688621991313994,
+                    "jepa_predictor_step_1_s": 0.09956151596270502,
+                    "total_s": 1.011914983857423
+                },
+                {
+                    "preprocess_s": 0.00355763197876513,
+                    "infer_joint_s": 0.4952854721341282,
+                    "infer_action_s": 0.13899732707068324,
+                    "action_postprocess_s": 0.0002160780131816864,
+                    "jepa_rank_s": 0.2761649989988655,
+                    "jepa_encoder_phase_s": 0.09061519103124738,
+                    "jepa_predictor_total_s": 0.18513815011829138,
+                    "jepa_predictor_step_mean_s": 0.09256907505914569,
+                    "jepa_predictor_step_0_s": 0.08663393906317651,
+                    "jepa_predictor_step_1_s": 0.09850421105511487,
+                    "total_s": 0.918629185995087
+                }
+            ]
+        }
+    ]
+}

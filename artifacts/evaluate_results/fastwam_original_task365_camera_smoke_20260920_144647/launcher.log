@@ -1,0 +1,90 @@
+[2026-09-20T14:46:47+08:00] queued single-GPU original FastWAM task365 smoke test
+[2026-09-20T14:46:47+08:00] waiting for >=14000 MiB free on one GPU
+[2026-09-20T14:46:48+08:00] starting on physical GPU 0
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /data/chenpengxu/jepa_wam_py312/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[2026-09-20 14:47:06,268][fastwam.models.wan22.helpers.loader][INFO] - Loading Wan2.2-TI2V-5B components...
+[2026-09-20 14:47:06,280][fastwam.models.wan22.helpers.loader][INFO] - Skipping pretrained video DiT load (`skip_dit_load_from_pretrain=True`); initializing video expert randomly and expecting checkpoint override.
+[W920 14:47:38.103925739 CUDACachingAllocator.cpp:511] expandable_segments: memory mapping failed with OOM on device 0 while trying to map 20971520 bytes (free: 24707072, total: 25262096384).
+[W920 14:47:38.104735104 CUDACachingAllocator.cpp:511] expandable_segments: memory mapping failed with OOM on device 0 while trying to map 20971520 bytes (free: 24707072, total: 25262096384).
+Error executing job with overrides: ['task=libero_uncond_2cam224_1e-4', 'ckpt=/data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224.pt', 'gpu_id=0', 'EVALUATION.task_suite_name=libero_10', 'EVALUATION.task_id=365', 'EVALUATION.num_trials=1', 'EVALUATION.output_dir=/data/chenpengxu/FastWAM/evaluate_results/fastwam_original_task365_camera_smoke_20260920_144647', 'EVALUATION.dataset_stats_path=/data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224_dataset_stats.json', 'EVALUATION.vjepa2_ac.enabled=false', 'EVALUATION.visualize_future_video=false', 'EVALUATION.replan_steps=10', 'EVALUATION.timing_enabled=true', 'EVALUATION.action_denoise_trace=false', 'EVALUATION.offload_text_encoder=false']
+Traceback (most recent call last):
+  File "/data/chenpengxu/jepa_wam_py312/hydra/_internal/instantiate/_instantiate2.py", line 92, in _call_target
+    return _target_(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/chenpengxu/FastWAM/src/fastwam/runtime.py", line 137, in create_fastwam
+    return FastWAM.from_wan22_pretrained(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/chenpengxu/FastWAM/src/fastwam/models/wan22/fastwam.py", line 124, in from_wan22_pretrained
+    components = load_wan22_ti2v_5b_components(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/chenpengxu/FastWAM/src/fastwam/models/wan22/helpers/loader.py", line 175, in load_wan22_ti2v_5b_components
+    dit: WanVideoDiT = WanVideoDiT(**validated_dit_config).to(device=device, dtype=torch_dtype)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/chenpengxu/conda_envs/HMoE/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1383, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/data/chenpengxu/FastWAM/src/fastwam/models/wan22/wan_video_dit.py", line 401, in _apply
+    result = super()._apply(fn)
+             ^^^^^^^^^^^^^^^^^^
+  File "/data/chenpengxu/conda_envs/HMoE/lib/python3.12/site-packages/torch/nn/modules/module.py", line 933, in _apply
+    module._apply(fn)
+  File "/data/chenpengxu/conda_envs/HMoE/lib/python3.12/site-packages/torch/nn/modules/module.py", line 933, in _apply
+    module._apply(fn)
+  File "/data/chenpengxu/conda_envs/HMoE/lib/python3.12/site-packages/torch/nn/modules/module.py", line 933, in _apply
+    module._apply(fn)
+  [Previous line repeated 1 more time]
+  File "/data/chenpengxu/conda_envs/HMoE/lib/python3.12/site-packages/torch/nn/modules/module.py", line 964, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "/data/chenpengxu/conda_envs/HMoE/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1369, in convert
+    return t.to(
+           ^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 84.00 MiB. GPU 0 has a total capacity of 23.53 GiB of which 23.56 MiB is free. Process 1674843 has 19.42 GiB memory in use. Including non-PyTorch memory, this process has 4.05 GiB memory in use. Of the allocated memory 3.66 GiB is allocated by PyTorch, and 13.57 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/data/chenpengxu/FastWAM/experiments/libero/eval_libero_single.py", line 1626, in <module>
+    eval_single_process()
+  File "/data/chenpengxu/jepa_wam_py312/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/data/chenpengxu/jepa_wam_py312/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/data/chenpengxu/jepa_wam_py312/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/data/chenpengxu/jepa_wam_py312/hydra/_internal/utils.py", line 223, in run_and_report
+    raise ex
+  File "/data/chenpengxu/jepa_wam_py312/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+           ^^^^^^
+  File "/data/chenpengxu/jepa_wam_py312/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+            ^^^^^^^^^^
+  File "/data/chenpengxu/jepa_wam_py312/hydra/_internal/hydra.py", line 132, in run
+    _ = ret.return_value
+        ^^^^^^^^^^^^^^^^
+  File "/data/chenpengxu/jepa_wam_py312/hydra/core/utils.py", line 260, in return_value
+    raise self._return_value
+  File "/data/chenpengxu/jepa_wam_py312/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/chenpengxu/FastWAM/experiments/libero/eval_libero_single.py", line 1498, in eval_single_process
+    model = instantiate(model_cfg, model_dtype=model_dtype, device=model_device)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/chenpengxu/jepa_wam_py312/hydra/_internal/instantiate/_instantiate2.py", line 226, in instantiate
+    return instantiate_node(
+           ^^^^^^^^^^^^^^^^^
+  File "/data/chenpengxu/jepa_wam_py312/hydra/_internal/instantiate/_instantiate2.py", line 347, in instantiate_node
+    return _call_target(_target_, partial, args, kwargs, full_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/chenpengxu/jepa_wam_py312/hydra/_internal/instantiate/_instantiate2.py", line 97, in _call_target
+    raise InstantiationException(msg) from e
+hydra.errors.InstantiationException: Error in call to target 'fastwam.runtime.create_fastwam':
+OutOfMemoryError('CUDA out of memory. Tried to allocate 84.00 MiB. GPU 0 has a total capacity of 23.53 GiB of which 23.56 MiB is free. Process 1674843 has 19.42 GiB memory in use. Including non-PyTorch memory, this process has 4.05 GiB memory in use. Of the allocated memory 3.66 GiB is allocated by PyTorch, and 13.57 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)')
+full_key: model

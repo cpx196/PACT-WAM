@@ -1,0 +1,62 @@
+{
+    "task_suite": "libero_spatial",
+    "task_id": 0,
+    "task_description": "pick up the black bowl between the plate and the ramekin and place it on the plate",
+    "successes": 0,
+    "total_episodes": 1,
+    "gpu_id": 0,
+    "success_episodes": [],
+    "failure_episodes": [
+        0
+    ],
+    "start_time": "2026-09-09 12:59:38",
+    "duration": 43.823585748672485,
+    "memory_snapshots": {
+        "fastwam_only_after_load": {
+            "allocated_gib": 12.551729679107666,
+            "reserved_gib": 12.732421875,
+            "peak_allocated_gib": 12.551729679107666,
+            "peak_reserved_gib": 12.732421875
+        },
+        "after_rollout": {
+            "allocated_gib": 12.551729679107666,
+            "reserved_gib": 14.20703125,
+            "peak_allocated_gib": 13.678691387176514,
+            "peak_reserved_gib": 14.20703125
+        }
+    },
+    "episode_future_video_psnr": [
+        29.633545033246225
+    ],
+    "future_video_psnr_mean": 29.633545033246225,
+    "episode_timings": [
+        {
+            "episode_wall_s": 37.77443931181915,
+            "replan_count": 3,
+            "policy_replan_total_s": 35.92503164964728,
+            "policy_replan_mean_s": 11.975010549882427,
+            "env_step_total_s": 0.6362816989421844,
+            "low_level_action_steps": 24,
+            "per_replan": [
+                {
+                    "preprocess_s": 0.004596529994159937,
+                    "infer_joint_s": 34.92244668700732,
+                    "action_postprocess_s": 0.00025318190455436707,
+                    "total_s": 34.92901109997183
+                },
+                {
+                    "preprocess_s": 0.004512493964284658,
+                    "infer_joint_s": 0.49342566705308855,
+                    "action_postprocess_s": 0.00018251407891511917,
+                    "total_s": 0.4992011298891157
+                },
+                {
+                    "preprocess_s": 0.003603265853598714,
+                    "infer_joint_s": 0.49202368897385895,
+                    "action_postprocess_s": 0.0001748930662870407,
+                    "total_s": 0.49681941978633404
+                }
+            ]
+        }
+    ]
+}

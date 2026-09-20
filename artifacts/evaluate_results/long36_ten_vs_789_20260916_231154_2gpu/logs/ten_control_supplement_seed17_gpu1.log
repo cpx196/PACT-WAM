@@ -1,0 +1,123 @@
+Using existing task list: /data/chenpengxu/FastWAM/experiments/libero/task_lists/libero_plus_long_30_ten_step_control_supplement.txt
+
+Starting persistent LIBERO worker pool...
+task: libero_uncond_2cam224_1e-4
+checkpoint: /data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224.pt
+GPUs: 1
+trials per task: 1
+task list: /data/chenpengxu/FastWAM/evaluate_results/long36_ten_vs_789_20260916_231154_2gpu/ten_control_supplement/seed_17/libero_plus_long_30_ten_step_control_supplement.txt
+output: /data/chenpengxu/FastWAM/evaluate_results/long36_ten_vs_789_20260916_231154_2gpu/ten_control_supplement/seed_17
+forwarded overrides: seed=17 EVALUATION.dataset_stats_path=/data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224_dataset_stats.json EVALUATION.sigma_shift=5.0 EVALUATION.num_inference_steps=10 EVALUATION.replan_steps=8 EVALUATION.visualize_future_video=true EVALUATION.offload_text_encoder=true EVALUATION.timing_enabled=true EVALUATION.vjepa2_ac.candidate_generation_mode=separate EVALUATION.vjepa2_ac.replan_steps=8 EVALUATION.vjepa2_ac.enabled=false EVALUATION.vjepa2_ac.guidance.enabled=false
+recovery: quarantine a crashed GPU and requeue its unfinished task
+started worker GPU1: /data/chenpengxu/FastWAM/evaluate_results/long36_ten_vs_789_20260916_231154_2gpu/ten_control_supplement/seed_17/.worker_pool/logs/worker_1.log
+[2026-09-16 23:15:05] completed=0/30 pending=30 active_workers=1
+[2026-09-16 23:16:05] completed=0/30 pending=30 active_workers=1
+[2026-09-16 23:17:05] completed=0/30 pending=30 active_workers=1
+[2026-09-16 23:18:05] completed=0/30 pending=30 active_workers=1
+[2026-09-16 23:19:05] completed=0/30 pending=30 active_workers=1
+[2026-09-16 23:20:05] completed=0/30 pending=30 active_workers=1
+[2026-09-16 23:21:05] completed=0/30 pending=29 active_workers=1
+[2026-09-16 23:22:05] completed=1/30 pending=28 active_workers=1
+[2026-09-16 23:23:05] completed=2/30 pending=27 active_workers=1
+[2026-09-16 23:24:05] completed=2/30 pending=27 active_workers=1
+[2026-09-16 23:25:05] completed=3/30 pending=26 active_workers=1
+[2026-09-16 23:26:05] completed=5/30 pending=24 active_workers=1
+[2026-09-16 23:27:05] completed=5/30 pending=24 active_workers=1
+[2026-09-16 23:28:05] completed=6/30 pending=23 active_workers=1
+[2026-09-16 23:29:05] completed=6/30 pending=23 active_workers=1
+[2026-09-16 23:30:05] completed=7/30 pending=22 active_workers=1
+[2026-09-16 23:31:06] completed=9/30 pending=20 active_workers=1
+[2026-09-16 23:32:06] completed=9/30 pending=20 active_workers=1
+[2026-09-16 23:33:06] completed=10/30 pending=19 active_workers=1
+[2026-09-16 23:34:06] completed=11/30 pending=18 active_workers=1
+[2026-09-16 23:35:06] completed=13/30 pending=16 active_workers=1
+[2026-09-16 23:36:06] completed=14/30 pending=15 active_workers=1
+[2026-09-16 23:37:06] completed=15/30 pending=14 active_workers=1
+[2026-09-16 23:38:06] completed=17/30 pending=12 active_workers=1
+[2026-09-16 23:39:06] completed=18/30 pending=11 active_workers=1
+[2026-09-16 23:40:06] completed=18/30 pending=11 active_workers=1
+[2026-09-16 23:41:06] completed=19/30 pending=10 active_workers=1
+[2026-09-16 23:42:06] completed=19/30 pending=10 active_workers=1
+[2026-09-16 23:43:06] completed=20/30 pending=9 active_workers=1
+[2026-09-16 23:44:06] completed=21/30 pending=8 active_workers=1
+[2026-09-16 23:45:06] completed=21/30 pending=8 active_workers=1
+[2026-09-16 23:46:06] completed=22/30 pending=7 active_workers=1
+[2026-09-16 23:47:06] completed=22/30 pending=7 active_workers=1
+[2026-09-16 23:48:06] completed=23/30 pending=6 active_workers=1
+[2026-09-16 23:49:06] completed=24/30 pending=5 active_workers=1
+[2026-09-16 23:50:06] completed=25/30 pending=4 active_workers=1
+[2026-09-16 23:51:06] completed=26/30 pending=3 active_workers=1
+[2026-09-16 23:52:06] completed=27/30 pending=2 active_workers=1
+[2026-09-16 23:53:06] completed=28/30 pending=1 active_workers=1
+[2026-09-16 23:54:06] completed=28/30 pending=1 active_workers=1
+[2026-09-16 23:55:06] completed=29/30 pending=0 active_workers=1
+[2026-09-16 23:56:06] completed=29/30 pending=0 active_workers=1
+All workers exited; generating summary...
+
+=== Evaluation Results Summary ===
+
+Statistics for each task suite:
+
+libero_10:
+- Tasks completed: 30
+- Total attempts: 30
+- Successful attempts: 19
+- Success rate: 63.33%
+- Total time: 36m03s
+- Average time per task: 01m12s
+- Longest task time: 01m56s
+- Average future-video PSNR: 26.8205 dB
+
+Overall statistics:
+- Average success rate: 63.33%
+- Total time: 36m03s
+- Average time per task: 01m12s
+- Longest task time: 01m56s
+- Average future-video PSNR: 26.8205 dB
+
+=== Run Information ===
+Run ID: seed_17
+Results directory: /data/chenpengxu/FastWAM/evaluate_results/long36_ten_vs_789_20260916_231154_2gpu/ten_control_supplement/seed_17
+Summary file: /data/chenpengxu/FastWAM/evaluate_results/long36_ten_vs_789_20260916_231154_2gpu/ten_control_supplement/seed_17/summary.json
+Summary CSV: /data/chenpengxu/FastWAM/evaluate_results/long36_ten_vs_789_20260916_231154_2gpu/ten_control_supplement/seed_17/summary.csv
+Task success rates CSV: /data/chenpengxu/FastWAM/evaluate_results/long36_ten_vs_789_20260916_231154_2gpu/ten_control_supplement/seed_17/task_success_rates.csv
+
+=== Task Success Rates ===
+          Task                                                                                                            Description Success Rate (%) Future Video PSNR (dB)
+   libero_10_0                                                                   turn on the stove and put the moka pot on it table 1           100.00                25.7396
+   libero_10_2                                                                  turn on the stove and put the moka pot on it table 12             0.00                16.7141
+  libero_10_33                                            put the black bowl in the bottom drawer of the cabinet and close it table 1             0.00                26.2835
+  libero_10_35                                           put the black bowl in the bottom drawer of the cabinet and close it table 12             0.00                31.9576
+ libero_10_137                                              put both the alphabet soup and the cream cheese box in the basket table 1           100.00                24.0305
+ libero_10_138                                             put both the alphabet soup and the cream cheese box in the basket table 12           100.00                25.9664
+ libero_10_147                                                 put both the alphabet soup and the tomato sauce in the basket table 12           100.00                24.9093
+ libero_10_160                                                    put both the cream cheese box and the butter in the basket table 12           100.00                26.6420
+ libero_10_193                        put the white mug on the left plate and put the yellow and white mug on the right plate table 1             0.00                26.4138
+ libero_10_195                       put the white mug on the left plate and put the yellow and white mug on the right plate table 12             0.00                28.7335
+ libero_10_289                             put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 1             0.00                25.0221
+ libero_10_290                            put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 11             0.00                24.4622
+ libero_10_330                                put both the cream cheese box and the butter in the basket view 0 0 100 0 0 initstate 2           100.00                27.7632
+ libero_10_331                               put both the cream cheese box and the butter in the basket view 0 0 100 0 0 initstate 42           100.00                27.7876
+ libero_10_365                                              turn on the stove and put the moka pot on it view 0 0 100 0 0 initstate 3           100.00                25.9314
+ libero_10_366                                             turn on the stove and put the moka pot on it view 0 0 100 0 0 initstate 13           100.00                26.2829
+ libero_10_411                      put the black bowl in the bottom drawer of the cabinet and close it view 0 0 100 0 0 initstate 24             0.00                23.7822
+ libero_10_458 put the white mug on the left plate and put the yellow and white mug on the right plate view 0 0 100 0 0 initstate 125             0.00                27.8184
+ libero_10_567                         put both the alphabet soup and the cream cheese box in the basket view 0 0 100 0 0 initstate 8           100.00                29.0178
+ libero_10_568                        put both the alphabet soup and the cream cheese box in the basket view 0 0 100 0 0 initstate 78           100.00                28.7660
+libero_10_1933                                                                    turn on the stove and put the moka pot on it add 14           100.00                27.1009
+libero_10_1959                                             put the black bowl in the bottom drawer of the cabinet and close it add 10           100.00                28.5987
+libero_10_1960                                             put the black bowl in the bottom drawer of the cabinet and close it add 11           100.00                27.7309
+libero_10_2047                                               put both the alphabet soup and the cream cheese box in the basket add 27           100.00                27.1128
+libero_10_2059                                                    put both the alphabet soup and the tomato sauce in the basket add 1           100.00                28.4939
+libero_10_2060                                                   put both the alphabet soup and the tomato sauce in the basket add 10           100.00                28.9468
+libero_10_2093                                                      put both the cream cheese box and the butter in the basket add 10           100.00                27.6730
+libero_10_2094                                                      put both the cream cheese box and the butter in the basket add 11           100.00                28.0195
+libero_10_2127                          put the white mug on the left plate and put the yellow and white mug on the right plate add 1             0.00                27.8282
+libero_10_2128                         put the white mug on the left plate and put the yellow and white mug on the right plate add 10             0.00                29.0865
+
+=== Results Table ===
+libero_10 Overall
+    63.33   63.33
+    72.11   72.11
+   115.55  115.55
+  26.8205 26.8205

@@ -1,0 +1,64 @@
+{
+    "task_suite": "libero_object",
+    "task_id": 2169,
+    "task_description": "pick up the salad dressing and place it in the basket level5 sample1",
+    "successes": 0,
+    "total_episodes": 1,
+    "gpu_id": 0,
+    "success_episodes": [],
+    "failure_episodes": [
+        0
+    ],
+    "start_time": "2026-09-15 17:05:07",
+    "duration": 115.12553715705872,
+    "memory_snapshots": {
+        "fastwam_only_after_load": {
+            "allocated_gib": 12.536936283111572,
+            "reserved_gib": 12.552734375,
+            "peak_allocated_gib": 12.536936283111572,
+            "peak_reserved_gib": 12.552734375
+        },
+        "fastwam_plus_jepa_after_load": {
+            "allocated_gib": 17.44461488723755,
+            "reserved_gib": 17.4609375,
+            "peak_allocated_gib": 17.44461488723755,
+            "peak_reserved_gib": 17.4609375
+        },
+        "after_rollout": {
+            "allocated_gib": 17.45254945755005,
+            "reserved_gib": 17.884765625,
+            "peak_allocated_gib": 18.574166774749756,
+            "peak_reserved_gib": 19.0
+        }
+    },
+    "episode_future_video_psnr": [
+        25.412768237272388
+    ],
+    "future_video_psnr_mean": 25.412768237272388,
+    "episode_timings": [
+        {
+            "episode_wall_s": 101.61358014401048,
+            "replan_count": 2,
+            "policy_replan_total_s": 97.51925574988127,
+            "policy_replan_mean_s": 48.759627874940634,
+            "env_step_total_s": 1.304026632104069,
+            "low_level_action_steps": 16,
+            "per_replan": [
+                {
+                    "preprocess_s": 0.045182640198618174,
+                    "infer_joint_s": 52.51342847943306,
+                    "infer_action_s": 43.46257502399385,
+                    "action_postprocess_s": 0.000882491935044527,
+                    "total_s": 96.31709994887933
+                },
+                {
+                    "preprocess_s": 0.005514549091458321,
+                    "infer_joint_s": 0.5123167992569506,
+                    "infer_action_s": 0.5842910287901759,
+                    "action_postprocess_s": 0.0006296089850366116,
+                    "total_s": 1.2021558010019362
+                }
+            ]
+        }
+    ]
+}

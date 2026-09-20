@@ -1,0 +1,13 @@
+Using existing task list: /data/chenpengxu/FastWAM/experiments/libero/task_lists/libero_plus_long_robot_init_core3.txt
+
+Starting persistent LIBERO worker pool...
+task: libero_uncond_2cam224_1e-4
+checkpoint: /data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224.pt
+GPUs: 0
+trials per task: 1
+task list: /data/chenpengxu/FastWAM/evaluate_results/jepa_guidance_boundary_compare_long_core3_20260916_141455/between_67_78_89/seed_7/libero_plus_long_robot_init_core3.txt
+output: /data/chenpengxu/FastWAM/evaluate_results/jepa_guidance_boundary_compare_long_core3_20260916_141455/between_67_78_89/seed_7
+forwarded overrides: seed=7 EVALUATION.dataset_stats_path=/data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224_dataset_stats.json EVALUATION.sigma_shift=5.0 EVALUATION.num_inference_steps=10 EVALUATION.replan_steps=8 EVALUATION.visualize_future_video=true EVALUATION.offload_text_encoder=true EVALUATION.timing_enabled=true EVALUATION.vjepa2_ac.enabled=true EVALUATION.vjepa2_ac.candidate_generation_mode=separate EVALUATION.vjepa2_ac.guidance.enabled=true EVALUATION.vjepa2_ac.guidance.last_flow_steps=0 'EVALUATION.vjepa2_ac.guidance.after_flow_steps=[6,7,8]' EVALUATION.vjepa2_ac.guidance.step_size=0.02 EVALUATION.vjepa2_ac.guidance.ac_steps=2 EVALUATION.vjepa2_ac.guidance.verify_descent=false
+recovery: quarantine a crashed GPU and requeue its unfinished task
+started worker GPU0: /data/chenpengxu/FastWAM/evaluate_results/jepa_guidance_boundary_compare_long_core3_20260916_141455/between_67_78_89/seed_7/.worker_pool/logs/worker_0.log
+[2026-09-16 14:14:56] completed=0/3 pending=3 active_workers=1

@@ -1,0 +1,63 @@
+Using existing task list: /data/chenpengxu/FastWAM/experiments/libero/task_lists/libero_plus_long_robot_init_core3.txt
+
+Starting persistent LIBERO worker pool...
+task: libero_uncond_2cam224_1e-4
+checkpoint: /data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224.pt
+GPUs: 3
+trials per task: 1
+task list: /data/chenpengxu/FastWAM/evaluate_results/one_denoise_no_jepa_long_core3_20260916_one_denoise_no_jepa/seed_37/libero_plus_long_robot_init_core3.txt
+output: /data/chenpengxu/FastWAM/evaluate_results/one_denoise_no_jepa_long_core3_20260916_one_denoise_no_jepa/seed_37
+forwarded overrides: seed=37 EVALUATION.dataset_stats_path=/data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224_dataset_stats.json EVALUATION.sigma_shift=5.0 EVALUATION.num_inference_steps=1 EVALUATION.replan_steps=8 EVALUATION.visualize_future_video=true EVALUATION.offload_text_encoder=true EVALUATION.timing_enabled=true EVALUATION.vjepa2_ac.enabled=false EVALUATION.vjepa2_ac.candidate_generation_mode=separate EVALUATION.vjepa2_ac.guidance.enabled=false
+recovery: quarantine a crashed GPU and requeue its unfinished task
+started worker GPU3: /data/chenpengxu/FastWAM/evaluate_results/one_denoise_no_jepa_long_core3_20260916_one_denoise_no_jepa/seed_37/.worker_pool/logs/worker_3.log
+[2026-09-16 16:53:29] completed=0/3 pending=3 active_workers=1
+[2026-09-16 16:54:29] completed=0/3 pending=3 active_workers=1
+[2026-09-16 16:55:29] completed=0/3 pending=3 active_workers=1
+[2026-09-16 16:56:29] completed=0/3 pending=3 active_workers=1
+[2026-09-16 16:57:29] completed=0/3 pending=3 active_workers=1
+[2026-09-16 16:58:29] completed=0/3 pending=2 active_workers=1
+[2026-09-16 16:59:29] completed=1/3 pending=1 active_workers=1
+[2026-09-16 17:00:29] completed=2/3 pending=0 active_workers=1
+[2026-09-16 17:01:29] completed=2/3 pending=0 active_workers=1
+All workers exited; generating summary...
+
+=== Evaluation Results Summary ===
+
+Statistics for each task suite:
+
+libero_10:
+- Tasks completed: 3
+- Total attempts: 3
+- Successful attempts: 1
+- Success rate: 33.33%
+- Total time: 04m20s
+- Average time per task: 01m27s
+- Longest task time: 01m41s
+- Average future-video PSNR: 27.1886 dB
+
+Overall statistics:
+- Average success rate: 33.33%
+- Total time: 04m20s
+- Average time per task: 01m27s
+- Longest task time: 01m41s
+- Average future-video PSNR: 27.1886 dB
+
+=== Run Information ===
+Run ID: seed_37
+Results directory: /data/chenpengxu/FastWAM/evaluate_results/one_denoise_no_jepa_long_core3_20260916_one_denoise_no_jepa/seed_37
+Summary file: /data/chenpengxu/FastWAM/evaluate_results/one_denoise_no_jepa_long_core3_20260916_one_denoise_no_jepa/seed_37/summary.json
+Summary CSV: /data/chenpengxu/FastWAM/evaluate_results/one_denoise_no_jepa_long_core3_20260916_one_denoise_no_jepa/seed_37/summary.csv
+Task success rates CSV: /data/chenpengxu/FastWAM/evaluate_results/one_denoise_no_jepa_long_core3_20260916_one_denoise_no_jepa/seed_37/task_success_rates.csv
+
+=== Task Success Rates ===
+         Task                                                                                                            Description Success Rate (%) Future Video PSNR (dB)
+libero_10_410                      put the black bowl in the bottom drawer of the cabinet and close it view 0 0 100 0 0 initstate 14           100.00                27.6790
+libero_10_457 put the white mug on the left plate and put the yellow and white mug on the right plate view 0 0 100 0 0 initstate 115             0.00                27.8088
+libero_10_662                              put the yellow and white mug in the microwave and close it view 0 0 100 0 0 initstate 310             0.00                26.0781
+
+=== Results Table ===
+libero_10 Overall
+    33.33   33.33
+    86.68   86.68
+   100.58  100.58
+  27.1886 27.1886

@@ -1,0 +1,69 @@
+Using existing task list: /data/chenpengxu/FastWAM/experiments/libero/task_lists/libero_plus_long_robot_init_core3.txt
+
+Starting persistent LIBERO worker pool...
+task: libero_uncond_2cam224_1e-4
+checkpoint: /data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224.pt
+GPUs: 2
+trials per task: 1
+task list: /data/chenpengxu/FastWAM/evaluate_results/jepa_guidance_last2_long_core3_20260915_1800/seed_27/libero_plus_long_robot_init_core3.txt
+output: /data/chenpengxu/FastWAM/evaluate_results/jepa_guidance_last2_long_core3_20260915_1800/seed_27
+forwarded overrides: seed=27 EVALUATION.dataset_stats_path=/data/chenpengxu/FastWAM/checkpoints/fastwam_release/libero_uncond_2cam224_dataset_stats.json EVALUATION.sigma_shift=5.0 EVALUATION.replan_steps=8 EVALUATION.visualize_future_video=true EVALUATION.offload_text_encoder=true EVALUATION.timing_enabled=true EVALUATION.vjepa2_ac.enabled=true EVALUATION.vjepa2_ac.candidate_generation_mode=separate EVALUATION.vjepa2_ac.guidance.enabled=true EVALUATION.vjepa2_ac.guidance.last_flow_steps=2 EVALUATION.vjepa2_ac.guidance.step_size=0.02 EVALUATION.vjepa2_ac.guidance.ac_steps=1 EVALUATION.vjepa2_ac.guidance.verify_descent=true
+recovery: quarantine a crashed GPU and requeue its unfinished task
+started worker GPU2: /data/chenpengxu/FastWAM/evaluate_results/jepa_guidance_last2_long_core3_20260915_1800/seed_27/.worker_pool/logs/worker_2.log
+[2026-09-15 17:53:52] completed=0/3 pending=3 active_workers=1
+[2026-09-15 17:54:52] completed=0/3 pending=3 active_workers=1
+[2026-09-15 17:55:52] completed=0/3 pending=3 active_workers=1
+[2026-09-15 17:56:52] completed=0/3 pending=2 active_workers=1
+[2026-09-15 17:57:52] completed=0/3 pending=2 active_workers=1
+[2026-09-15 17:58:52] completed=0/3 pending=2 active_workers=1
+[2026-09-15 17:59:52] completed=0/3 pending=2 active_workers=1
+[2026-09-15 18:00:52] completed=1/3 pending=1 active_workers=1
+[2026-09-15 18:01:52] completed=1/3 pending=1 active_workers=1
+[2026-09-15 18:02:52] completed=1/3 pending=1 active_workers=1
+[2026-09-15 18:03:52] completed=1/3 pending=1 active_workers=1
+[2026-09-15 18:04:52] completed=2/3 pending=0 active_workers=1
+[2026-09-15 18:05:52] completed=2/3 pending=0 active_workers=1
+[2026-09-15 18:06:52] completed=2/3 pending=0 active_workers=1
+[2026-09-15 18:07:52] completed=2/3 pending=0 active_workers=1
+All workers exited; generating summary...
+
+=== Evaluation Results Summary ===
+
+Statistics for each task suite:
+
+libero_10:
+- Tasks completed: 3
+- Total attempts: 3
+- Successful attempts: 1
+- Success rate: 33.33%
+- Total time: 12m00s
+- Average time per task: 04m00s
+- Longest task time: 04m02s
+- Average future-video PSNR: 26.7607 dB
+
+Overall statistics:
+- Average success rate: 33.33%
+- Total time: 12m00s
+- Average time per task: 04m00s
+- Longest task time: 04m02s
+- Average future-video PSNR: 26.7607 dB
+
+=== Run Information ===
+Run ID: seed_27
+Results directory: /data/chenpengxu/FastWAM/evaluate_results/jepa_guidance_last2_long_core3_20260915_1800/seed_27
+Summary file: /data/chenpengxu/FastWAM/evaluate_results/jepa_guidance_last2_long_core3_20260915_1800/seed_27/summary.json
+Summary CSV: /data/chenpengxu/FastWAM/evaluate_results/jepa_guidance_last2_long_core3_20260915_1800/seed_27/summary.csv
+Task success rates CSV: /data/chenpengxu/FastWAM/evaluate_results/jepa_guidance_last2_long_core3_20260915_1800/seed_27/task_success_rates.csv
+
+=== Task Success Rates ===
+         Task                                                                                                            Description Success Rate (%) Future Video PSNR (dB)
+libero_10_410                      put the black bowl in the bottom drawer of the cabinet and close it view 0 0 100 0 0 initstate 14           100.00                26.1763
+libero_10_457 put the white mug on the left plate and put the yellow and white mug on the right plate view 0 0 100 0 0 initstate 115             0.00                27.7343
+libero_10_662                              put the yellow and white mug in the microwave and close it view 0 0 100 0 0 initstate 310             0.00                26.3715
+
+=== Results Table ===
+libero_10 Overall
+    33.33   33.33
+   239.86  239.86
+   241.54  241.54
+  26.7607 26.7607
