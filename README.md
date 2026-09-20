@@ -1,443 +1,352 @@
 # PACT-WAM
 
-Research package built on **Fast-WAM**, extended with the PACT-WAM action-centric
-experiments, V-JEPA2-AC guidance/ranking, and reproducibility artifacts collected
-during the current project.
+PACT-WAM 是一个面向机器人动作生成与闭环控制研究的实验代码包。项目以
+[Fast-WAM](https://github.com/yuantianyuan01/FastWAM) 为基础，加入了
+V-JEPA2-AC 动作排序、action-flow guidance、LIBERO-Plus 扰动评测，以及
+denoising/flow-matching 动作收敛分析。
 
-The original FastWAM implementation remains in `src/fastwam/`; this repository
-preserves the upstream model/configuration structure while packaging the current
-experimental code and historical evaluation metadata under `artifacts/`.
+这个仓库保留了当前研究阶段的完整快照：源码、配置、实验脚本、历史实验报告和
+轻量级评测 JSON/CSV/YAML 都保存在仓库中。模型权重、rollout 视频和本地缓存不上传 GitHub。
 
-[![English](https://img.shields.io/badge/README-English-111111.svg)](./README.md)
-[![中文](https://img.shields.io/badge/README-%E4%B8%AD%E6%96%87-d14836.svg)](./README_zh.md)
+[![默认语言：中文](https://img.shields.io/badge/README-%E9%BB%98%E8%AE%A4%E4%B8%AD%E6%96%87-d14836.svg)](./README.md)
 
-[![arXiv](https://img.shields.io/badge/arXiv-2603.16666-b31b1b.svg)](https://arxiv.org/abs/2603.16666)
-[![Project Page](https://img.shields.io/badge/Project_Page-Fast--WAM-2ea44f.svg)](https://yuantianyuan01.github.io/FastWAM/)
-[![Hugging Face Model](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-f7c843)](https://huggingface.co/yuanty/fastwam)
-[![Hugging Face Dataset - LIBERO](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset%20LIBERO-f7c843)](https://huggingface.co/datasets/yuanty/LIBERO-fastwam)
-[![Hugging Face Dataset - RoboTwin](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset%20RoboTwin-f7c843)](https://huggingface.co/datasets/yuanty/robotwin2.0-fastwam)
+## 1. 项目目标
 
-This repository contains the training and evaluation code for FastWAM on LIBERO / RoboTwin.
+PACT-WAM 研究以下问题：
 
-## What's New
+- FastWAM 的随机 action flow 在不同 denoising step 中如何收敛到可执行动作；
+- 冻结的 V-JEPA2-AC 是否可以在闭环 rollout 中筛选或修正 FastWAM 动作；
+- imagined future 质量、动作候选覆盖范围和 JEPA energy 如何共同影响控制成功率；
+- 当 imagined future 出现错误接触或物体幻觉时，JEPA 排序是否会放大这种偏差。
 
-FastWAM is now faster, better suited to large-scale datasets, and more flexible
-for research. This update brings substantially faster training and inference,
-native LeRobot v3.0 support, and a new model that can switch between acting with
-and without future imagination.
+项目目前只在推理阶段组合 FastWAM 和 V-JEPA2-AC，没有对两者进行联合再训练。
 
-### ⚡ Approximately 2x faster inference
+## 2. 系统流程
 
-End-to-end FastWAM inference is now approximately **2x faster**, including text
-encoding and VAE encoding:
-
-- **NVIDIA H20:** 470 ms → 210 ms
-- **NVIDIA RTX 4090:** 190 ms → 110 ms
-
-The accelerated path is enabled by default for LIBERO with
-`EVALUATION.compile_action_infer=true`. We gratefully acknowledge
-[PR #43](https://github.com/yuantianyuan01/FastWAM/pull/43) for proposing the
-optimization ideas that inspired this work. Existing checkpoints remain fully
-compatible with the accelerated inference path.
-
-### 🚀 Approximately 10% faster training
-
-FastWAM training is approximately **10% faster on NVIDIA H20 GPUs**. The new
-training path combines a compiled denoising core with batched VAE encoding and
-a lightweight CUDA Graph backend. Enable denoising compilation with:
-
-```bash
-bash scripts/train_zero1.sh 8 task=libero_uncond_2cam224_1e-4 \
-  model.compile_training_denoise=true
-```
-
-Both cached text embeddings and on-the-fly T5 encoding are supported. The
-latter skips text-cache preprocessing and is more convenient, at the cost of
-approximately 10% lower training throughput.
-
-### 📦 Native LeRobot 2.1 and 3.0 support
-
-FastWAM now supports both **LeRobot 2.1 and LeRobot 3.0** datasets. LeRobot 3.0's
-chunked parquet and video layout scales better to large datasets, with faster
-data loading and dataset-statistics computation as the dataset grows.
-
-Download the released LeRobot 3.0 LIBERO dataset from
-[Hugging Face](https://huggingface.co/datasets/yuanty/LIBERO-fastwam) and select
-the v3.0 data config:
-
-```bash
-huggingface-cli download yuanty/LIBERO-fastwam \
-  --repo-type dataset \
-  --include "lerobot_v30/**" \
-  --local-dir ./data
-
-python scripts/train.py task=libero_uncond_2cam224_1e-4 \
-  data=libero_2cam_lerobot_v30
-```
-
-For another LeRobot 3.0 dataset, copy
-`configs/data/libero_2cam_lerobot_v30.yaml`, update `train.dataset_dirs`, and
-select the new config with `data=<config_name>`. Existing LeRobot 2.1 configs
-continue to work unchanged.
-
-### 🧠 Optional IDM: one model, two thinking modes
-
-Optional IDM is a new FastWAM variant that supports **two inference modes in a
-single model**:
-
-- **IDM mode:** imagine the future video first, then predict actions.
-- **First-frame mode (Fast-WAM):** skip test-time future imagination and predict
-  actions directly from the current observation.
-
-Download the released Optional IDM checkpoint from
-[Hugging Face](https://huggingface.co/yuanty/fastwam):
-
-```bash
-huggingface-cli download yuanty/fastwam \
-  libero_optional_idm_2cam224.pt \
-  libero_optional_idm_2cam224_dataset_stats.json \
-  --local-dir ./checkpoints/fastwam_release
-```
-
-Train the optional-IDM variant once:
-
-```bash
-bash scripts/train_zero1.sh 8 task=libero_optional_idm_2cam224_1e-4
-```
-
-Then choose either inference mode at evaluation time without retraining, making
-it easy to study when future imagination helps:
-
-```bash
-python experiments/libero/run_libero_manager.py \
-  task=libero_optional_idm_2cam224_1e-4 \
-  ckpt=./checkpoints/fastwam_release/libero_optional_idm_2cam224.pt \
-  EVALUATION.dataset_stats_path=./checkpoints/fastwam_release/libero_optional_idm_2cam224_dataset_stats.json \
-  EVALUATION.sigma_shift=1.0 \
-  +EVALUATION.action_infer_mode=idm \
-  MULTIRUN.num_gpus=8
-```
-
-Replace `idm` with `first_frame` to use the Fast-WAM inference mode.
-
-The released checkpoint, trained with action scheduler shift `1.0`, achieves
-the following success rates on the full LIBERO benchmark (40 tasks, 50 episodes
-per task):
-
-| Inference mode | Spatial | Goal | Object | Long | Average |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| IDM | 99.0% | 98.6% | 99.6% | 97.0% | **98.55%** |
-| First-frame (Fast-WAM) | 98.2% | 97.8% | 99.2% | 95.8% | **97.75%** |
-
-### Other improvements
-
-- The action scheduler shift now defaults to `1.0` for both training and
-  evaluation; shifts from `1.0` to `3.0` perform similarly in our experiments.
-  When evaluating the original released checkpoints, set
-  `EVALUATION.sigma_shift=5.0` to reproduce the original setting.
-- Upgraded LIBERO evaluation with persistent model workers, dynamic task
-  scheduling, bad-GPU quarantine, failure recovery, and resumable results.
-- Optimized action-only inference for IDM and Optional IDM: `infer_action`
-  returns actions and video latents directly, while VAE decoding is performed
-  only by `infer_joint` when video output is requested, eliminating redundant
-  computation in action-only deployments.
-
-## Index
-
-- [File Structure](#file-structure)
-- [Environment Setup](#environment-setup)
-- [Model Preparation](#model-preparation)
-- [Dataset Download](#dataset-download)
-- [Inference with Released Checkpoints](#inference-with-released-checkpoints)
-- [Training](#training)
-- [Inference with Your Trained Checkpoints](#inference-with-your-trained-checkpoints)
-- [Acknowledgements](#acknowledgements)
-- [BibTeX](#bibtex)
-
-## File Structure
+### 2.1 普通 FastWAM
 
 ```text
-FastWAM/
-├── configs/
-│   ├── data/                 # Dataset configs (LIBERO, RoboTwin, etc.)
-│   ├── model/                # Model architecture and component configs
-│   └── task/                 # Task-level configs (training task names)
-├── scripts/
-│   ├── train.py
-│   ├── train_zero1.sh        # Deepspeed zero1 training entrypoint
-│   ├── preprocess_action_dit_backbone.py  # Preprocess ActionDiT backbone before training
-│   └── precompute_text_embeds.py  # Precompute T5 text embedding cache before training
-├── experiments/
-│   ├── libero/
-│   │   └── run_libero_manager.py
-│   └── robotwin/
-│       └── run_robotwin_manager.py
-├── src/fastwam/              # Core code
-├── runs/                     # Training outputs (ckpt, logs)
-├── checkpoints/              # Pretrained or external checkpoints
-├── data/                     # Data directory
-└── evaluate_results/         # Inference / evaluation results
+LIBERO 双相机观测 + 任务文本 + proprioception
+                      ↓
+              FastWAM flow-matching
+                      ↓
+        未来视频 + 32×7 action chunk
+                      ↓
+              执行前 N 个动作
+                      ↓
+              重新观测并规划
 ```
 
-## Environment Setup
+### 2.2 Best-of-K JEPA ranking
+
+当前推荐的 `separate` 路径为：
+
+```text
+infer_joint(K=1)  → 生成共同的 FastWAM imagined future
+infer_action(K=8) → 生成 8 条动作候选
+V-JEPA2-AC        → 计算每条候选的未来 latent energy
+选择最低 energy   → 执行选中候选的前 N 个动作
+```
+
+每 4 个 LIBERO 低层动作对应 1 个 JEPA action-conditioning step。当前 JEPA
+实验执行 8 个低层动作，即使用两个未来转移进行排序。
+
+### 2.3 Action-flow guidance
+
+guidance 在动作 flow 的指定边界上计算 JEPA loss 对动作的梯度，并在归一化后
+对 FastWAM 的 action flow state 做 additive correction。当前主实验使用：
+
+```yaml
+guidance.enabled: true
+guidance.after_flow_steps: [7, 8, 9]
+guidance.step_size: 0.02
+guidance.ac_steps: 2
+```
+
+guidance 是推理时的附加模块；关闭后，原有 FastWAM 和 Best-of-K ranking 路径保持不变。
+
+## 3. 当前核心配置
+
+### 3.1 FastWAM
+
+```yaml
+checkpoint: libero_uncond_2cam224.pt
+dataset_stats: libero_uncond_2cam224_dataset_stats.json
+input_resolution: 224×224
+action_shape: 32×7
+proprioception: 8D
+action_video_freq_ratio: 4
+eval_num_inference_steps: 10
+```
+
+当前 action 的 7 个维度为 6D 末端执行器运动量和 1D 夹爪动作。
+
+### 3.2 当前 LIBERO 默认配置
+
+配置文件：[`configs/sim_libero.yaml`](./configs/sim_libero.yaml)
+
+```yaml
+EVALUATION.num_inference_steps: 10
+EVALUATION.replan_steps: 10
+EVALUATION.visualize_future_video: false
+EVALUATION.action_denoise_trace: false
+EVALUATION.offload_text_encoder: false
+EVALUATION.compile_action_infer: true
+```
+
+启用 V-JEPA2-AC 时，当前实验协议使用：
+
+```yaml
+EVALUATION.vjepa2_ac.enabled: true
+EVALUATION.vjepa2_ac.replan_steps: 8
+EVALUATION.vjepa2_ac.candidate_generation_mode: separate
+EVALUATION.vjepa2_ac.low_level_steps_per_ac_step: 4
+EVALUATION.vjepa2_ac.dtype: float32
+```
+
+### 3.3 Task-365 相机配置
+
+当前 task-365 smoke 使用固定的高位、近距离 robot-left 视角：
+
+```yaml
+preset: robot_left_60_high
+name: agentview
+position: [0.3293, -0.5703643309324312, 1.6104]
+quaternion: [0.8715703672034573, 0.4163865954915577,
+             0.1115704520011075, 0.23353657603906355]
+fovy: 45.0
+image_rotation_degrees: 180
+```
+
+四元数使用 MuJoCo 的 `[w, x, y, z]` 顺序。
+
+### 3.4 T5 / FastWAM / JEPA 显存时序
+
+部署时建议先对所有 task prompt 做 T5 编码，将 embedding 缓存在 CPU，释放 T5，
+再加载 FastWAM 和 V-JEPA2-AC。不要在 T5 仍驻留 GPU 时初始化 JEPA predictor，否则
+24 GiB 卡可能在 predictor 初始化阶段 OOM。
+
+```yaml
+EVALUATION.offload_text_encoder: true
+EVALUATION.text_encoder_batch_size: 8
+```
+
+## 4. Action denoising 收敛分析
+
+打开配置：
+
+```yaml
+EVALUATION.action_denoise_trace: true
+```
+
+当前 scheduler 使用线性 flow-matching 插值：
+
+```text
+x_sigma = (1 - sigma) * a0 + sigma * epsilon
+v       = epsilon - a0
+sigma   = timestep / 1000
+```
+
+因此每个 flow step 的 clean-action estimate 为：
+
+```text
+a0_hat = x_sigma - sigma * v
+```
+
+记录内容包括：
+
+- 每个 denoise step 的 `a0_hat`、timestep 和 tensor shape；
+- 相邻 clean estimate 的 action change：`r_full`、`r_exec`；
+- 当前 clean estimate 到最后一步 `a0_hat^(N)` 的距离：`d_full`、`d_exec`；
+- 最终 flow action 和跨多个 closed-loop generation 的统计。
+
+输出目录：
+
+```text
+<EVALUATION.output_dir>/<suite>/task<task_id>_gpu<gpu_id>/action_denoise_convergence/
+```
+
+输出文件：
+
+```text
+action_denoise_convergence.csv
+action_denoise_convergence_summary.csv
+action_denoise_convergence_estimates.npz
+action_change_curve.png
+distance_to_final_action.png
+```
+
+executed chunk 始终读取实际配置的 `replan_steps`，不会写死为 8 或 10。
+
+## 5. 历史实验
+
+历史评测元数据位于 [`artifacts/evaluate_results/`](./artifacts/evaluate_results/)。
+其中保存 task-level JSON、summary CSV、manager YAML、日志和部分实验说明；原始
+rollout MP4 已排除，以避免仓库膨胀。
+
+所有主要实验的 policy seed 为 `7、17、27、37`。
+
+### 5.1 Pose16 Best-of-8
+
+LIBERO-Plus object pose task：
+
+```text
+1818, 1839, 1847, 1855,
+2037, 2062, 2070, 2078,
+2131, 2156, 2163, 2169,
+2174, 2203, 2211, 2217
+```
+
+每个 task 使用 4 个 seed，共 64 个 rollout：
+
+| 方法 | 成功数 | 成功率 |
+|---|---:|---:|
+| 原始 FastWAM | 35/64 | 54.7% |
+| Best-of-8 JEPA | 37/64 | 57.8% |
+
+主要正向案例是 Salad Dressing：`9/16 → 14/16`；主要负向案例是 Tomato Sauce：
+`13/16 → 9/16`。
+
+### 5.2 Long core3
+
+固定 task：
+
+| Task ID | 任务 |
+|---:|---|
+| 410 | 黑碗放入底层抽屉并关闭 |
+| 662 | 黄白杯放入微波炉并关闭 |
+| 457 | 白杯放左盘、黄白杯放右盘 |
+
+每个 task 使用 4 个 seed，共 12 个 rollout。step `7/8/9` 的两段未来 guidance
+取得 `5/12`，优于 action-only control 的 `1/12`。
+
+### 5.3 Long8
+
+```text
+410, 457, 1945, 2046, 1027, 931, 145, 158
+```
+
+10-step control 与 1-step + JEPA guidance 均为 `14/32`。这轮同时改变了 denoise、
+replan 和 action-generation protocol，不能视为严格单因素消融。
+
+### 5.4 Long36
+
+Long36 使用以下 36 个 LIBERO-Plus task：
+
+```text
+# 机器人初始姿态
+365, 366, 410, 411, 567, 568, 289, 290, 330, 331, 457, 458
+
+# 物体布局 / 额外干扰物
+1945, 1933, 1959, 1960, 2046, 2047, 2059, 2060,
+2093, 2094, 2127, 2128
+
+# 背景纹理
+0, 2, 33, 35, 137, 138, 145, 147, 158, 160, 193, 195
+```
+
+共同设置：`num_inference_steps=10`、`sigma_shift=5.0`、`replan_steps=8`、
+`visualize_future_video=true`、`offload_text_encoder=true`。
+
+| 范围 | FastWAM control | step 7/8/9 guidance |
+|---|---:|---:|
+| 全部 36 tasks | 80/144（55.56%） | 88/144（61.11%） |
+| 机器人初始姿态 | 19/48 | 22/48 |
+| 物体布局 / 干扰物 | 39/48 | 44/48 |
+| 背景纹理 | 22/48 | 22/48 |
+
+task-365 在本轮 Long36 中为：control `1/4`，guidance `2/4`。
+
+## 6. 当前结论与限制
+
+当前结果支持较谨慎的结论：
+
+> 当 imagined future 能够保持物体身份和接触运动一致性时，JEPA-guided
+> stochastic action selection 可能改善闭环控制；当参考未来出现接触幻觉时，
+> 排序器也可能放大 FastWAM 的 world-model bias。
+
+目前仍存在以下限制：
+
+- 历史 Best-of-8 实验没有完整保存每次候选动作、energy、selected ID 和 top-2 margin；
+- 8 条候选共享同一条 FastWAM imagined future，不是候选动作各自生成的因果 future；
+- Pose16 的 FastWAM 与 JEPA 对照使用了不同的 replan 周期；
+- 每个具体 task 通常只有 4 个 seed，样本量不足以支持强统计结论；
+- JEPA 当前主要使用 agent-view，未把腕部视角加入 predictor 输入；
+- PSNR 不能替代接触一致性或任务成功率。
+
+## 7. 目录结构
+
+```text
+PACT-WAM/
+├── configs/                         # 训练、模型、LIBERO/RoboTwin 配置
+├── src/fastwam/                     # FastWAM 核心实现
+├── experiments/libero/              # LIBERO rollout、JEPA、worker 和分析代码
+├── experiments/robotwin/            # RoboTwin rollout 代码
+├── scripts/                         # 训练、预处理和部署脚本
+├── tests/                           # 单元测试
+├── third_party/RoboTwin/            # 随项目保留的 RoboTwin 代码
+├── artifacts/evaluate_results/      # 历史 JSON/CSV/YAML/日志元数据
+├── FASTWAM_JEPA_PROJECT_SUMMARY.md  # 完整项目与实验总结
+└── PACT_WAM_PACKAGE_MANIFEST.md     # 打包范围说明
+```
+
+## 8. 安装
+
+建议使用 Python 3.10 及 CUDA 12.8：
 
 ```bash
-conda create -n fastwam python=3.10 -y
-conda activate fastwam
+conda create -n pact-wam python=3.10 -y
+conda activate pact-wam
 pip install -U pip
-pip install torch==2.7.1+cu128 torchvision==0.22.1+cu128 --extra-index-url https://download.pytorch.org/whl/cu128
+pip install torch==2.7.1+cu128 torchvision==0.22.1+cu128 \
+  --extra-index-url https://download.pytorch.org/whl/cu128
 pip install -e .
 ```
 
-## Model Preparation
+模型权重和 LIBERO/RoboTwin 数据集需要根据机器环境单独下载，不包含在本仓库中。
 
-This step is required before both training and inference.
+## 9. LIBERO 运行示例
 
-Step 1: set the Wan model directory first (opional, default `./checkpoints`):
-
-```bash
-mkdir -p checkpoints
-export DIFFSYNTH_MODEL_BASE_PATH="$(pwd)/checkpoints"
-```
-
-Step 2: pre-generate the ActionDiT backbone (interpolated from Wan22 DiT):
-
-```bash
-# uncond (fastwam)
-python scripts/preprocess_action_dit_backbone.py \
-  --model-config configs/model/fastwam.yaml \
-  --output checkpoints/ActionDiT_linear_interp_Wan22_alphascale_1024hdim.pt \
-  --device cuda \
-  --dtype bfloat16
-```
-
-## Dataset Download
-
-### LIBERO
-
-The preprocessed LIBERO dataset used by Fast-WAM is available at:
-
-- https://huggingface.co/datasets/yuanty/LIBERO-fastwam
-
-Download all compressed files first, then extract them all:
-
-```bash
-mkdir -p data/libero_mujoco3.3.2
-cd data/libero_mujoco3.3.2
-
-# Run after downloading all 4 tar.gz files
-for f in *.tar.gz; do
-  tar -xzf "$f"
-done
-```
-
-The extracted directory structure should be:
-
-```text
-data/libero_mujoco3.3.2/
-├── libero_10_no_noops_lerobot/
-├── libero_goal_no_noops_lerobot/
-├── libero_object_no_noops_lerobot/
-└── libero_spatial_no_noops_lerobot/
-```
-
-### RoboTwin
-
-The preprocessed RoboTwin dataset used by Fast-WAM is available at:
-
-- https://huggingface.co/datasets/yuanty/robotwin2.0-fastwam
-
-Download all split archive files first, then concatenate and extract:
-
-```bash
-mkdir -p data/robotwin2.0
-cd data/robotwin2.0
-
-# Run after downloading all robotwin2.0.tar.gz.part-* files
-cat robotwin2.0.tar.gz.part-* | tar -xzf -
-```
-
-The extracted directory structure should be:
-
-```text
-data/robotwin2.0/
-└── robotwin2.0/
-    ├── data/
-    ├── meta/
-    └── videos/
-```
-
-If you also keep:
-
-```text
-data/robotwin2.0/dataset_stats.json
-```
-
-in the root directory, it can be used directly as the statistics file for the current configs in this repo. You can also recompute it.
-
-## Inference with Released Checkpoints
-
-The released checkpoints and their corresponding dataset stats are available on [Hugging Face](https://huggingface.co/yuanty/fastwam).
-
-Optional: download released checkpoints and dataset stats from Hugging Face:
-
-```bash
-pip install -U huggingface_hub
-
-huggingface-cli download yuanty/fastwam \
-  libero_uncond_2cam224.pt \
-  libero_uncond_2cam224_dataset_stats.json \
-  libero_optional_idm_2cam224.pt \
-  libero_optional_idm_2cam224_dataset_stats.json \
-  robotwin_uncond_3cam_384.pt \
-  robotwin_uncond_3cam_384_dataset_stats.json \
-  --local-dir ./checkpoints/fastwam_release
-```
-
-After downloading, the local directory is expected to contain:
-
-```text
-checkpoints/fastwam_release/
-├── libero_uncond_2cam224.pt
-├── libero_uncond_2cam224_dataset_stats.json
-├── libero_optional_idm_2cam224.pt
-├── libero_optional_idm_2cam224_dataset_stats.json
-├── robotwin_uncond_3cam_384.pt
-└── robotwin_uncond_3cam_384_dataset_stats.json
-```
-
-Before running the `LIBERO` benchmark, install the official LIBERO environment first
-from the [LIBERO repository](https://github.com/Lifelong-Robot-Learning/LIBERO).
-Then run this final step:
-
-```bash
-pip install mujoco==3.3.2
-```
-
-The `mujoco` environment should ideally stay consistent with the LIBERO data version.
-
-We have already copied the `RoboTwin` evaluation-related code into `third_party/RoboTwin`.
-You still need to follow the official RoboTwin instructions from the
-[RoboTwin repository](https://github.com/RoboTwin-Platform/RoboTwin) to finish environment installation and download the required assets, then create the policy symlink:
-
-```bash
-ln -sfn "$(pwd)/experiments/robotwin/fastwam_policy" "$(pwd)/third_party/RoboTwin/policy/fastwam_policy"
-```
-
-Optional: evaluate released LIBERO checkpoint:
-
-The released `LIBERO` / `RoboTwin` evaluation managers default to `8` GPUs
-(`MULTIRUN.num_gpus=8` in `configs/sim_libero.yaml` and `configs/sim_robotwin.yaml`).
-If you want to evaluate with fewer GPUs, pass a smaller value such as
-`MULTIRUN.num_gpus=4`.
+普通 FastWAM 评测：
 
 ```bash
 python experiments/libero/run_libero_manager.py \
   task=libero_uncond_2cam224_1e-4 \
   ckpt=./checkpoints/fastwam_release/libero_uncond_2cam224.pt \
-  EVALUATION.dataset_stats_path=./checkpoints/fastwam_release/libero_uncond_2cam224_dataset_stats.json \
-  EVALUATION.sigma_shift=5.0 \
-  MULTIRUN.num_gpus=8
+  EVALUATION.task_suite_name=libero_spatial \
+  EVALUATION.task_id=0 \
+  EVALUATION.num_trials=50
 ```
 
-Optional: evaluate released RoboTwin checkpoint:
+启用 action denoise 收敛记录：
 
 ```bash
-python experiments/robotwin/run_robotwin_manager.py \
-  task=robotwin_uncond_3cam_384_1e-4 \
-  ckpt=./checkpoints/fastwam_release/robotwin_uncond_3cam_384.pt \
-  EVALUATION.dataset_stats_path=./checkpoints/fastwam_release/robotwin_uncond_3cam_384_dataset_stats.json \
-  EVALUATION.sigma_shift=5.0 \
-  MULTIRUN.num_gpus=8
+python experiments/libero/run_libero_manager.py \
+  task=libero_uncond_2cam224_1e-4 \
+  ckpt=./checkpoints/fastwam_release/libero_uncond_2cam224.pt \
+  EVALUATION.action_denoise_trace=true \
+  EVALUATION.task_suite_name=libero_spatial \
+  EVALUATION.task_id=0
 ```
 
-For faster RoboTwin evaluation, we have enabled `EVALUATION.skip_get_obs_within_replan=true` in [`configs/sim_robotwin.yaml`](./configs/sim_robotwin.yaml).
-This skips RGB rendering while consecutively executing an action chunk within one replan window, which speeds up evaluation but makes the saved video look very low-FPS.
-Set it to `false` if you want to save a fully rendered video.
+启用 V-JEPA2-AC guidance 时，还需要准备 predictor checkpoint，并设置：
 
-**Note:** We evaluate with **unseen** instructions, following Motus. [Lingbot-VA](https://github.com/Robbyant/lingbot-va/blob/661d52a59dc634a650efcd10a79d06bbb17ea81f/evaluation/robotwin/eval_polict_client_openpi.py#L308) uses **seen** instructions instead. You can try `EVALUATION.instruction_type=seen` to use **seen** instructions, which should theoretically improve performance by one or two points.
-
-## Training
-
-### 1) Precompute T5 embedding cache before training
-
-Use `scripts/precompute_text_embeds.py` to precompute embeddings for each training task:
-
-```bash
-# LIBERO
-python scripts/precompute_text_embeds.py task=libero_uncond_2cam224_1e-4
-
-# RoboTwin
-python scripts/precompute_text_embeds.py task=robotwin_uncond_3cam_384_1e-4
+```yaml
+EVALUATION.visualize_future_video: true
+EVALUATION.vjepa2_ac.enabled: true
+EVALUATION.vjepa2_ac.checkpoint_path: /path/to/vjepa2-ac-vitg.pt
+EVALUATION.vjepa2_ac.repo_path: /path/to/vjepa2
+EVALUATION.vjepa2_ac.guidance.enabled: true
+EVALUATION.vjepa2_ac.guidance.after_flow_steps: [7, 8, 9]
 ```
 
-For multi-GPU:
+## 10. 相关文档与引用
 
-```bash
-torchrun --standalone --nproc_per_node=8 scripts/precompute_text_embeds.py task=libero_uncond_2cam224_1e-4
-```
+- [完整项目与实验总结](./FASTWAM_JEPA_PROJECT_SUMMARY.md)
+- [实验进度记录](./FASTWAM_JEPA_PROGRESS.md)
+- [LIBERO 本地部署说明](./LOCAL_LIBERO_DEPLOYMENT.md)
+- [打包范围说明](./PACT_WAM_PACKAGE_MANIFEST.md)
+- [Fast-WAM 原始项目页](https://yuantianyuan01.github.io/FastWAM/)
 
-### 2) Training (using `fastwam` as an example)
-
-When running a new task for the first time, set `pretrained_norm_stats` in the corresponding `configs/data/*.yaml` to `null` first.
-After one training run, a `dataset_stats.json` file will be generated in the current run directory (for example, `runs/{task_name}/{run_id}/dataset_stats.json`).
-You can then update `pretrained_norm_stats` to that file path for subsequent runs.
-
-```bash
-# LIBERO
-bash scripts/train_zero1.sh 8 task=libero_uncond_2cam224_1e-4
-
-# RoboTwin
-bash scripts/train_zero1.sh 8 task=robotwin_uncond_3cam_384_1e-4
-```
-
-For LIBERO, we train on a single node with 8 GPUs. For RoboTwin, we use 64 GPUs to accelerate training. You can try reducing the GPU count or training epochs.
-
-## Inference with Your Trained Checkpoints
-
-The `mujoco` environment should ideally stay consistent with the LIBERO data version. Then run LIBERO evaluation:
-
-```bash
-# LIBERO
-python experiments/libero/run_libero_manager.py task={task_name} ckpt={ckpt_path}
-```
-
-We have already copied the `RoboTwin` evaluation-related code into `third_party/RoboTwin`.
-You still need to follow the official RoboTwin instructions from the
-[RoboTwin repository](https://github.com/RoboTwin-Platform/RoboTwin).
-Finish installation and download the required assets, then create the policy symlink:
-
-```bash
-ln -sfn "$(pwd)/experiments/robotwin/fastwam_policy" "$(pwd)/third_party/RoboTwin/policy/fastwam_policy"
-```
-
-Then run RoboTwin evaluation:
-
-```bash
-python experiments/robotwin/run_robotwin_manager.py task={task_name} ckpt={ckpt_path}
-```
-
-Common `task_name` examples:
-
-```text
-libero_uncond_2cam224_1e-4
-robotwin_uncond_3cam_384_1e-4
-```
-
-## Acknowledgements
-
-The RoboTwin evaluation code in this repository is adapted from the official [RoboTwin repository](https://github.com/RoboTwin-Platform/RoboTwin). We thank the RoboTwin team for releasing their codebase and assets.
-
-## BibTeX
-
-If you find our work helpful, please consider citing:
-
-```bibtex
-@article{yuan2026fastwam,
-  title={Fast-WAM: Do World Action Models Need Test-time Future Imagination?},
-  author={Tianyuan Yuan and Zibin Dong and Yicheng Liu and Hang Zhao},
-  journal={arXiv preprint arXiv:2603.16666},
-  year={2026},
-  url={https://arxiv.org/abs/2603.16666}
-}
-```
+本项目继承 FastWAM 的代码和实验基础。使用 FastWAM 原始方法、模型或数据时，
+请同时遵循上游仓库的许可证和引用要求。
