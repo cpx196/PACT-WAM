@@ -435,6 +435,39 @@ status: PASS
 完整 LIBERO smoke 建议使用单 task、单 trial、`max_steps_override=1`，同时保持
 `EVALUATION.visualize_future_video=true`，以确保评测器实际进入拆分后的两阶段路径。
 
+### 9.2 Offline trigger probe
+
+第一阶段 trigger 实验只做测量，不改变执行策略：Optional-IDM 先生成完整 WAM
+future，再生成一个 action chunk；ActionDiT 每个 denoise step、每层额外记录
+observation / imagined-future / action-token 三部分 attention response，并保存
+`R_future`。同一 planning point 的最终 action 再经过冻结的 V-JEPA2-AC predictor，
+得到一个 JEPA consistency loss。此模式不启用 Best-of-K 或 guidance。
+
+```yaml
+EVALUATION.visualize_future_video: true
+EVALUATION.compile_action_infer: false
+EVALUATION.video_sigma_shift: 1.0
+EVALUATION.action_sigma_shift: 1.0
+EVALUATION.sigma_shift: null
+EVALUATION.vjepa2_ac.enabled: false
+EVALUATION.vjepa2_ac.guidance.enabled: false
+EVALUATION.trigger_probe.enabled: true
+EVALUATION.trigger_probe.ac_steps: 8
+```
+
+这里的 `1/1` 对应原始 FastWAM README 的 LIBERO evaluation 设置；模型训练配置中
+出现的 `video=5/action=1` 不应与该评测设置混淆。完整 9 帧 WAM clip 用于 8-step
+JEPA verifier，而 `replan_steps=8` 仍只决定闭环实际执行多少个低层动作，两者彼此独立。
+
+任务完成后执行离线统计：
+
+```bash
+python experiments/libero/analyze_trigger_probe.py /path/to/results
+```
+
+脚本输出每个 denoise step 的 Pearson / Spearman 相关性、低中高 `R_future` 分组，
+以及“最低 20% response 召回最高 20% JEPA loss”的 recall 和 JEPA call rate。
+
 ## 10. 相关文档与引用
 
 - [完整项目与实验总结](./FASTWAM_JEPA_PROJECT_SUMMARY.md)

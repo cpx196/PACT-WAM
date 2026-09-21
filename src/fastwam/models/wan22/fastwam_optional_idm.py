@@ -88,6 +88,7 @@ class FastWAMOptionalIDM(FastWAMIDM):
         precomputed_video_latents: Optional[torch.Tensor] = None,
         initial_action_latents: Optional[torch.Tensor] = None,
         action_flow_trace: bool = False,
+        action_response_trace: bool = False,
     ) -> dict[str, Any]:
         if action_infer_mode == "idm":
             if num_video_frames is None:
@@ -122,6 +123,7 @@ class FastWAMOptionalIDM(FastWAMIDM):
                 precomputed_video_latents=precomputed_video_latents,
                 initial_action_latents=initial_action_latents,
                 action_flow_trace=action_flow_trace,
+                action_response_trace=action_response_trace,
             )
 
         if action_infer_mode == "first_frame":

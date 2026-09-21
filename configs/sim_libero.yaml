@@ -87,6 +87,15 @@ EVALUATION:
     osc_position_scale: 0.05
     osc_rotation_scale: 0.5
 
+  # Offline trigger validation only. This records per-layer/per-denoise-step
+  # ActionDiT response to imagined future tokens and computes one frozen JEPA
+  # consistency loss for the same planning point. It does not rank candidates,
+  # apply guidance, or otherwise alter the executed action.
+  trigger_probe:
+    enabled: false
+    # A full Optional-IDM future contains 8 JEPA action transitions.
+    ac_steps: 8
+
   # Action inference
   action_horizon: null
   num_inference_steps: ${eval_num_inference_steps}

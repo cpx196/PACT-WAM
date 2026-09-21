@@ -3,6 +3,7 @@ import inspect
 import json
 import logging
 import os
+import pickle
 import sys
 import time
 from collections import deque
@@ -503,6 +504,52 @@ def _build_jepa_action_guidance(
     return guidance_energy, guidance_horizon
 
 
+def _compute_trigger_jepa_loss(
+    *,
+    obs: dict,
+    previous_jepa_image: Any,
+    current_jepa_image: Any,
+    predicted_future_frames: list[Image.Image],
+    executable_action: np.ndarray,
+    ac_ranker: VJEPA2ACRanker,
+    ac_adapter: LiberoACAdapter,
+    cfg: DictConfig,
+) -> float:
+    """Compute one frozen JEPA-vs-WAM consistency loss for a planning point."""
+    probe_cfg = cfg.EVALUATION.trigger_probe
+    num_ac_steps = int(probe_cfg.get("ac_steps", 2))
+    stride = int(ac_adapter.low_level_steps_per_ac_step)
+    horizon = num_ac_steps * stride
+    if len(predicted_future_frames) <= num_ac_steps:
+        raise ValueError(
+            f"Trigger probe needs {num_ac_steps + 1} WAM frames, got "
+            f"{len(predicted_future_frames)}."
+        )
+    if executable_action.shape[0] < horizon:
+        raise ValueError(
+            f"Trigger probe needs {horizon} low-level actions, got "
+            f"{executable_action.shape[0]}."
+        )
+    target_future_clips = [
+        [predicted_future_frames[step], predicted_future_frames[step + 1]]
+        for step in range(num_ac_steps)
+    ]
+    current_rep, target_reps = ac_ranker.encode_guidance_context(
+        current_clip=[previous_jepa_image, current_jepa_image],
+        target_future_clips=target_future_clips,
+    )
+    initial_state = ac_adapter.state_from_observation(obs)
+    ac_batch = ac_adapter.convert(executable_action[None, :horizon], initial_state)
+    with torch.no_grad():
+        energy = ac_ranker.differentiable_energy(
+            current_rep=current_rep,
+            target_reps=target_reps,
+            ac_actions=torch.from_numpy(ac_batch.actions),
+            ac_states=torch.from_numpy(ac_batch.states),
+        )
+    return float(energy[0].detach().cpu())
+
+
 def _get_num_video_frames(cfg: DictConfig) -> int:
     return (int(cfg.data.train.num_frames) - 1) // int(cfg.data.train.action_video_freq_ratio) + 1
 
@@ -682,10 +729,18 @@ def _predict_action_chunk(
 ) -> tuple[np.ndarray, dict, Optional[list[Image.Image]], Optional[dict[str, Any]]]:
     timing_enabled = bool(cfg.EVALUATION.get("timing_enabled", False))
     action_denoise_trace_enabled = bool(cfg.EVALUATION.get("action_denoise_trace", False))
-    timings: Optional[dict[str, Any]] = (
-        {} if timing_enabled or action_denoise_trace_enabled else None
+    trigger_probe_enabled = bool(
+        cfg.EVALUATION.get("trigger_probe", {}).get("enabled", False)
     )
-    total_start = time.perf_counter() if timing_enabled or action_denoise_trace_enabled else 0.0
+    ranking_enabled = bool(cfg.EVALUATION.vjepa2_ac.get("enabled", False))
+    timings: Optional[dict[str, Any]] = (
+        {} if timing_enabled or action_denoise_trace_enabled or trigger_probe_enabled else None
+    )
+    total_start = (
+        time.perf_counter()
+        if timing_enabled or action_denoise_trace_enabled or trigger_probe_enabled
+        else 0.0
+    )
     num_inference_steps_cfg = cfg.EVALUATION.get("num_inference_steps", None)
     if num_inference_steps_cfg is None:
         num_inference_steps = int(cfg.get("eval_num_inference_steps", 20))
@@ -747,6 +802,7 @@ def _predict_action_chunk(
         infer_kwargs["prompt"] = prompt
     visualize_future_video = bool(cfg.EVALUATION.get("visualize_future_video", False))
     predicted_future_frames = None
+    trigger_future_frames = None
     if visualize_future_video:
         infer_kwargs["num_video_frames"] = _get_num_video_frames(cfg)
     elif "num_video_frames" in inspect.signature(model.infer_action).parameters:
@@ -757,7 +813,11 @@ def _predict_action_chunk(
         cfg.EVALUATION.vjepa2_ac.get("candidate_generation_mode", "separate")
     ).lower()
     guidance_cfg = cfg.EVALUATION.vjepa2_ac.get("guidance", {})
-    guidance_enabled = ac_ranker is not None and bool(guidance_cfg.get("enabled", False))
+    guidance_enabled = (
+        ranking_enabled
+        and ac_ranker is not None
+        and bool(guidance_cfg.get("enabled", False))
+    )
     split_idm_inference = (
         visualize_future_video
         and candidate_generation_mode == "separate"
@@ -798,8 +858,8 @@ def _predict_action_chunk(
             if not split_idm_inference:
                 infer_kwargs["test_action_with_infer_action"] = bool(
                     cfg.EVALUATION.get("test_action_with_infer_action", False)
-                ) and ac_ranker is None
-            if ac_ranker is not None and candidate_generation_mode == "joint":
+            ) and not ranking_enabled
+            if ranking_enabled and candidate_generation_mode == "joint":
                 if "num_action_candidates" not in inspect.signature(model.infer_joint).parameters:
                     raise TypeError(
                         f"{type(model).__name__}.infer_joint does not support batched action candidates."
@@ -853,9 +913,10 @@ def _predict_action_chunk(
                     _synchronize_cuda(model_device)
                     timings["decode_video_s"] = time.perf_counter() - stage_start
             if "video" in pred:
+                trigger_future_frames = list(pred["video"])
                 predicted_future_frames = _select_predicted_future_frames(pred["video"], cfg)
             if split_idm_inference or (
-                ac_ranker is not None and candidate_generation_mode == "separate"
+                ranking_enabled and candidate_generation_mode == "separate"
             ):
                 action_signature = inspect.signature(model.infer_action).parameters
                 if "num_action_candidates" not in action_signature:
@@ -920,7 +981,7 @@ def _predict_action_chunk(
                 else:
                     action_infer_kwargs["num_action_candidates"] = (
                         1
-                        if ac_ranker is None
+                        if not ranking_enabled
                         else int(cfg.EVALUATION.vjepa2_ac.get("num_action_candidates", 8))
                     )
                 if "action_infer_mode" in action_signature:
@@ -929,6 +990,8 @@ def _predict_action_chunk(
                     )
                 if "action_denoise_trace" in action_signature:
                     action_infer_kwargs["action_denoise_trace"] = action_denoise_trace_enabled
+                if "action_response_trace" in action_signature:
+                    action_infer_kwargs["action_response_trace"] = trigger_probe_enabled
                 stage_start = time.perf_counter() if timing_enabled else 0.0
                 if split_idm_inference:
                     action_pred = model.infer_action_from_video(
@@ -961,6 +1024,10 @@ def _predict_action_chunk(
                         "action_denoise_trace", []
                     )
                     timings["action_denoise_generation_ids"] = generation_ids
+                if trigger_probe_enabled and timings is not None:
+                    timings["action_response_trace"] = action_pred.get(
+                        "action_response_trace", []
+                    )
                 if guidance_enabled:
                     logging.info(
                         "V-JEPA2-AC action guidance diagnostics=%s",
@@ -976,9 +1043,12 @@ def _predict_action_chunk(
                     _synchronize_cuda(model_device)
                     timings["decode_video_s"] = time.perf_counter() - stage_start
                 predicted_future_frames = _select_predicted_future_frames(pred["video"], cfg)
+                trigger_future_frames = list(pred["video"])
         else:
             if "action_denoise_trace" in inspect.signature(model.infer_action).parameters:
                 infer_kwargs["action_denoise_trace"] = action_denoise_trace_enabled
+            if "action_response_trace" in inspect.signature(model.infer_action).parameters:
+                infer_kwargs["action_response_trace"] = trigger_probe_enabled
             stage_start = time.perf_counter() if timing_enabled else 0.0
             pred = model.infer_action(
                 **infer_kwargs,
@@ -1001,6 +1071,10 @@ def _predict_action_chunk(
                     "action_denoise_trace", []
                 )
                 timings["action_denoise_generation_ids"] = generation_ids
+            if trigger_probe_enabled and timings is not None:
+                timings["action_response_trace"] = pred.get(
+                    "action_response_trace", []
+                )
             if timing_enabled:
                 _synchronize_cuda(model_device)
                 timings["infer_action_s"] = time.perf_counter() - stage_start
@@ -1017,7 +1091,7 @@ def _predict_action_chunk(
         action[..., -1] = np.sign(action[..., -1])
     if timing_enabled:
         timings["action_postprocess_s"] = time.perf_counter() - stage_start
-    if ac_ranker is not None and not guidance_enabled:
+    if ranking_enabled and ac_ranker is not None and not guidance_enabled:
         if ac_adapter is None or predicted_future_frames is None:
             raise RuntimeError("V-JEPA2-AC ranking requires its adapter and a predicted future frame.")
         rank_horizon = min(
@@ -1058,7 +1132,26 @@ def _predict_action_chunk(
         action = action[selected]
     else:
         action = action[0]
-    if timing_enabled or action_denoise_trace_enabled:
+    if trigger_probe_enabled:
+        if ac_ranker is None or ac_adapter is None or trigger_future_frames is None:
+            raise RuntimeError(
+                "Trigger probe requires a loaded V-JEPA2-AC model, adapter, and WAM future."
+            )
+        trigger_start = time.perf_counter()
+        jepa_loss = _compute_trigger_jepa_loss(
+            obs=obs,
+            previous_jepa_image=previous_jepa_image,
+            current_jepa_image=_agentview_for_jepa(imgs, processor),
+            predicted_future_frames=trigger_future_frames,
+            executable_action=action,
+            ac_ranker=ac_ranker,
+            ac_adapter=ac_adapter,
+            cfg=cfg,
+        )
+        assert timings is not None
+        timings["trigger_probe_jepa_loss"] = jepa_loss
+        timings["trigger_probe_jepa_s"] = time.perf_counter() - trigger_start
+    if timing_enabled or action_denoise_trace_enabled or trigger_probe_enabled:
         timings["total_s"] = time.perf_counter() - total_start
     return action, imgs, predicted_future_frames, timings
 
@@ -1107,8 +1200,13 @@ def run_single_episode(
     jepa_frame_interval = int(cfg.data.train.action_video_freq_ratio)
     timing_enabled = bool(cfg.EVALUATION.get("timing_enabled", False))
     action_denoise_trace_enabled = bool(cfg.EVALUATION.get("action_denoise_trace", False))
+    trigger_probe_enabled = bool(
+        cfg.EVALUATION.get("trigger_probe", {}).get("enabled", False)
+    )
     episode_start = (
-        time.perf_counter() if timing_enabled or action_denoise_trace_enabled else 0.0
+        time.perf_counter()
+        if timing_enabled or action_denoise_trace_enabled or trigger_probe_enabled
+        else 0.0
     )
     replan_timings: list[dict[str, Any]] = []
     env_step_seconds = 0.0
@@ -1281,7 +1379,7 @@ def run_single_episode(
         float(np.mean(episode_future_clip_psnr)) if len(episode_future_clip_psnr) > 0 else None
     )
     episode_timing: Optional[dict[str, Any]] = None
-    if timing_enabled or action_denoise_trace_enabled:
+    if timing_enabled or action_denoise_trace_enabled or trigger_probe_enabled:
         total_replan_seconds = float(sum(item["total_s"] for item in replan_timings))
         episode_timing = {
             "episode_wall_s": time.perf_counter() - episode_start,
@@ -1330,7 +1428,7 @@ def run_single_task(
         results["future_video_psnr_mean"] = None
     if bool(cfg.EVALUATION.get("timing_enabled", False)) or bool(
         cfg.EVALUATION.get("action_denoise_trace", False)
-    ):
+    ) or bool(cfg.EVALUATION.get("trigger_probe", {}).get("enabled", False)):
         results["episode_timings"] = []
 
     for trial_idx in range(int(cfg.EVALUATION.num_trials)):
@@ -1447,7 +1545,22 @@ def _run_task_to_file(
     # Let the active LIBERO benchmark resolve init-state storage. LIBERO-Plus
     # keeps layout-perturbation states under init_files/libero_newobj/<suite>,
     # while vanilla LIBERO stores them directly under init_files/<suite>.
-    initial_states = task_suite.get_task_init_states(task_id)
+    try:
+        initial_states = task_suite.get_task_init_states(task_id)
+    except pickle.UnpicklingError as exc:
+        # Vanilla LIBERO predates PyTorch 2.6, where torch.load changed the
+        # default to weights_only=True. These benchmark init-state files are
+        # trusted local assets and contain NumPy arrays rather than weights.
+        if "Weights only load failed" not in str(exc):
+            raise
+        init_states_path = Path(get_libero_path("init_states")) / (
+            task.problem_folder
+        ) / task.init_states_file
+        logging.info(
+            "Reloading trusted vanilla LIBERO init states with weights_only=False: %s",
+            init_states_path,
+        )
+        initial_states = torch.load(init_states_path, weights_only=False)
     while len(initial_states) < int(task_cfg.EVALUATION.num_trials):
         initial_states.extend(
             initial_states[: int(task_cfg.EVALUATION.num_trials) - len(initial_states)]
@@ -1667,9 +1780,14 @@ def eval_single_process(cfg: DictConfig):
     ac_ranker = None
     ac_adapter = None
     ac_cfg = cfg.EVALUATION.get("vjepa2_ac", {})
-    if bool(ac_cfg.get("enabled", False)):
+    trigger_probe_cfg = cfg.EVALUATION.get("trigger_probe", {})
+    trigger_probe_enabled = bool(trigger_probe_cfg.get("enabled", False))
+    if bool(ac_cfg.get("enabled", False)) or trigger_probe_enabled:
         if not bool(cfg.EVALUATION.get("visualize_future_video", False)):
-            raise ValueError("V-JEPA2-AC ranking requires EVALUATION.visualize_future_video=true.")
+            raise ValueError(
+                "V-JEPA2-AC ranking/trigger probing requires "
+                "EVALUATION.visualize_future_video=true."
+            )
         ac_adapter = LiberoACAdapter(
             low_level_steps_per_ac_step=int(
                 ac_cfg.get("low_level_steps_per_ac_step", cfg.data.train.action_video_freq_ratio)
@@ -1694,14 +1812,25 @@ def eval_single_process(cfg: DictConfig):
                 "EVALUATION.vjepa2_ac.dtype must be one of: "
                 "fp32, float32, fp16, float16, bf16, bfloat16."
             )
+        max_ac_steps = max(
+            int(ac_cfg.get("max_ac_steps", 8)),
+            int(trigger_probe_cfg.get("ac_steps", 1)) if trigger_probe_enabled else 1,
+        )
         ac_ranker = VJEPA2ACRanker(
             checkpoint_path=os.path.expanduser(os.path.expandvars(str(ac_cfg.checkpoint_path))),
             vjepa2_repo=os.path.expanduser(os.path.expandvars(str(ac_cfg.repo_path))),
             device=ac_device,
             dtype=ac_dtypes[ac_dtype_name],
-            max_ac_steps=int(ac_cfg.get("max_ac_steps", 8)),
+            max_ac_steps=max_ac_steps,
         )
-        if bool(ac_cfg.get("guidance", {}).get("enabled", False)):
+        if trigger_probe_enabled and not bool(ac_cfg.get("enabled", False)):
+            logging.info(
+                "Enabled V-JEPA2-AC trigger verifier on %s with %s (%d AC steps).",
+                ac_device,
+                ac_dtypes[ac_dtype_name],
+                int(trigger_probe_cfg.get("ac_steps", 1)),
+            )
+        elif bool(ac_cfg.get("guidance", {}).get("enabled", False)):
             logging.info(
                 "Enabled V-JEPA2-AC action-flow guidance on %s with %s.",
                 ac_device,

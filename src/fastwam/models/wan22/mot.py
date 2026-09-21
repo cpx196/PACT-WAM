@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Dict, Optional
+import math
+from typing import Any, Dict, Optional
 
 import torch
 import torch.nn as nn
@@ -535,6 +536,8 @@ class MoT(nn.Module):
         video_cache_k: list[torch.Tensor],
         video_cache_v: list[torch.Tensor],
         action_attention_mask: torch.Tensor,
+        response_metrics: Optional[list[dict[str, Any]]] = None,
+        video_tokens_per_frame: Optional[int] = None,
     ) -> torch.Tensor:
         expert = self.mixtures["action"]
         x = action_tokens
@@ -564,6 +567,65 @@ class MoT(nn.Module):
                 num_heads=self.num_heads,
                 ctx_mask=action_attention_mask.to(device=q_action.device),
             )
+            if response_metrics is not None:
+                if video_tokens_per_frame is None:
+                    raise ValueError(
+                        "video_tokens_per_frame is required when collecting action response metrics."
+                    )
+                q_heads = q_action.reshape(
+                    q_action.shape[0], q_action.shape[1], self.num_heads, self.attn_head_dim
+                ).transpose(1, 2).float()
+                k_all = torch.cat([video_cache_k[layer_idx], k_action], dim=1)
+                v_all = torch.cat([video_cache_v[layer_idx], v_action], dim=1)
+                k_heads = k_all.reshape(
+                    k_all.shape[0], k_all.shape[1], self.num_heads, self.attn_head_dim
+                ).transpose(1, 2).float()
+                v_heads = v_all.reshape(
+                    v_all.shape[0], v_all.shape[1], self.num_heads, self.attn_head_dim
+                ).transpose(1, 2).float()
+                logits = torch.matmul(q_heads, k_heads.transpose(-2, -1)) / math.sqrt(
+                    self.attn_head_dim
+                )
+                mask = action_attention_mask.to(device=logits.device)
+                if mask.dtype == torch.bool:
+                    logits = logits.masked_fill(~mask.reshape(1, 1, *mask.shape), -torch.inf)
+                else:
+                    logits = logits + mask.reshape(1, 1, *mask.shape).float()
+                weights = torch.softmax(logits, dim=-1)
+
+                video_seq_len = int(video_cache_k[layer_idx].shape[1])
+                obs_end = min(int(video_tokens_per_frame), video_seq_len)
+
+                def component(start: int, end: int) -> torch.Tensor:
+                    if end <= start:
+                        return torch.zeros_like(q_heads)
+                    return torch.matmul(
+                        weights[..., start:end],
+                        v_heads[..., start:end, :],
+                    )
+
+                o_obs = component(0, obs_end)
+                o_future = component(obs_end, video_seq_len)
+                o_action = component(video_seq_len, int(v_heads.shape[-2]))
+                o_video = o_obs + o_future
+                norm_obs = torch.linalg.vector_norm(o_obs)
+                norm_future = torch.linalg.vector_norm(o_future)
+                norm_action = torch.linalg.vector_norm(o_action)
+                norm_video = torch.linalg.vector_norm(o_video)
+                eps = torch.finfo(torch.float32).eps
+                denom_future = norm_obs + norm_future + norm_action + eps
+                denom_video = norm_video + norm_action + eps
+                response_metrics.append(
+                    {
+                        "layer": int(layer_idx),
+                        "norm_obs": float(norm_obs.cpu()),
+                        "norm_future": float(norm_future.cpu()),
+                        "norm_action": float(norm_action.cpu()),
+                        "norm_video": float(norm_video.cpu()),
+                        "r_future": float((norm_future / denom_future).cpu()),
+                        "r_video": float((norm_video / denom_video).cpu()),
+                    }
+                )
             x = self._apply_expert_post_block_tensor(
                 block=block,
                 residual_x=residual_x,

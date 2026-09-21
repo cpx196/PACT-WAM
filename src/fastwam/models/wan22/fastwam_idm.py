@@ -563,6 +563,7 @@ class FastWAMIDM(FastWAMJoint):
         precomputed_video_latents: Optional[torch.Tensor] = None,
         initial_action_latents: Optional[torch.Tensor] = None,
         action_flow_trace: bool = False,
+        action_response_trace: bool = False,
     ) -> dict[str, Any]:
         del negative_prompt, text_cfg_scale
         self.eval()
@@ -588,6 +589,11 @@ class FastWAMIDM(FastWAMJoint):
             raise ValueError("action_guidance_after_steps must not contain duplicates.")
         if action_guidance_step_size < 0:
             raise ValueError("action_guidance_step_size must be non-negative.")
+        if action_response_trace and compile_action_infer:
+            raise ValueError(
+                "action_response_trace requires compile_action_infer=False because it "
+                "collects per-layer diagnostic scalars."
+            )
         guidance_enabled = (
             action_guidance_fn is not None
             and (
@@ -876,6 +882,7 @@ class FastWAMIDM(FastWAMJoint):
             guidance_after_steps = set(explicit_guidance_steps)
 
         flow_trace = []
+        response_trace = []
         for step_index, (step_t_action, step_delta_action) in enumerate(
             zip(infer_timesteps_action, infer_deltas_action)
         ):
@@ -884,6 +891,7 @@ class FastWAMIDM(FastWAMJoint):
                 dtype=latents_action.dtype,
                 device=self.device,
             )
+            response_layers = [] if action_response_trace else None
             pred_action = denoise_action_with_video_cache(
                 latents_action=latents_action,
                 timestep_action=timestep_action,
@@ -892,7 +900,25 @@ class FastWAMIDM(FastWAMJoint):
                 video_cache_k=video_cache_k,
                 video_cache_v=video_cache_v,
                 action_attention_mask=action_attention_mask,
+                response_metrics=response_layers,
+                video_tokens_per_frame=video_tokens_per_frame,
             )
+            if response_layers is not None:
+                response_trace.append(
+                    {
+                        "denoise_step": int(step_index),
+                        "timestep": float(step_t_action.float().item()),
+                        "r_future_layer_mean": float(
+                            sum(item["r_future"] for item in response_layers)
+                            / len(response_layers)
+                        ),
+                        "r_video_layer_mean": float(
+                            sum(item["r_video"] for item in response_layers)
+                            / len(response_layers)
+                        ),
+                        "layers": response_layers,
+                    }
+                )
 
             clean_action_estimate = None
             if action_flow_trace or (guidance_enabled and step_index in guidance_after_steps):
@@ -1001,6 +1027,8 @@ class FastWAMIDM(FastWAMJoint):
                 else None
             )
             result["action_flow_final_action"] = action_out
+        if action_response_trace:
+            result["action_response_trace"] = response_trace
         return result
 
     @torch.no_grad()
