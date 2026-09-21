@@ -758,18 +758,36 @@ def _predict_action_chunk(
     ).lower()
     guidance_cfg = cfg.EVALUATION.vjepa2_ac.get("guidance", {})
     guidance_enabled = ac_ranker is not None and bool(guidance_cfg.get("enabled", False))
-    infer_method = model.infer_joint if visualize_future_video else model.infer_action
+    split_idm_inference = (
+        visualize_future_video
+        and candidate_generation_mode == "separate"
+        and hasattr(model, "infer_video")
+        and hasattr(model, "infer_action_from_video")
+    )
+    infer_method = (
+        model.infer_video
+        if split_idm_inference
+        else (model.infer_joint if visualize_future_video else model.infer_action)
+    )
+    infer_signature = inspect.signature(infer_method).parameters
+    if "video_sigma_shift" in infer_signature:
+        infer_kwargs["video_sigma_shift"] = float(
+            cfg.EVALUATION.get("video_sigma_shift", 5.0)
+        )
+    if "action_sigma_shift" in infer_signature:
+        infer_kwargs["action_sigma_shift"] = float(
+            cfg.EVALUATION.get("action_sigma_shift", 1.0)
+        )
     if action_denoise_trace_enabled and "action_denoise_trace" in inspect.signature(infer_method).parameters:
         infer_kwargs["action_denoise_trace"] = True
     if not visualize_future_video and "action_infer_mode" in inspect.signature(infer_method).parameters:
         infer_kwargs["action_infer_mode"] = str(
             cfg.EVALUATION.get("action_infer_mode", "idm")
         )
-    if compile_action_infer and (
-        "compile_action_infer" not in inspect.signature(infer_method).parameters
-    ):
+    compile_arg = "compile_video_infer" if split_idm_inference else "compile_action_infer"
+    if compile_action_infer and compile_arg not in infer_signature:
         raise ValueError(
-            f"{type(model).__name__}.{infer_method.__name__} does not support `compile_action_infer`."
+            f"{type(model).__name__}.{infer_method.__name__} does not support `{compile_arg}`."
         )
 
     with torch.no_grad():
@@ -777,9 +795,10 @@ def _predict_action_chunk(
             # `infer_joint` defaults to an expensive debug equivalence check
             # that runs a second action-only inference. Evaluation should only
             # enable it explicitly; otherwise it pollutes rollout latency.
-            infer_kwargs["test_action_with_infer_action"] = bool(
-                cfg.EVALUATION.get("test_action_with_infer_action", False)
-            ) and ac_ranker is None
+            if not split_idm_inference:
+                infer_kwargs["test_action_with_infer_action"] = bool(
+                    cfg.EVALUATION.get("test_action_with_infer_action", False)
+                ) and ac_ranker is None
             if ac_ranker is not None and candidate_generation_mode == "joint":
                 if "num_action_candidates" not in inspect.signature(model.infer_joint).parameters:
                     raise TypeError(
@@ -789,10 +808,21 @@ def _predict_action_chunk(
                     cfg.EVALUATION.vjepa2_ac.get("num_action_candidates", 8)
                 )
             stage_start = time.perf_counter() if timing_enabled else 0.0
-            pred = model.infer_joint(
-                **infer_kwargs,
-                compile_action_infer=compile_action_infer,
-            )
+            if split_idm_inference:
+                video_signature = inspect.signature(model.infer_video).parameters
+                video_infer_kwargs = {
+                    key: value for key, value in infer_kwargs.items() if key in video_signature
+                }
+                pred = model.infer_video(
+                    **video_infer_kwargs,
+                    compile_video_infer=compile_action_infer,
+                    decode_video=True,
+                )
+            else:
+                pred = model.infer_joint(
+                    **infer_kwargs,
+                    compile_action_infer=compile_action_infer,
+                )
             generation_ids = []
             if action_convergence_logger is not None:
                 generation_id = action_convergence_logger.record(
@@ -807,9 +837,13 @@ def _predict_action_chunk(
                     generation_ids.append(generation_id)
             if timing_enabled:
                 _synchronize_cuda(model_device)
-                timings["infer_joint_s"] = time.perf_counter() - stage_start
+                timings[
+                    "infer_video_s" if split_idm_inference else "infer_joint_s"
+                ] = time.perf_counter() - stage_start
             predicted_future_frames = _select_predicted_future_frames(pred["video"], cfg)
-            if ac_ranker is not None and candidate_generation_mode == "separate":
+            if split_idm_inference or (
+                ac_ranker is not None and candidate_generation_mode == "separate"
+            ):
                 action_signature = inspect.signature(model.infer_action).parameters
                 if "num_action_candidates" not in action_signature:
                     raise TypeError(
@@ -818,6 +852,14 @@ def _predict_action_chunk(
                 action_infer_kwargs = {
                     key: value for key, value in infer_kwargs.items() if key in action_signature
                 }
+                if "video_sigma_shift" in action_signature:
+                    action_infer_kwargs["video_sigma_shift"] = float(
+                        cfg.EVALUATION.get("video_sigma_shift", 5.0)
+                    )
+                if "action_sigma_shift" in action_signature:
+                    action_infer_kwargs["action_sigma_shift"] = float(
+                        cfg.EVALUATION.get("action_sigma_shift", 1.0)
+                    )
                 if guidance_enabled:
                     required_guidance_args = {
                         "action_guidance_fn",
@@ -863,8 +905,10 @@ def _predict_action_chunk(
                         ),
                     )
                 else:
-                    action_infer_kwargs["num_action_candidates"] = int(
-                        cfg.EVALUATION.vjepa2_ac.get("num_action_candidates", 8)
+                    action_infer_kwargs["num_action_candidates"] = (
+                        1
+                        if ac_ranker is None
+                        else int(cfg.EVALUATION.vjepa2_ac.get("num_action_candidates", 8))
                     )
                 if "action_infer_mode" in action_signature:
                     action_infer_kwargs["action_infer_mode"] = str(
@@ -873,10 +917,17 @@ def _predict_action_chunk(
                 if "action_denoise_trace" in action_signature:
                     action_infer_kwargs["action_denoise_trace"] = action_denoise_trace_enabled
                 stage_start = time.perf_counter() if timing_enabled else 0.0
-                action_pred = model.infer_action(
-                    **action_infer_kwargs,
-                    compile_action_infer=compile_action_infer,
-                )
+                if split_idm_inference:
+                    action_pred = model.infer_action_from_video(
+                        video_latents=pred["video_latents"],
+                        **action_infer_kwargs,
+                        compile_action_infer=compile_action_infer,
+                    )
+                else:
+                    action_pred = model.infer_action(
+                        **action_infer_kwargs,
+                        compile_action_infer=compile_action_infer,
+                    )
                 if action_convergence_logger is not None:
                     generation_id = action_convergence_logger.record(
                         trace=action_pred.get("action_denoise_trace", []),

@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any, Callable, Optional, Sequence
 
 import torch
 
@@ -71,11 +71,23 @@ class FastWAMOptionalIDM(FastWAMIDM):
         text_cfg_scale: float = 1.0,
         num_inference_steps: int = 20,
         sigma_shift: Optional[float] = None,
+        video_sigma_shift: Optional[float] = None,
+        action_sigma_shift: Optional[float] = None,
         seed: Optional[int] = None,
         rand_device: str = "cpu",
         tiled: bool = False,
         compile_action_infer: bool = False,
         action_infer_mode: str = "idm",
+        action_guidance_fn: Optional[Callable[[torch.Tensor], torch.Tensor]] = None,
+        action_guidance_last_steps: int = 0,
+        action_guidance_after_steps: Optional[Sequence[int]] = None,
+        action_guidance_step_size: float = 0.0,
+        action_guidance_horizon: Optional[int] = None,
+        action_guidance_verify_descent: bool = False,
+        initial_video_latents: Optional[torch.Tensor] = None,
+        precomputed_video_latents: Optional[torch.Tensor] = None,
+        initial_action_latents: Optional[torch.Tensor] = None,
+        action_flow_trace: bool = False,
     ) -> dict[str, Any]:
         if action_infer_mode == "idm":
             if num_video_frames is None:
@@ -94,13 +106,29 @@ class FastWAMOptionalIDM(FastWAMIDM):
                 text_cfg_scale=text_cfg_scale,
                 num_inference_steps=num_inference_steps,
                 sigma_shift=sigma_shift,
+                video_sigma_shift=video_sigma_shift,
+                action_sigma_shift=action_sigma_shift,
                 seed=seed,
                 rand_device=rand_device,
                 tiled=tiled,
                 compile_action_infer=compile_action_infer,
+                action_guidance_fn=action_guidance_fn,
+                action_guidance_last_steps=action_guidance_last_steps,
+                action_guidance_after_steps=action_guidance_after_steps,
+                action_guidance_step_size=action_guidance_step_size,
+                action_guidance_horizon=action_guidance_horizon,
+                action_guidance_verify_descent=action_guidance_verify_descent,
+                initial_video_latents=initial_video_latents,
+                precomputed_video_latents=precomputed_video_latents,
+                initial_action_latents=initial_action_latents,
+                action_flow_trace=action_flow_trace,
             )
 
         if action_infer_mode == "first_frame":
+            if precomputed_video_latents is not None:
+                raise ValueError(
+                    "precomputed_video_latents is valid only for action_infer_mode='idm'."
+                )
             if num_action_candidates != 1:
                 raise ValueError(
                     "`num_action_candidates` is currently supported only for "
@@ -117,11 +145,19 @@ class FastWAMOptionalIDM(FastWAMIDM):
                 negative_prompt=negative_prompt,
                 text_cfg_scale=text_cfg_scale,
                 num_inference_steps=num_inference_steps,
-                sigma_shift=sigma_shift,
+                sigma_shift=(
+                    action_sigma_shift if action_sigma_shift is not None else sigma_shift
+                ),
                 seed=seed,
                 rand_device=rand_device,
                 tiled=tiled,
                 compile_action_infer=compile_action_infer,
+                action_guidance_fn=action_guidance_fn,
+                action_guidance_last_steps=action_guidance_last_steps,
+                action_guidance_after_steps=action_guidance_after_steps,
+                action_guidance_step_size=action_guidance_step_size,
+                action_guidance_horizon=action_guidance_horizon,
+                action_guidance_verify_descent=action_guidance_verify_descent,
             )
 
         raise ValueError("`action_infer_mode` must be one of: idm, first_frame.")

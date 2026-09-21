@@ -23,29 +23,40 @@ PACT-WAM 研究以下问题：
 
 ## 2. 系统流程
 
-### 2.1 普通 FastWAM
+### 2.1 当前 Optional-IDM 两阶段推理
 
 ```text
 LIBERO 双相机观测 + 任务文本 + proprioception
                       ↓
-              FastWAM flow-matching
+        infer_video（video shift = 5）
                       ↓
-        未来视频 + 32×7 action chunk
+     imagined future / frozen video latents
+                      ↓
+        MoT video K/V cache（video 不读取 action）
+                      ↓
+ infer_action_from_video（action shift = 1）
+                      ↓
+               32×7 action chunk
                       ↓
               执行前 N 个动作
                       ↓
               重新观测并规划
 ```
 
+当前主路径使用发布版 `libero_optional_idm_2cam224.pt`，并固定
+`action_infer_mode=idm`。视频阶段不会创建或去噪 action latent；动作阶段才通过
+MoT attention 读取冻结的完整 future-video tokens。不要在 PACT 的 `separate` 路径
+中调用 `infer_joint()` 后再调用一次 `infer_action()`，否则会白算并丢弃第一条 action。
+
 ### 2.2 Best-of-K JEPA ranking
 
 当前推荐的 `separate` 路径为：
 
 ```text
-infer_joint(K=1)  → 生成共同的 FastWAM imagined future
-infer_action(K=8) → 生成 8 条动作候选
-V-JEPA2-AC        → 计算每条候选的未来 latent energy
-选择最低 energy   → 执行选中候选的前 N 个动作
+infer_video()             → 只生成一条共同的 imagined future
+infer_action_from_video() → 基于该 future 生成动作候选或 guided action
+V-JEPA2-AC                → ranking 或 action-flow guidance
+执行动作                  → 执行选中/修正后 action chunk 的前 N 步
 ```
 
 每 4 个 LIBERO 低层动作对应 1 个 JEPA action-conditioning step。当前 JEPA
@@ -70,14 +81,22 @@ guidance 是推理时的附加模块；关闭后，原有 FastWAM 和 Best-of-K 
 ### 3.1 FastWAM
 
 ```yaml
-checkpoint: libero_uncond_2cam224.pt
-dataset_stats: libero_uncond_2cam224_dataset_stats.json
+model: FastWAMOptionalIDM
+checkpoint: libero_optional_idm_2cam224.pt
+dataset_stats: libero_optional_idm_2cam224_dataset_stats.json
+action_infer_mode: idm
+video_sigma_shift: 5.0
+action_sigma_shift: 1.0
 input_resolution: 224×224
 action_shape: 32×7
 proprioception: 8D
 action_video_freq_ratio: 4
 eval_num_inference_steps: 10
 ```
+
+`sigma_shift` 是旧的联合 override；当前两阶段路径将其保持为 `null`，分别使用
+`video_sigma_shift` 和 `action_sigma_shift`，避免一个参数同时覆盖两个 scheduler。
+官方模型 YAML 的 video scheduler 默认是 5，action scheduler 默认是 1。
 
 当前 action 的 7 个维度为 6D 末端执行器运动量和 1D 夹爪动作。
 
@@ -92,6 +111,10 @@ EVALUATION.visualize_future_video: false
 EVALUATION.action_denoise_trace: false
 EVALUATION.offload_text_encoder: false
 EVALUATION.compile_action_infer: true
+EVALUATION.action_infer_mode: idm
+EVALUATION.video_sigma_shift: 5.0
+EVALUATION.action_sigma_shift: 1.0
+EVALUATION.sigma_shift: null
 ```
 
 启用 V-JEPA2-AC 时，当前实验协议使用：
@@ -278,6 +301,10 @@ task-365 在本轮 Long36 中为：control `1/4`，guidance `2/4`。
 
 ```text
 PACT-WAM/
+├── checkpoints/                     # 本地统一权重入口；被 Git 忽略
+│   ├── wan/                         # Wan2.2、T5、tokenizer
+│   ├── fastwam/                     # Optional-IDM checkpoint 与 stats
+│   └── vjepa2/                      # V-JEPA2-AC checkpoint
 ├── configs/                         # 训练、模型、LIBERO/RoboTwin 配置
 ├── src/fastwam/                     # FastWAM 核心实现
 ├── experiments/libero/              # LIBERO rollout、JEPA、worker 和分析代码
@@ -305,14 +332,58 @@ pip install -e .
 
 模型权重和 LIBERO/RoboTwin 数据集需要根据机器环境单独下载，不包含在本仓库中。
 
-## 9. LIBERO 运行示例
+### 8.1 统一权重目录
 
-普通 FastWAM 评测：
+所有运行配置只引用仓库内的 `checkpoints/` 入口。大文件可以实际存放在共享盘，
+这里使用软链接，避免复制几十 GB 或破坏 FastWAM、JEPA_WAM 原项目：
 
 ```bash
+mkdir -p checkpoints
+ln -s /path/to/FastWAM/checkpoints checkpoints/wan
+ln -s /path/to/FastWAM/checkpoints/fastwam_release checkpoints/fastwam
+ln -s /path/to/JEPA_WAM/checkpoints/vjepa2 checkpoints/vjepa2
+```
+
+期望布局：
+
+```text
+checkpoints/
+├── wan/Wan-AI/Wan2.2-TI2V-5B/
+│   ├── Wan2.2_VAE.pth
+│   └── models_t5_umt5-xxl-enc-bf16.pth
+├── wan/Wan-AI/Wan2.1-T2V-1.3B/google/umt5-xxl/
+├── fastwam/
+│   ├── libero_optional_idm_2cam224.pt
+│   └── libero_optional_idm_2cam224_dataset_stats.json
+└── vjepa2/vjepa2-ac-vitg.pt
+```
+
+加载前执行：
+
+```bash
+source scripts/local_libero_env.sh
+```
+
+该脚本会统一导出 `FASTWAM_CHECKPOINT`、`FASTWAM_DATASET_STATS`、
+`VJEPA2_CHECKPOINT` 和 `DIFFSYNTH_MODEL_BASE_PATH`，并默认设置
+`DIFFSYNTH_SKIP_DOWNLOAD=true`。当前配置使用本地原始 `Wan2.2_VAE.pth`，即
+`model.redirect_common_files=false`，不会自动转向 DiffSynth converted checkpoint。
+
+## 9. LIBERO 运行示例
+
+Optional-IDM 两阶段评测：
+
+```bash
+source scripts/local_libero_env.sh
 python experiments/libero/run_libero_manager.py \
-  task=libero_uncond_2cam224_1e-4 \
-  ckpt=./checkpoints/fastwam_release/libero_uncond_2cam224.pt \
+  task=libero_optional_idm_2cam224_1e-4 \
+  ckpt="$FASTWAM_CHECKPOINT" \
+  EVALUATION.dataset_stats_path="$FASTWAM_DATASET_STATS" \
+  EVALUATION.action_infer_mode=idm \
+  EVALUATION.video_sigma_shift=5.0 \
+  EVALUATION.action_sigma_shift=1.0 \
+  EVALUATION.sigma_shift=null \
+  EVALUATION.visualize_future_video=true \
   EVALUATION.task_suite_name=libero_spatial \
   EVALUATION.task_id=0 \
   EVALUATION.num_trials=50
@@ -322,8 +393,8 @@ python experiments/libero/run_libero_manager.py \
 
 ```bash
 python experiments/libero/run_libero_manager.py \
-  task=libero_uncond_2cam224_1e-4 \
-  ckpt=./checkpoints/fastwam_release/libero_uncond_2cam224.pt \
+  task=libero_optional_idm_2cam224_1e-4 \
+  ckpt="$FASTWAM_CHECKPOINT" \
   EVALUATION.action_denoise_trace=true \
   EVALUATION.task_suite_name=libero_spatial \
   EVALUATION.task_id=0
@@ -339,6 +410,25 @@ EVALUATION.vjepa2_ac.repo_path: /path/to/vjepa2
 EVALUATION.vjepa2_ac.guidance.enabled: true
 EVALUATION.vjepa2_ac.guidance.after_flow_steps: [7, 8, 9]
 ```
+
+### 9.1 Smoke test 基线
+
+提交前至少验证：模型类型为 `FastWAMOptionalIDM`，`infer_video()` 不产生 action，
+`infer_action_from_video()` 复用完全相同的 video latents，并输出 `32×7` action。
+当前服务器在 RTX 4090D 上用 1 个 video step 和 1 个 action step 的结果为：
+
+```text
+model: FastWAMOptionalIDM
+video_sigma_shift: 5.0
+action_sigma_shift: 1.0
+video_latents: [1, 48, 3, 14, 28]
+action: [32, 7]
+peak_allocated: 12.698 GiB
+status: PASS
+```
+
+完整 LIBERO smoke 建议使用单 task、单 trial、`max_steps_override=1`，同时保持
+`EVALUATION.visualize_future_video=true`，以确保评测器实际进入拆分后的两阶段路径。
 
 ## 10. 相关文档与引用
 
