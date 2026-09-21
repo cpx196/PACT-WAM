@@ -1179,13 +1179,16 @@ def run_single_episode(
                     replan_timing["first_action_chunk"] = action_chunk.tolist()
                 replan_timings.append(replan_timing)
                 logging.info(
-                    "replan timing episode=%d index=%d total=%.3fs joint=%.3fs "
-                    "action=%.3fs jepa_rank=%.3fs encoder=%.3fs predictor=%.3fs",
+                    "replan timing episode=%d index=%d total=%.3fs video=%.3fs "
+                    "joint=%.3fs action=%.3fs decode=%.3fs jepa_rank=%.3fs "
+                    "encoder=%.3fs predictor=%.3fs",
                     episode_idx,
                     len(replan_timings) - 1,
                     replan_timing["total_s"],
+                    replan_timing.get("infer_video_s", 0.0),
                     replan_timing.get("infer_joint_s", 0.0),
                     replan_timing.get("infer_action_s", 0.0),
+                    replan_timing.get("decode_video_s", 0.0),
                     replan_timing.get("jepa_rank_s", 0.0),
                     replan_timing.get("jepa_encoder_phase_s", 0.0),
                     replan_timing.get("jepa_predictor_total_s", 0.0),
