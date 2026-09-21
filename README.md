@@ -48,6 +48,11 @@ LIBERO 双相机观测 + 任务文本 + proprioception
 MoT attention 读取冻结的完整 future-video tokens。不要在 PACT 的 `separate` 路径
 中调用 `infer_joint()` 后再调用一次 `infer_action()`，否则会白算并丢弃第一条 action。
 
+为保持原始 IDM 的加载与显存时序，默认执行顺序严格为：视频 latent 去噪 → action
+去噪 → VAE decode future video。只有启用 action-flow guidance 时需要先把 future
+video decode 成图像供 JEPA loss 使用，因此 decode 会位于 guided action 去噪之前；
+这不会额外生成 action chunk。
+
 ### 2.2 Best-of-K JEPA ranking
 
 当前推荐的 `separate` 路径为：

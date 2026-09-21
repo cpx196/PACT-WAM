@@ -463,8 +463,18 @@ class FastWAMIDM(FastWAMJoint):
 
         result: dict[str, Any] = {"video_latents": latents_video}
         if decode_video:
-            result["video"] = self._decode_latents(latents_video, tiled=tiled)
+            result["video"] = self.decode_video_latents(latents_video, tiled=tiled)
         return result
+
+    @torch.no_grad()
+    def decode_video_latents(
+        self,
+        video_latents: torch.Tensor,
+        *,
+        tiled: bool = False,
+    ) -> list[Any]:
+        """Decode an already generated video without running either denoiser."""
+        return self._decode_latents(video_latents, tiled=tiled)
 
     @torch.no_grad()
     def infer_joint(

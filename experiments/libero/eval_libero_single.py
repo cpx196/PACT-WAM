@@ -816,7 +816,7 @@ def _predict_action_chunk(
                 pred = model.infer_video(
                     **video_infer_kwargs,
                     compile_video_infer=compile_action_infer,
-                    decode_video=True,
+                    decode_video=False,
                 )
             else:
                 pred = model.infer_joint(
@@ -840,7 +840,20 @@ def _predict_action_chunk(
                 timings[
                     "infer_video_s" if split_idm_inference else "infer_joint_s"
                 ] = time.perf_counter() - stage_start
-            predicted_future_frames = _select_predicted_future_frames(pred["video"], cfg)
+            # Preserve the original IDM execution order: video denoise, action
+            # denoise, then VAE decode. Guidance is the only exception because
+            # its loss explicitly consumes decoded future frames.
+            if split_idm_inference and guidance_enabled:
+                stage_start = time.perf_counter() if timing_enabled else 0.0
+                pred["video"] = model.decode_video_latents(
+                    pred["video_latents"],
+                    tiled=bool(cfg.EVALUATION.get("tiled", False)),
+                )
+                if timing_enabled:
+                    _synchronize_cuda(model_device)
+                    timings["decode_video_s"] = time.perf_counter() - stage_start
+            if "video" in pred:
+                predicted_future_frames = _select_predicted_future_frames(pred["video"], cfg)
             if split_idm_inference or (
                 ac_ranker is not None and candidate_generation_mode == "separate"
             ):
@@ -953,6 +966,16 @@ def _predict_action_chunk(
                         "V-JEPA2-AC action guidance diagnostics=%s",
                         action_pred.get("action_guidance", []),
                     )
+            if split_idm_inference and "video" not in pred:
+                stage_start = time.perf_counter() if timing_enabled else 0.0
+                pred["video"] = model.decode_video_latents(
+                    pred["video_latents"],
+                    tiled=bool(cfg.EVALUATION.get("tiled", False)),
+                )
+                if timing_enabled:
+                    _synchronize_cuda(model_device)
+                    timings["decode_video_s"] = time.perf_counter() - stage_start
+                predicted_future_frames = _select_predicted_future_frames(pred["video"], cfg)
         else:
             if "action_denoise_trace" in inspect.signature(model.infer_action).parameters:
                 infer_kwargs["action_denoise_trace"] = action_denoise_trace_enabled
