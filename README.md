@@ -5,6 +5,12 @@ PACT-WAM 是一个面向机器人动作生成与闭环控制研究的实验代�
 V-JEPA2-AC 动作排序、action-flow guidance、LIBERO-Plus 扰动评测，以及
 denoising/flow-matching 动作收敛分析。
 
+> **当前主实验配置（2026-09）**：使用 Optional-IDM 的严格级联路径
+> `infer_video() → infer_action_from_video()`。video 阶段只生成 imagined future，
+> 不生成无用 action；action 阶段读取冻结的 video latents 后单独生成 action chunk。
+> LIBERO evaluation 显式设置 `video_sigma_shift=1.0`、
+> `action_sigma_shift=1.0`，并保持旧的联合覆盖项 `sigma_shift=null`。
+
 这个仓库保留了当前研究阶段的完整快照：源码、配置、实验脚本、历史实验报告和
 轻量级评测 JSON/CSV/YAML 都保存在仓库中。模型权重、rollout 视频和本地缓存不上传 GitHub。
 
@@ -28,7 +34,7 @@ PACT-WAM 研究以下问题：
 ```text
 LIBERO 双相机观测 + 任务文本 + proprioception
                       ↓
-        infer_video（video shift = 5）
+        infer_video（video shift = 1）
                       ↓
      imagined future / frozen video latents
                       ↓
@@ -90,7 +96,7 @@ model: FastWAMOptionalIDM
 checkpoint: libero_optional_idm_2cam224.pt
 dataset_stats: libero_optional_idm_2cam224_dataset_stats.json
 action_infer_mode: idm
-video_sigma_shift: 5.0
+video_sigma_shift: 1.0
 action_sigma_shift: 1.0
 input_resolution: 224×224
 action_shape: 32×7
@@ -101,7 +107,9 @@ eval_num_inference_steps: 10
 
 `sigma_shift` 是旧的联合 override；当前两阶段路径将其保持为 `null`，分别使用
 `video_sigma_shift` 和 `action_sigma_shift`，避免一个参数同时覆盖两个 scheduler。
-官方模型 YAML 的 video scheduler 默认是 5，action scheduler 默认是 1。
+当前 LIBERO evaluation 显式使用 `1/1`，与原始 FastWAM README 的评测命令一致。
+部分训练/模型 YAML 中仍可见 video scheduler 为 5、action scheduler 为 1；那是
+底层 scheduler/训练配置，不是本仓库当前评测协议。
 
 当前 action 的 7 个维度为 6D 末端执行器运动量和 1D 夹爪动作。
 
@@ -117,7 +125,7 @@ EVALUATION.action_denoise_trace: false
 EVALUATION.offload_text_encoder: false
 EVALUATION.compile_action_infer: true
 EVALUATION.action_infer_mode: idm
-EVALUATION.video_sigma_shift: 5.0
+EVALUATION.video_sigma_shift: 1.0
 EVALUATION.action_sigma_shift: 1.0
 EVALUATION.sigma_shift: null
 ```
@@ -385,7 +393,7 @@ python experiments/libero/run_libero_manager.py \
   ckpt="$FASTWAM_CHECKPOINT" \
   EVALUATION.dataset_stats_path="$FASTWAM_DATASET_STATS" \
   EVALUATION.action_infer_mode=idm \
-  EVALUATION.video_sigma_shift=5.0 \
+  EVALUATION.video_sigma_shift=1.0 \
   EVALUATION.action_sigma_shift=1.0 \
   EVALUATION.sigma_shift=null \
   EVALUATION.visualize_future_video=true \
@@ -424,7 +432,7 @@ EVALUATION.vjepa2_ac.guidance.after_flow_steps: [7, 8, 9]
 
 ```text
 model: FastWAMOptionalIDM
-video_sigma_shift: 5.0
+video_sigma_shift: 1.0
 action_sigma_shift: 1.0
 video_latents: [1, 48, 3, 14, 28]
 action: [32, 7]

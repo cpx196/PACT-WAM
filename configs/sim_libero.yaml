@@ -99,8 +99,9 @@ EVALUATION:
   # Action inference
   action_horizon: null
   num_inference_steps: ${eval_num_inference_steps}
-  # Keep the two stages on the scheduler values used by the official config.
-  video_sigma_shift: 5.0
+  # Current LIBERO evaluation protocol: explicitly use shift=1 for both
+  # stages, matching the original FastWAM README evaluation command.
+  video_sigma_shift: 1.0
   action_sigma_shift: 1.0
   action_infer_mode: idm
   # Legacy joint override. Leave null when per-stage shifts are configured.
