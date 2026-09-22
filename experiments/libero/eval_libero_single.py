@@ -5,7 +5,9 @@ import logging
 import os
 import pickle
 import sys
+import threading
 import time
+from concurrent.futures import Future
 from collections import deque
 from pathlib import Path
 from typing import Any, Optional
@@ -437,6 +439,7 @@ def _build_jepa_action_guidance(
     ac_adapter: LiberoACAdapter,
     cfg: DictConfig,
     model_device: str,
+    overlap_encoder_with_action: bool = False,
 ) -> tuple[Any, int]:
     """Build a differentiable normalized-action -> JEPA-energy closure."""
     resolved_model_device = torch.device(model_device)
@@ -466,10 +469,50 @@ def _build_jepa_action_guidance(
         [predicted_future_frames[step], predicted_future_frames[step + 1]]
         for step in range(num_ac_steps)
     ]
-    current_rep, target_reps = ac_ranker.encode_guidance_context(
-        current_clip=[previous_jepa_image, current_jepa_image],
-        target_future_clips=target_future_clips,
-    )
+    encoded_context: Optional[tuple[torch.Tensor, torch.Tensor]] = None
+    encoded_context_future: Optional[Future] = None
+    encoder_stream: Optional[torch.cuda.Stream] = None
+    encoder_event: Optional[torch.cuda.Event] = None
+
+    if overlap_encoder_with_action:
+        encoded_context_future = Future()
+        if ac_ranker.device.type == "cuda":
+            encoder_stream = torch.cuda.Stream(device=ac_ranker.device)
+
+        def encode_context() -> None:
+            try:
+                nonlocal encoder_event
+                if encoder_stream is None:
+                    result = ac_ranker.encode_guidance_context(
+                        current_clip=[previous_jepa_image, current_jepa_image],
+                        target_future_clips=target_future_clips,
+                    )
+                else:
+                    with torch.cuda.device(ac_ranker.device), torch.cuda.stream(encoder_stream):
+                        result = ac_ranker.encode_guidance_context(
+                            current_clip=[previous_jepa_image, current_jepa_image],
+                            target_future_clips=target_future_clips,
+                        )
+                        encoder_event = torch.cuda.Event()
+                        encoder_event.record(encoder_stream)
+                encoded_context_future.set_result(result)
+            except BaseException as exc:
+                encoded_context_future.set_exception(exc)
+
+        # The encoder uses its own CUDA stream. The action denoiser starts on
+        # the caller's stream immediately after this thread is launched; the
+        # first guidance step waits only for the encoder event, then runs the
+        # predictor with gradients enabled for the action latent.
+        threading.Thread(
+            target=encode_context,
+            name="vjepa-guidance-encoder",
+            daemon=True,
+        ).start()
+    else:
+        encoded_context = ac_ranker.encode_guidance_context(
+            current_clip=[previous_jepa_image, current_jepa_image],
+            target_future_clips=target_future_clips,
+        )
     initial_state = torch.as_tensor(
         ac_adapter.state_from_observation(obs),
         device=ac_ranker.device,
@@ -484,7 +527,18 @@ def _build_jepa_action_guidance(
     scale = normalizer.scale.to(device=ac_ranker.device, dtype=ac_ranker.dtype)
     offset = normalizer.offset.to(device=ac_ranker.device, dtype=ac_ranker.dtype)
 
+    def resolve_encoded_context() -> tuple[torch.Tensor, torch.Tensor]:
+        nonlocal encoded_context
+        if encoded_context is None:
+            if encoded_context_future is None:
+                raise RuntimeError("Missing asynchronous JEPA encoder future.")
+            encoded_context = encoded_context_future.result()
+            if encoder_event is not None:
+                torch.cuda.current_stream(ac_ranker.device).wait_event(encoder_event)
+        return encoded_context
+
     def guidance_energy(normalized_clean_action: torch.Tensor) -> torch.Tensor:
+        current_rep, target_reps = resolve_encoded_context()
         clean = normalized_clean_action.to(device=ac_ranker.device, dtype=ac_ranker.dtype)
         denormalized = (clean[:, :guidance_horizon] - offset) / scale
         # Match the existing evaluation postprocess without the final discrete
@@ -605,6 +659,10 @@ def _validate_visualize_future_video_cfg(cfg: DictConfig) -> None:
                 else [int(step) for step in after_flow_steps_cfg]
             )
             step_size = float(guidance_cfg.get("step_size", 0.02))
+            max_delta_rms_cfg = guidance_cfg.get("max_delta_rms", None)
+            max_delta_rms = (
+                None if max_delta_rms_cfg is None else float(max_delta_rms_cfg)
+            )
             ac_steps = int(guidance_cfg.get("ac_steps", 1))
             if after_flow_steps is not None:
                 if not after_flow_steps:
@@ -622,6 +680,10 @@ def _validate_visualize_future_video_cfg(cfg: DictConfig) -> None:
                 )
             if step_size <= 0:
                 raise ValueError("vjepa2_ac.guidance.step_size must be positive.")
+            if max_delta_rms is not None and max_delta_rms <= 0:
+                raise ValueError(
+                    "vjepa2_ac.guidance.max_delta_rms must be positive when set."
+                )
             if ac_steps <= 0:
                 raise ValueError("vjepa2_ac.guidance.ac_steps must be positive.")
         replan_steps = _get_replan_steps(cfg)
@@ -941,6 +1003,8 @@ def _predict_action_chunk(
                         "action_guidance_after_steps",
                         "action_guidance_step_size",
                         "action_guidance_horizon",
+                        "action_guidance_normalize_gradient",
+                        "action_guidance_max_delta_rms",
                         "action_guidance_verify_descent",
                     }
                     missing_guidance_args = required_guidance_args - set(action_signature)
@@ -962,6 +1026,9 @@ def _predict_action_chunk(
                         ac_adapter=ac_adapter,
                         cfg=cfg,
                         model_device=model_device,
+                        overlap_encoder_with_action=bool(
+                            guidance_cfg.get("overlap_encoder_with_action", True)
+                        ),
                     )
                     action_infer_kwargs.update(
                         num_action_candidates=1,
@@ -973,6 +1040,14 @@ def _predict_action_chunk(
                             "after_flow_steps", None
                         ),
                         action_guidance_step_size=float(guidance_cfg.get("step_size", 0.02)),
+                        action_guidance_normalize_gradient=bool(
+                            guidance_cfg.get("normalize_gradient", True)
+                        ),
+                        action_guidance_max_delta_rms=(
+                            None
+                            if guidance_cfg.get("max_delta_rms", None) is None
+                            else float(guidance_cfg.get("max_delta_rms"))
+                        ),
                         action_guidance_horizon=guidance_horizon,
                         action_guidance_verify_descent=bool(
                             guidance_cfg.get("verify_descent", True)

@@ -1,0 +1,28 @@
+name: strict_shift1_matched64_20260922
+suite: libero_10
+source_universe: long36_144
+protocol:
+  checkpoint: checkpoints/fastwam/libero_optional_idm_2cam224.pt
+  action_infer_mode: idm
+  video_sigma_shift: 1.0
+  action_sigma_shift: 1.0
+  sigma_shift: null
+  num_inference_steps: 10
+  replan_steps: 8
+
+# The raw-gradient failure experiment uses control_failures (24 pairs). The
+# retention experiment uses control_successes (40 pairs). Together they form
+# the exact matched 64-pair diagnostic set used by the fixed-RMS experiment.
+seeds:
+  7:
+    control_failures: [0, 2, 33, 35, 158, 160, 193, 195]
+    control_successes: [289, 290, 365, 366, 411, 457, 458, 2127, 2128]
+  17:
+    control_failures: [2, 33, 158, 193, 195]
+    control_successes: [35, 289, 290, 410, 411, 457, 458, 2127, 2128]
+  27:
+    control_failures: [2, 33, 158, 193, 1960]
+    control_successes: [35, 195, 289, 290, 365, 366, 410, 411, 457, 458, 2127, 2128]
+  37:
+    control_failures: [2, 33, 193, 195, 411, 2128]
+    control_successes: [0, 35, 289, 290, 365, 366, 410, 457, 458, 2127]

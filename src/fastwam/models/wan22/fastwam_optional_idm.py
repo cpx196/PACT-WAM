@@ -83,6 +83,8 @@ class FastWAMOptionalIDM(FastWAMIDM):
         action_guidance_after_steps: Optional[Sequence[int]] = None,
         action_guidance_step_size: float = 0.0,
         action_guidance_horizon: Optional[int] = None,
+        action_guidance_normalize_gradient: bool = True,
+        action_guidance_max_delta_rms: Optional[float] = None,
         action_guidance_verify_descent: bool = False,
         initial_video_latents: Optional[torch.Tensor] = None,
         precomputed_video_latents: Optional[torch.Tensor] = None,
@@ -118,6 +120,8 @@ class FastWAMOptionalIDM(FastWAMIDM):
                 action_guidance_after_steps=action_guidance_after_steps,
                 action_guidance_step_size=action_guidance_step_size,
                 action_guidance_horizon=action_guidance_horizon,
+                action_guidance_normalize_gradient=action_guidance_normalize_gradient,
+                action_guidance_max_delta_rms=action_guidance_max_delta_rms,
                 action_guidance_verify_descent=action_guidance_verify_descent,
                 initial_video_latents=initial_video_latents,
                 precomputed_video_latents=precomputed_video_latents,
@@ -159,6 +163,8 @@ class FastWAMOptionalIDM(FastWAMIDM):
                 action_guidance_after_steps=action_guidance_after_steps,
                 action_guidance_step_size=action_guidance_step_size,
                 action_guidance_horizon=action_guidance_horizon,
+                action_guidance_normalize_gradient=action_guidance_normalize_gradient,
+                action_guidance_max_delta_rms=action_guidance_max_delta_rms,
                 action_guidance_verify_descent=action_guidance_verify_descent,
             )
 

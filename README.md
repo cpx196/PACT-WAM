@@ -54,10 +54,11 @@ LIBERO 双相机观测 + 任务文本 + proprioception
 MoT attention 读取冻结的完整 future-video tokens。不要在 PACT 的 `separate` 路径
 中调用 `infer_joint()` 后再调用一次 `infer_action()`，否则会白算并丢弃第一条 action。
 
-为保持原始 IDM 的加载与显存时序，默认执行顺序严格为：视频 latent 去噪 → action
-去噪 → VAE decode future video。只有启用 action-flow guidance 时需要先把 future
-video decode 成图像供 JEPA loss 使用，因此 decode 会位于 guided action 去噪之前；
-这不会额外生成 action chunk。
+为保持原始 IDM 的加载与显存时序，非 guidance 路径的执行顺序严格为：视频 latent
+去噪 → action 去噪 → VAE decode future video。启用 action-flow guidance 时，需要先把
+future video decode 成图像；decode 完成后，ActionDiT 去噪与冻结的 JEPA encoder 在
+两个 CUDA stream 上并发执行。到指定 guidance boundary 时只等待 encoder event 并运行
+JEPA predictor，不会在 guidance 点才开始编码，也不会额外生成 action chunk。
 
 ### 2.2 Best-of-K JEPA ranking
 
@@ -75,17 +76,31 @@ V-JEPA2-AC                → ranking 或 action-flow guidance
 
 ### 2.3 Action-flow guidance
 
-guidance 在动作 flow 的指定边界上计算 JEPA loss 对动作的梯度，并在归一化后
-对 FastWAM 的 action flow state 做 additive correction。当前主实验使用：
+guidance 在动作 flow 的指定边界上计算 JEPA loss 对 clean-action estimate 的梯度，
+再对 FastWAM 的普通 scheduler 更新结果施加 additive correction。代码支持两种尺度：
+
+- `normalize_gradient=true`：历史固定-RMS方案；先归一化梯度，再由 `step_size`
+  指定每次 correction RMS；
+- `normalize_gradient=false`：保留原始梯度相对大小；`step_size` 是全局倍率，
+  `max_delta_rms` 只作为最大信任区域，不会把小梯度强制放大到上限。
+
+当前原始梯度验证协议使用：
 
 ```yaml
 guidance.enabled: true
+guidance.overlap_encoder_with_action: true
 guidance.after_flow_steps: [7, 8, 9]
-guidance.step_size: 0.02
+guidance.normalize_gradient: false
+guidance.step_size: 1.0
+guidance.max_delta_rms: 0.02
 guidance.ac_steps: 2
+guidance.verify_descent: true
 ```
 
-guidance 是推理时的附加模块；关闭后，原有 FastWAM 和 Best-of-K ranking 路径保持不变。
+`configs/sim_libero.yaml` 为兼容历史实验仍默认 `normalize_gradient=true`；复现实验时必须
+显式写出上述三个尺度参数。`verify_descent=true` 只增加一次诊断 predictor forward，
+记录 clean-action candidate 的 loss，不决定是否接受 correction。guidance 关闭后，
+原有 FastWAM 和 Best-of-K ranking 路径保持不变。
 
 ## 3. 当前核心配置
 
@@ -138,6 +153,23 @@ EVALUATION.vjepa2_ac.replan_steps: 8
 EVALUATION.vjepa2_ac.candidate_generation_mode: separate
 EVALUATION.vjepa2_ac.low_level_steps_per_ac_step: 4
 EVALUATION.vjepa2_ac.dtype: float32
+```
+
+严格 shift-1 原始梯度 guidance 还需要：
+
+```yaml
+EVALUATION.replan_steps: 8
+EVALUATION.num_inference_steps: 10
+EVALUATION.video_sigma_shift: 1.0
+EVALUATION.action_sigma_shift: 1.0
+EVALUATION.sigma_shift: null
+EVALUATION.vjepa2_ac.guidance.overlap_encoder_with_action: true
+EVALUATION.vjepa2_ac.guidance.after_flow_steps: [7, 8, 9]
+EVALUATION.vjepa2_ac.guidance.normalize_gradient: false
+EVALUATION.vjepa2_ac.guidance.step_size: 1.0
+EVALUATION.vjepa2_ac.guidance.max_delta_rms: 0.02
+EVALUATION.vjepa2_ac.guidance.ac_steps: 2
+EVALUATION.vjepa2_ac.guidance.verify_descent: true
 ```
 
 ### 3.3 Task-365 相机配置
@@ -281,8 +313,10 @@ Long36 使用以下 36 个 LIBERO-Plus task：
 0, 2, 33, 35, 137, 138, 145, 147, 158, 160, 193, 195
 ```
 
-共同设置：`num_inference_steps=10`、`sigma_shift=5.0`、`replan_steps=8`、
-`visualize_future_video=true`、`offload_text_encoder=true`。
+这是早期 unconditioned/联合 scheduler 协议，公共设置为
+`num_inference_steps=10`、`sigma_shift=5.0`、`replan_steps=8`、
+`visualize_future_video=true`、`offload_text_encoder=true`。它不是当前 Optional-IDM
+严格级联的 `video_shift=1/action_shift=1` 协议，二者结果不能直接混合。
 
 | 范围 | FastWAM control | step 7/8/9 guidance |
 |---|---:|---:|
@@ -292,6 +326,31 @@ Long36 使用以下 36 个 LIBERO-Plus task：
 | 背景纹理 | 22/48 | 22/48 |
 
 task-365 在本轮 Long36 中为：control `1/4`，guidance `2/4`。
+
+### 5.5 严格 shift-1 配对诊断
+
+2026-09-22 的诊断集合从 Long36 的 144 个 task-seed pair 中选出64个历史失败案例，
+使用 Optional-IDM 严格级联、video/action shift 均为1、10步denoise和`replan=8`。
+固定pair清单保存在
+[`strict_shift1_matched64_20260922.yaml`](./experiments/libero/task_lists/strict_shift1_matched64_20260922.yaml)。
+同一64个pair上的结果为：
+
+| 方法 | 成功数 | Rescue | Harm |
+|---|---:|---:|---:|
+| No guidance | 40/64 | — | — |
+| 固定RMS 0.02 | 41/64 | 5 | 4 |
+
+固定RMS候选的JEPA loss在 `9654/9939` 次 correction 中下降（97.13%），但净成功
+只增加1例，说明 correction尺度必须单独校准，不能仅用candidate loss下降替代闭环结果。
+
+随后仅在24个 no-guidance失败pair上测试原始梯度倍率1、最大RMS 0.02：得到
+`3/24` rescue，分别为 `seed17/task195`、`seed27/task1960`、
+`seed37/task411`。同一24个pair的固定RMS版本为`5/24`；原始梯度没有新增独有
+rescue，但修正RMS中位数从固定的0.02降为0.00137。完整统计和边界条件见
+[`RAW_GRADIENT_GUIDANCE_REPORT_20260922.md`](./experiments/libero/RAW_GRADIENT_GUIDANCE_REPORT_20260922.md)。
+
+剩余40个 no-guidance成功pair用于衡量原始梯度的success retention/harm；在该评测
+完成前，不应把`3/24`与`40/64`直接相加并报告为完整方法成功率。
 
 ## 6. 当前结论与限制
 
@@ -309,6 +368,8 @@ task-365 在本轮 Long36 中为：control `1/4`，guidance `2/4`。
 - 每个具体 task 通常只有 4 个 seed，样本量不足以支持强统计结论；
 - JEPA 当前主要使用 agent-view，未把腕部视角加入 predictor 输入；
 - PSNR 不能替代接触一致性或任务成功率。
+- `verify_descent`验证的是clean-action candidate，不是写回普通scheduler后的完整
+  flow trajectory；它是诊断量，不是任务成功保证。
 
 ## 7. 目录结构
 
@@ -424,6 +485,21 @@ EVALUATION.vjepa2_ac.guidance.enabled: true
 EVALUATION.vjepa2_ac.guidance.after_flow_steps: [7, 8, 9]
 ```
 
+原始梯度、最大RMS 0.02 的单seed可复现入口：
+
+```bash
+nohup env \
+  GPU_ID=6 \
+  SEED=7 \
+  TASK_FILE=/absolute/path/to/tasks.txt \
+  OUTPUT_ROOT=/absolute/path/to/output \
+  bash scripts/run_jepa_guidance_raw_gradient.sh \
+  > /absolute/path/to/output.nohup.log 2>&1 < /dev/null &
+```
+
+脚本固定使用 Optional-IDM checkpoint、严格 `infer_video() → infer_action_from_video()`、
+video/action shift `1/1`、denoise 10步、`replan=8`和guidance step `7/8/9`。
+
 ### 9.1 Smoke test 基线
 
 提交前至少验证：模型类型为 `FastWAMOptionalIDM`，`infer_video()` 不产生 action，
@@ -480,6 +556,7 @@ python experiments/libero/analyze_trigger_probe.py /path/to/results
 
 - [完整项目与实验总结](./FASTWAM_JEPA_PROJECT_SUMMARY.md)
 - [实验进度记录](./FASTWAM_JEPA_PROGRESS.md)
+- [原始梯度 guidance 报告](./experiments/libero/RAW_GRADIENT_GUIDANCE_REPORT_20260922.md)
 - [LIBERO 本地部署说明](./LOCAL_LIBERO_DEPLOYMENT.md)
 - [打包范围说明](./PACT_WAM_PACKAGE_MANIFEST.md)
 - [Fast-WAM 原始项目页](https://yuantianyuan01.github.io/FastWAM/)

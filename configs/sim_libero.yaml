@@ -51,14 +51,24 @@ EVALUATION:
     # existing Best-of-K rank()/NumPy adapter path is unchanged.
     guidance:
       enabled: false
+      # Decode the WAM future, then launch the frozen JEPA encoder on a
+      # separate CUDA stream while ActionDiT starts denoising. At a guidance
+      # boundary only the predictor remains on the action critical path.
+      overlap_encoder_with_action: true
       # Optional zero-based flow steps after which guidance is applied. When
       # set, this takes precedence over last_flow_steps. For example [6,7,8]
       # inserts guidance at the 6->7, 7->8, and 8->9 boundaries.
       after_flow_steps: null
       last_flow_steps: 2
-      # Step size in FastWAM's normalized action-flow space after RMS
-      # normalization of the JEPA gradient.
+      # Correction multiplier. With normalize_gradient=true this is the fixed
+      # correction RMS; otherwise it scales the raw JEPA gradient.
       step_size: 0.02
+      # Preserve the historical fixed-RMS behavior by default. Set false to
+      # apply the raw JEPA gradient scaled by step_size.
+      normalize_gradient: true
+      # Optional trust-region cap on the RMS of the actual correction. This
+      # applies after step_size and is useful with raw gradients.
+      max_delta_rms: null
       # Start with one V-JEPA2-AC transition (4 LIBERO low-level actions).
       ac_steps: 1
       # Diagnostic forward at the gradient-corrected clean action. Disable

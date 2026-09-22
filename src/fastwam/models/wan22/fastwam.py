@@ -1138,6 +1138,8 @@ class FastWAM(torch.nn.Module):
         action_guidance_after_steps: Optional[Sequence[int]] = None,
         action_guidance_step_size: float = 0.0,
         action_guidance_horizon: Optional[int] = None,
+        action_guidance_normalize_gradient: bool = True,
+        action_guidance_max_delta_rms: Optional[float] = None,
         action_guidance_verify_descent: bool = False,
         action_denoise_trace: bool = False,
     ) -> dict[str, Any]:
@@ -1159,6 +1161,10 @@ class FastWAM(torch.nn.Module):
             raise ValueError("`action_guidance_after_steps` must not contain duplicates.")
         if action_guidance_step_size < 0:
             raise ValueError("`action_guidance_step_size` must be non-negative.")
+        if action_guidance_max_delta_rms is not None and action_guidance_max_delta_rms <= 0:
+            raise ValueError(
+                "`action_guidance_max_delta_rms` must be positive when set."
+            )
         guidance_enabled = (
             action_guidance_fn is not None
             and (
@@ -1505,16 +1511,35 @@ class FastWAM(torch.nn.Module):
                 )
                 prefix_gradient = loss_gradient[:, :horizon]
                 gradient_rms = prefix_gradient.square().mean().sqrt().clamp_min(1e-8)
-                normalized_gradient = torch.zeros_like(loss_gradient)
-                normalized_gradient[:, :horizon] = prefix_gradient / gradient_rms
-                if not torch.isfinite(normalized_gradient).all():
+                guidance_gradient = torch.zeros_like(loss_gradient)
+                guidance_gradient[:, :horizon] = (
+                    prefix_gradient / gradient_rms
+                    if action_guidance_normalize_gradient
+                    else prefix_gradient
+                )
+                unclipped_delta_rms = (
+                    float(action_guidance_step_size)
+                    * guidance_gradient[:, :horizon].square().mean().sqrt()
+                )
+                if action_guidance_max_delta_rms is not None:
+                    clip_scale = torch.clamp(
+                        float(action_guidance_max_delta_rms)
+                        / unclipped_delta_rms.clamp_min(1e-8),
+                        max=1.0,
+                    )
+                    guidance_gradient = guidance_gradient * clip_scale
+                correction_rms = (
+                    float(action_guidance_step_size)
+                    * guidance_gradient[:, :horizon].square().mean().sqrt()
+                )
+                if not torch.isfinite(guidance_gradient).all():
                     raise FloatingPointError("Non-finite JEPA action guidance gradient.")
                 verified_loss = None
                 if action_guidance_verify_descent:
                     with torch.no_grad():
                         verified_loss = action_guidance_fn(
                             clean_action.detach()
-                            - float(action_guidance_step_size) * normalized_gradient.detach()
+                            - float(action_guidance_step_size) * guidance_gradient.detach()
                         )
                         if verified_loss.numel() != 1:
                             verified_loss = verified_loss.mean()
@@ -1522,7 +1547,7 @@ class FastWAM(torch.nn.Module):
                     pred_action,
                     step_delta_action,
                     latents_action,
-                    normalized_gradient,
+                    guidance_gradient,
                     action_guidance_step_size,
                 )
                 guidance_diagnostics.append(
@@ -1536,6 +1561,9 @@ class FastWAM(torch.nn.Module):
                             else float(verified_loss.detach().cpu())
                         ),
                         "gradient_rms": float(gradient_rms.detach().cpu()),
+                        "normalize_gradient": bool(action_guidance_normalize_gradient),
+                        "unclipped_delta_rms": float(unclipped_delta_rms.detach().cpu()),
+                        "correction_rms": float(correction_rms.detach().cpu()),
                     }
                 )
             else:
