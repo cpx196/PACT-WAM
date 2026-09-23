@@ -56,9 +56,10 @@ MoT attention 读取冻结的完整 future-video tokens。不要在 PACT 的 `se
 
 为保持原始 IDM 的加载与显存时序，非 guidance 路径的执行顺序严格为：视频 latent
 去噪 → action 去噪 → VAE decode future video。启用 action-flow guidance 时，需要先把
-future video decode 成图像；decode 完成后，ActionDiT 去噪与冻结的 JEPA encoder 在
-两个 CUDA stream 上并发执行。到指定 guidance boundary 时只等待 encoder event 并运行
-JEPA predictor，不会在 guidance 点才开始编码，也不会额外生成 action chunk。
+future video decode 成图像。**始终调用 guidance** 时，ActionDiT 去噪与冻结的
+JEPA encoder 可在两个 CUDA stream 上并发执行；**在线 trigger** 时，当前实现为
+lazy encoder：没有触发的 replan 不运行 JEPA encoder，触发后才在首次能量计算时
+编码。两种路径都复用同一个 action chunk，不会为 guidance 额外生成 action。
 
 ### 2.2 Best-of-K JEPA ranking
 
@@ -352,6 +353,37 @@ rescue，但修正RMS中位数从固定的0.02降为0.00137。完整统计和边
 剩余40个 no-guidance成功pair用于衡量原始梯度的success retention/harm；在该评测
 完成前，不应把`3/24`与`40/64`直接相加并报告为完整方法成功率。
 
+### 5.6 严格 shift-1 Long36 × 4 seeds：当前可比较结果
+
+以下三组均为同一 36 个 Long36 task、seed `7/17/27/37`（144 条轨迹），
+Optional-IDM、video/action shift `1/1`、10-step action denoise、`replan_steps=8`。
+它们**不能**与 §5.4 的旧 `sigma_shift=5` 结果混合。4× 表示保留原始 JEPA
+gradient 方向及相对大小，乘以 `step_size=4.0`，每次 correction RMS 上限 0.02；
+不是把视频生成倍率调为 4×。
+
+| 在线方案 | 成功数 | 成功率 | 说明 |
+|---|---:|---:|---|
+| No guidance | 114/144 | 79.2% | 由 probe64 + remaining80 的无 guidance rollout 合并 |
+| 每次 replan 都用 4× 原始梯度 JEPA guidance | 120/144 | 83.3% | guidance steps 7/8/9 |
+| `R5/R0 ≤ 0.9576` 才用同一 4× guidance | 114/144 | 79.2% | 在线响应比触发，无前四次强制调用 |
+
+原始结果目录分别为 `evaluate_results/trigger_probe_long36_failures64_shift1_20260922`
+及 `evaluate_results/trigger_probe_long36_remaining80_shift1_20260922`（无 guidance）、
+`evaluate_results/guidance789_rawgrad4x_long36_full144_shift1_cap0p02_20260922`
+（每次调用）和
+`evaluate_results/trigger30_r5r0_rawgrad4x_long36_full144_shift1_cap0p02_20260923`
+（旧 trigger）；大体积 rollout/视频不纳入 Git。
+
+按同一 seed/task 对齐，旧 trigger 与 no-guidance 的成功状态有 6 个不同，
+与全调用 4× 有 10 个不同；二者并集为 13 个敏感 pair。只在这 13 个 pair 上
+重跑“前四次 replan 强制调用 + 后续仍按阈值”后，13 条均完成，替换进旧 trigger
+的其余 131 条得到**合成估计** `116/144`（80.6%，相对旧 trigger 3 个 rescue、
+1 个 harm）。这不是完整 144 条在线重跑的结果；其余 131 条不变只是合成假设。
+
+完整 144 条 force-first4 在线重跑于 2026-09-23 启动，输出目录为
+`evaluate_results/trigger30_forcefirst4_rawgrad4x_long36_full144_shift1_cap0p02_20260923`。
+截至本文更新时尚未完成，**不应**将合成的 116/144 报作其最终准确率。
+
 ## 6. 当前结论与限制
 
 当前结果支持较谨慎的结论：
@@ -551,6 +583,46 @@ python experiments/libero/analyze_trigger_probe.py /path/to/results
 
 脚本输出每个 denoise step 的 Pearson / Spearman 相关性、低中高 `R_future` 分组，
 以及“最低 20% response 召回最高 20% JEPA loss”的 recall 和 JEPA call rate。
+
+### 9.3 在线 response-retention trigger
+
+ActionExpert 在每个 denoise step、每层分别计算 observation、imagined future、
+action-token 的 attention response。按层聚合后定义
+`R_k = ||o_future|| / (||o_obs|| + ||o_future|| + ||o_action|| + ε)`。
+当前 trigger 比较 `R5/R0`：低于阈值表示 action 从噪声逐渐成形时 future 的
+相对贡献下降，作为“模型可能放弃该 future”的**代理信号**；它不证明 future
+错误，也不保证 JEPA guidance 有益。ratio 部分抵消 task 固有的 response 尺度。
+
+2026-09-22 的离线 probe 覆盖上述 144 条无 guidance 轨迹，共 6,366 个有效
+planning points。把 JEPA loss 最高的 20% 定义为代理阳性，并将**调用预算固定为
+30%** 时，`R5/R0 ≤ 0.957574683` 选中 1,910/6,366 个点；对该代理标签的
+precision 为 30.7%，recall 为 46.0%。20% 是代理阳性比例，**不是调用预算**。
+在线实验使用四舍五入阈值 `0.9576`，实际调用率会随闭环轨迹改变。
+
+原 144 条离线轨迹及旧 trigger 在线运行中，replan `0/1/2/3` 均未触发；
+离线 replan `4/5/6` 的触发数依次为 `20/54/98`（每位置 144 条）。这不是
+程序跳过早期 replan，而是该批数据的 ratio 早期普遍高于阈值；简单改用绝对
+`R5`、下降幅度或下降斜率会改变代理 recall，却不能直接证明闭环更好。
+
+当前待验证方案保留后续原始 ratio trigger，并令 `force_first_replans=4`，
+即每条轨迹的 replan `0–3` 必定调用同一 4× guidance，replan `4+` 仍按
+`R5/R0 ≤ 0.9576` 决策。它**不再严格受 30% 总调用预算约束**；按原离线轨迹
+静态加上早期 576 次调用，估算为 `2,486/6,366 = 39.1%`。若固定总预算
+30% 并挪走后期调用，代理 recall 反而下降，因此该方案有意先接受额外开销，
+用完整在线 144 条重跑验证准确率与实际调用率。
+
+主要超参：`num_inference_steps=10`、`replan_steps=8`、
+`video_sigma_shift=action_sigma_shift=1.0`、`sigma_shift=null`、
+`after_flow_steps=[7,8,9]`、`normalize_gradient=false`、`step_size=4.0`、
+`max_delta_rms=0.02`、`ac_steps=2`、`verify_descent=false`、
+`reference_step=0`、`decision_step=5`。准确率运行关闭 `compile_action_infer`
+和 `compile_predictor`；编译后延迟测量是另一套实验口径。触发路径当前先解码
+JEPA 所需 future 帧，未触发时不执行 JEPA encoder/predictor；触发后才懒加载
+编码与 guidance。相关实现位于 `eval_libero_single.py`、
+`vjepa2_ac_ranker.py` 和 `fastwam_optional_idm.py`，启动脚本为
+`scripts/launch_trigger_forcefirst4_full144_dual.sh`。可覆盖脚本中的
+`OUTPUT_ROOT`，但不得复用已有输出目录。完整评测进度和最终汇总应以该目录
+中的各 seed 日志与结果 JSON 为准。
 
 ## 10. 相关文档与引用
 

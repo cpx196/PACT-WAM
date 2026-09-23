@@ -472,8 +472,17 @@ class FastWAMIDM(FastWAMJoint):
         video_latents: torch.Tensor,
         *,
         tiled: bool = False,
+        compile_vae_decode: bool = False,
     ) -> list[Any]:
         """Decode an already generated video without running either denoiser."""
+        if compile_vae_decode and not tiled:
+            if not hasattr(self, "_decode_latents_compiled"):
+                self._decode_latents_compiled = torch.compile(
+                    self._decode_latents,
+                    mode="reduce-overhead",
+                    fullgraph=False,
+                )
+            return self._decode_latents_compiled(video_latents, tiled=False)
         return self._decode_latents(video_latents, tiled=tiled)
 
     @torch.no_grad()
@@ -561,6 +570,9 @@ class FastWAMIDM(FastWAMJoint):
         action_guidance_normalize_gradient: bool = True,
         action_guidance_max_delta_rms: Optional[float] = None,
         action_guidance_verify_descent: bool = False,
+        action_guidance_trigger_reference_step: Optional[int] = None,
+        action_guidance_trigger_decision_step: Optional[int] = None,
+        action_guidance_trigger_ratio_threshold: Optional[float] = None,
         initial_video_latents: Optional[torch.Tensor] = None,
         precomputed_video_latents: Optional[torch.Tensor] = None,
         initial_action_latents: Optional[torch.Tensor] = None,
@@ -608,6 +620,41 @@ class FastWAMIDM(FastWAMJoint):
             )
             and action_guidance_step_size > 0
         )
+        trigger_values = (
+            action_guidance_trigger_reference_step,
+            action_guidance_trigger_decision_step,
+            action_guidance_trigger_ratio_threshold,
+        )
+        trigger_enabled = all(value is not None for value in trigger_values)
+        if any(value is not None for value in trigger_values) and not trigger_enabled:
+            raise ValueError(
+                "Online action-guidance trigger requires reference_step, "
+                "decision_step, and ratio_threshold together."
+            )
+        trigger_reference_step = (
+            None
+            if action_guidance_trigger_reference_step is None
+            else int(action_guidance_trigger_reference_step)
+        )
+        trigger_decision_step = (
+            None
+            if action_guidance_trigger_decision_step is None
+            else int(action_guidance_trigger_decision_step)
+        )
+        trigger_ratio_threshold = (
+            None
+            if action_guidance_trigger_ratio_threshold is None
+            else float(action_guidance_trigger_ratio_threshold)
+        )
+        if trigger_enabled:
+            if not guidance_enabled:
+                raise ValueError("Online action-guidance trigger requires guidance to be enabled.")
+            if trigger_reference_step < 0 or trigger_decision_step <= trigger_reference_step:
+                raise ValueError(
+                    "Online action-guidance trigger requires 0 <= reference_step < decision_step."
+                )
+            if trigger_ratio_threshold <= 0:
+                raise ValueError("Online action-guidance trigger ratio_threshold must be positive.")
         if guidance_enabled and num_action_candidates != 1:
             raise ValueError("Action-flow guidance currently requires num_action_candidates=1.")
         if action_guidance_horizon is not None and not 0 < action_guidance_horizon <= action_horizon:
@@ -887,8 +934,24 @@ class FastWAMIDM(FastWAMJoint):
                 )
             guidance_after_steps = set(explicit_guidance_steps)
 
+        if trigger_enabled:
+            if trigger_decision_step >= total_action_steps:
+                raise ValueError(
+                    "Online action-guidance trigger decision_step must be smaller than "
+                    f"the number of action flow steps ({total_action_steps})."
+                )
+            if guidance_after_steps and trigger_decision_step >= min(guidance_after_steps):
+                raise ValueError(
+                    "Online action-guidance trigger decision_step must precede every "
+                    "configured guidance step."
+                )
+
         flow_trace = []
         response_trace = []
+        trigger_reference_response = None
+        trigger_decision_response = None
+        trigger_response_ratio = None
+        guidance_triggered = not trigger_enabled
         for step_index, (step_t_action, step_delta_action) in enumerate(
             zip(infer_timesteps_action, infer_deltas_action)
         ):
@@ -897,7 +960,11 @@ class FastWAMIDM(FastWAMJoint):
                 dtype=latents_action.dtype,
                 device=self.device,
             )
-            response_layers = [] if action_response_trace else None
+            collect_trigger_response = trigger_enabled and step_index in {
+                trigger_reference_step,
+                trigger_decision_step,
+            }
+            response_layers = [] if action_response_trace or collect_trigger_response else None
             pred_action = denoise_action_with_video_cache(
                 latents_action=latents_action,
                 timestep_action=timestep_action,
@@ -910,24 +977,41 @@ class FastWAMIDM(FastWAMJoint):
                 video_tokens_per_frame=video_tokens_per_frame,
             )
             if response_layers is not None:
-                response_trace.append(
-                    {
-                        "denoise_step": int(step_index),
-                        "timestep": float(step_t_action.float().item()),
-                        "r_future_layer_mean": float(
-                            sum(item["r_future"] for item in response_layers)
-                            / len(response_layers)
-                        ),
-                        "r_video_layer_mean": float(
-                            sum(item["r_video"] for item in response_layers)
-                            / len(response_layers)
-                        ),
-                        "layers": response_layers,
-                    }
+                r_future_layer_mean = float(
+                    sum(item["r_future"] for item in response_layers) / len(response_layers)
                 )
+                if action_response_trace:
+                    response_trace.append(
+                        {
+                            "denoise_step": int(step_index),
+                            "timestep": float(step_t_action.float().item()),
+                            "r_future_layer_mean": r_future_layer_mean,
+                            "r_video_layer_mean": float(
+                                sum(item["r_video"] for item in response_layers)
+                                / len(response_layers)
+                            ),
+                            "layers": response_layers,
+                        }
+                    )
+                if trigger_enabled and step_index == trigger_reference_step:
+                    trigger_reference_response = r_future_layer_mean
+                if trigger_enabled and step_index == trigger_decision_step:
+                    trigger_decision_response = r_future_layer_mean
+                    if trigger_reference_response is None:
+                        raise RuntimeError("Missing online trigger reference response.")
+                    trigger_response_ratio = trigger_decision_response / max(
+                        trigger_reference_response, 1e-12
+                    )
+                    guidance_triggered = trigger_response_ratio <= trigger_ratio_threshold
+
+            guidance_applied = (
+                guidance_enabled
+                and step_index in guidance_after_steps
+                and guidance_triggered
+            )
 
             clean_action_estimate = None
-            if action_flow_trace or (guidance_enabled and step_index in guidance_after_steps):
+            if action_flow_trace or guidance_applied:
                 clean_action_estimate = self.infer_action_scheduler.estimate_clean_sample(
                     model_output=pred_action,
                     sample=latents_action,
@@ -940,7 +1024,6 @@ class FastWAMIDM(FastWAMJoint):
             base_step = self.infer_action_scheduler.step(
                 pred_action, step_delta_action, latents_action
             )
-            guidance_applied = guidance_enabled and step_index in guidance_after_steps
             if guidance_applied:
                 # FastWAM uses v = epsilon - a0 and
                 # a_sigma = (1-sigma) * a0 + sigma * epsilon.
@@ -1046,6 +1129,16 @@ class FastWAMIDM(FastWAMJoint):
             "video_latents": latents_video,
             "action": action_out[0] if num_action_candidates == 1 else action_out,
             "action_guidance": guidance_diagnostics,
+            "action_guidance_trigger": {
+                "enabled": bool(trigger_enabled),
+                "reference_step": trigger_reference_step,
+                "decision_step": trigger_decision_step,
+                "ratio_threshold": trigger_ratio_threshold,
+                "reference_response": trigger_reference_response,
+                "decision_response": trigger_decision_response,
+                "response_ratio": trigger_response_ratio,
+                "triggered": bool(guidance_triggered) if trigger_enabled else None,
+            },
         }
         if action_flow_trace:
             result["action_flow_trace"] = flow_trace

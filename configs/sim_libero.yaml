@@ -55,6 +55,8 @@ EVALUATION:
       # separate CUDA stream while ActionDiT starts denoising. At a guidance
       # boundary only the predictor remains on the action critical path.
       overlap_encoder_with_action: true
+      # Compile the differentiable JEPA predictor forward/backward with Inductor.
+      compile_predictor: false
       # Optional zero-based flow steps after which guidance is applied. When
       # set, this takes precedence over last_flow_steps. For example [6,7,8]
       # inserts guidance at the 6->7, 7->8, and 8->9 boundaries.
@@ -74,6 +76,18 @@ EVALUATION:
       # Diagnostic forward at the gradient-corrected clean action. Disable
       # after calibration to remove this extra predictor call.
       verify_descent: true
+      # Optional online response-retention trigger.  When enabled, guidance is
+      # applied only if R_future(decision_step) / R_future(reference_step) is
+      # at or below ratio_threshold.  The fixed threshold is calibrated
+      # offline; it is not recomputed from the current rollout.
+      trigger:
+        enabled: false
+        reference_step: 0
+        decision_step: 5
+        ratio_threshold: 0.9576
+        # Force this many initial episode replans, then use ratio_threshold.
+        # Zero preserves the original response-only trigger.
+        force_first_replans: 0
     # `separate` generates the reference future with infer_video(), then passes
     # its frozen latents to infer_action_from_video(). No throwaway action is
     # generated during the video stage. `joint` retains the experimental path.

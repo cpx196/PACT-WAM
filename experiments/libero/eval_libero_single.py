@@ -440,6 +440,7 @@ def _build_jepa_action_guidance(
     cfg: DictConfig,
     model_device: str,
     overlap_encoder_with_action: bool = False,
+    lazy_encoder: bool = False,
 ) -> tuple[Any, int]:
     """Build a differentiable normalized-action -> JEPA-energy closure."""
     resolved_model_device = torch.device(model_device)
@@ -474,7 +475,12 @@ def _build_jepa_action_guidance(
     encoder_stream: Optional[torch.cuda.Stream] = None
     encoder_event: Optional[torch.cuda.Event] = None
 
-    if overlap_encoder_with_action:
+    if lazy_encoder:
+        # Online response triggers are decided inside ActionDiT at a later
+        # denoise step.  Defer the frozen JEPA encoder until the first energy
+        # call so non-triggered planning points pay no JEPA model cost.
+        pass
+    elif overlap_encoder_with_action:
         encoded_context_future = Future()
         if ac_ranker.device.type == "cuda":
             encoder_stream = torch.cuda.Stream(device=ac_ranker.device)
@@ -531,10 +537,14 @@ def _build_jepa_action_guidance(
         nonlocal encoded_context
         if encoded_context is None:
             if encoded_context_future is None:
-                raise RuntimeError("Missing asynchronous JEPA encoder future.")
-            encoded_context = encoded_context_future.result()
-            if encoder_event is not None:
-                torch.cuda.current_stream(ac_ranker.device).wait_event(encoder_event)
+                encoded_context = ac_ranker.encode_guidance_context(
+                    current_clip=[previous_jepa_image, current_jepa_image],
+                    target_future_clips=target_future_clips,
+                )
+            else:
+                encoded_context = encoded_context_future.result()
+                if encoder_event is not None:
+                    torch.cuda.current_stream(ac_ranker.device).wait_event(encoder_event)
         return encoded_context
 
     def guidance_energy(normalized_clean_action: torch.Tensor) -> torch.Tensor:
@@ -664,6 +674,8 @@ def _validate_visualize_future_video_cfg(cfg: DictConfig) -> None:
                 None if max_delta_rms_cfg is None else float(max_delta_rms_cfg)
             )
             ac_steps = int(guidance_cfg.get("ac_steps", 1))
+            trigger_cfg = guidance_cfg.get("trigger", {})
+            trigger_enabled = bool(trigger_cfg.get("enabled", False))
             if after_flow_steps is not None:
                 if not after_flow_steps:
                     raise ValueError(
@@ -686,6 +698,23 @@ def _validate_visualize_future_video_cfg(cfg: DictConfig) -> None:
                 )
             if ac_steps <= 0:
                 raise ValueError("vjepa2_ac.guidance.ac_steps must be positive.")
+            if trigger_enabled:
+                reference_step = int(trigger_cfg.get("reference_step", 0))
+                decision_step = int(trigger_cfg.get("decision_step", 5))
+                ratio_threshold = float(trigger_cfg.get("ratio_threshold", 0.9576))
+                force_first_replans = int(trigger_cfg.get("force_first_replans", 0))
+                if reference_step < 0 or decision_step <= reference_step:
+                    raise ValueError(
+                        "guidance.trigger requires 0 <= reference_step < decision_step."
+                    )
+                if ratio_threshold <= 0:
+                    raise ValueError("guidance.trigger.ratio_threshold must be positive.")
+                if force_first_replans < 0:
+                    raise ValueError("guidance.trigger.force_first_replans must be non-negative.")
+                if after_flow_steps is not None and decision_step >= min(after_flow_steps):
+                    raise ValueError(
+                        "guidance.trigger.decision_step must precede every guidance step."
+                    )
         replan_steps = _get_replan_steps(cfg)
         interval = int(cfg.data.train.action_video_freq_ratio)
         if replan_steps <= 0 or replan_steps % interval != 0:
@@ -788,19 +817,34 @@ def _predict_action_chunk(
     ac_adapter: Optional[LiberoACAdapter] = None,
     executed_horizon: Optional[int] = None,
     action_convergence_logger: Optional[ActionDenoiseConvergenceLogger] = None,
+    replan_index: int = 0,
 ) -> tuple[np.ndarray, dict, Optional[list[Image.Image]], Optional[dict[str, Any]]]:
     timing_enabled = bool(cfg.EVALUATION.get("timing_enabled", False))
     action_denoise_trace_enabled = bool(cfg.EVALUATION.get("action_denoise_trace", False))
     trigger_probe_enabled = bool(
         cfg.EVALUATION.get("trigger_probe", {}).get("enabled", False)
     )
+    guidance_trigger_enabled = bool(
+        cfg.EVALUATION.get("vjepa2_ac", {})
+        .get("guidance", {})
+        .get("trigger", {})
+        .get("enabled", False)
+    )
     ranking_enabled = bool(cfg.EVALUATION.vjepa2_ac.get("enabled", False))
     timings: Optional[dict[str, Any]] = (
-        {} if timing_enabled or action_denoise_trace_enabled or trigger_probe_enabled else None
+        {}
+        if timing_enabled
+        or action_denoise_trace_enabled
+        or trigger_probe_enabled
+        or guidance_trigger_enabled
+        else None
     )
     total_start = (
         time.perf_counter()
-        if timing_enabled or action_denoise_trace_enabled or trigger_probe_enabled
+        if timing_enabled
+        or action_denoise_trace_enabled
+        or trigger_probe_enabled
+        or guidance_trigger_enabled
         else 0.0
     )
     num_inference_steps_cfg = cfg.EVALUATION.get("num_inference_steps", None)
@@ -970,6 +1014,7 @@ def _predict_action_chunk(
                 pred["video"] = model.decode_video_latents(
                     pred["video_latents"],
                     tiled=bool(cfg.EVALUATION.get("tiled", False)),
+                    compile_vae_decode=bool(cfg.EVALUATION.get("compile_vae_decode", False)),
                 )
                 if timing_enabled:
                     _synchronize_cuda(model_device)
@@ -997,6 +1042,8 @@ def _predict_action_chunk(
                         cfg.EVALUATION.get("action_sigma_shift", 1.0)
                     )
                 if guidance_enabled:
+                    trigger_cfg = guidance_cfg.get("trigger", {})
+                    online_trigger_enabled = bool(trigger_cfg.get("enabled", False))
                     required_guidance_args = {
                         "action_guidance_fn",
                         "action_guidance_last_steps",
@@ -1007,6 +1054,14 @@ def _predict_action_chunk(
                         "action_guidance_max_delta_rms",
                         "action_guidance_verify_descent",
                     }
+                    if online_trigger_enabled:
+                        required_guidance_args.update(
+                            {
+                                "action_guidance_trigger_reference_step",
+                                "action_guidance_trigger_decision_step",
+                                "action_guidance_trigger_ratio_threshold",
+                            }
+                        )
                     missing_guidance_args = required_guidance_args - set(action_signature)
                     if missing_guidance_args:
                         raise TypeError(
@@ -1029,6 +1084,7 @@ def _predict_action_chunk(
                         overlap_encoder_with_action=bool(
                             guidance_cfg.get("overlap_encoder_with_action", True)
                         ),
+                        lazy_encoder=online_trigger_enabled,
                     )
                     action_infer_kwargs.update(
                         num_action_candidates=1,
@@ -1053,6 +1109,27 @@ def _predict_action_chunk(
                             guidance_cfg.get("verify_descent", True)
                         ),
                     )
+                    if online_trigger_enabled:
+                        force_this_replan = replan_index < int(
+                            trigger_cfg.get("force_first_replans", 0)
+                        )
+                        action_infer_kwargs.update(
+                            action_guidance_trigger_reference_step=int(
+                                trigger_cfg.get("reference_step", 0)
+                            ),
+                            action_guidance_trigger_decision_step=int(
+                                trigger_cfg.get("decision_step", 5)
+                            ),
+                            # R_future is in [0, 1] and the ratio denominator is
+                            # clamped at 1e-12. This finite sentinel therefore
+                            # forces the existing trigger path without changing
+                            # its denoise/guidance schedule or JSON format.
+                            action_guidance_trigger_ratio_threshold=float(
+                                1e12
+                                if force_this_replan
+                                else trigger_cfg.get("ratio_threshold", 0.9576)
+                            ),
+                        )
                 else:
                     action_infer_kwargs["num_action_candidates"] = (
                         1
@@ -1108,11 +1185,19 @@ def _predict_action_chunk(
                         "V-JEPA2-AC action guidance diagnostics=%s",
                         action_pred.get("action_guidance", []),
                     )
+                    if online_trigger_enabled and timings is not None:
+                        timings["action_guidance_trigger"] = action_pred.get(
+                            "action_guidance_trigger", {}
+                        )
+                        timings["action_guidance_trigger"]["forced_first_replans"] = (
+                            force_this_replan
+                        )
             if split_idm_inference and "video" not in pred:
                 stage_start = time.perf_counter() if timing_enabled else 0.0
                 pred["video"] = model.decode_video_latents(
                     pred["video_latents"],
                     tiled=bool(cfg.EVALUATION.get("tiled", False)),
+                    compile_vae_decode=bool(cfg.EVALUATION.get("compile_vae_decode", False)),
                 )
                 if timing_enabled:
                     _synchronize_cuda(model_device)
@@ -1226,7 +1311,12 @@ def _predict_action_chunk(
         assert timings is not None
         timings["trigger_probe_jepa_loss"] = jepa_loss
         timings["trigger_probe_jepa_s"] = time.perf_counter() - trigger_start
-    if timing_enabled or action_denoise_trace_enabled or trigger_probe_enabled:
+    if (
+        timing_enabled
+        or action_denoise_trace_enabled
+        or trigger_probe_enabled
+        or guidance_trigger_enabled
+    ):
         timings["total_s"] = time.perf_counter() - total_start
     return action, imgs, predicted_future_frames, timings
 
@@ -1278,9 +1368,20 @@ def run_single_episode(
     trigger_probe_enabled = bool(
         cfg.EVALUATION.get("trigger_probe", {}).get("enabled", False)
     )
+    guidance_trigger_enabled = bool(
+        cfg.EVALUATION.get("vjepa2_ac", {})
+        .get("guidance", {})
+        .get("trigger", {})
+        .get("enabled", False)
+    )
     episode_start = (
         time.perf_counter()
-        if timing_enabled or action_denoise_trace_enabled or trigger_probe_enabled
+        if (
+            timing_enabled
+            or action_denoise_trace_enabled
+            or trigger_probe_enabled
+            or guidance_trigger_enabled
+        )
         else 0.0
     )
     replan_timings: list[dict[str, Any]] = []
@@ -1346,6 +1447,7 @@ def run_single_episode(
                 ac_adapter=ac_adapter,
                 executed_horizon=replan_steps,
                 action_convergence_logger=action_convergence_logger,
+                replan_index=current_replan_idx + 1,
             )
             if replan_timing is not None:
                 if bool(cfg.EVALUATION.get("record_first_action_chunk", False)) and not replan_timings:
@@ -1454,7 +1556,12 @@ def run_single_episode(
         float(np.mean(episode_future_clip_psnr)) if len(episode_future_clip_psnr) > 0 else None
     )
     episode_timing: Optional[dict[str, Any]] = None
-    if timing_enabled or action_denoise_trace_enabled or trigger_probe_enabled:
+    if (
+        timing_enabled
+        or action_denoise_trace_enabled
+        or trigger_probe_enabled
+        or guidance_trigger_enabled
+    ):
         total_replan_seconds = float(sum(item["total_s"] for item in replan_timings))
         episode_timing = {
             "episode_wall_s": time.perf_counter() - episode_start,
@@ -1501,9 +1608,17 @@ def run_single_task(
     if visualize_future_video:
         results["episode_future_video_psnr"] = []
         results["future_video_psnr_mean"] = None
-    if bool(cfg.EVALUATION.get("timing_enabled", False)) or bool(
-        cfg.EVALUATION.get("action_denoise_trace", False)
-    ) or bool(cfg.EVALUATION.get("trigger_probe", {}).get("enabled", False)):
+    if (
+        bool(cfg.EVALUATION.get("timing_enabled", False))
+        or bool(cfg.EVALUATION.get("action_denoise_trace", False))
+        or bool(cfg.EVALUATION.get("trigger_probe", {}).get("enabled", False))
+        or bool(
+            cfg.EVALUATION.get("vjepa2_ac", {})
+            .get("guidance", {})
+            .get("trigger", {})
+            .get("enabled", False)
+        )
+    ):
         results["episode_timings"] = []
 
     for trial_idx in range(int(cfg.EVALUATION.num_trials)):
@@ -1897,6 +2012,9 @@ def eval_single_process(cfg: DictConfig):
             device=ac_device,
             dtype=ac_dtypes[ac_dtype_name],
             max_ac_steps=max_ac_steps,
+            compile_predictor=bool(
+                ac_cfg.get("guidance", {}).get("compile_predictor", False)
+            ),
         )
         if trigger_probe_enabled and not bool(ac_cfg.get("enabled", False)):
             logging.info(
@@ -1907,9 +2025,11 @@ def eval_single_process(cfg: DictConfig):
             )
         elif bool(ac_cfg.get("guidance", {}).get("enabled", False)):
             logging.info(
-                "Enabled V-JEPA2-AC action-flow guidance on %s with %s.",
+                "Enabled V-JEPA2-AC action-flow guidance on %s with %s "
+                "(compile_predictor=%s).",
                 ac_device,
                 ac_dtypes[ac_dtype_name],
+                bool(ac_cfg.get("guidance", {}).get("compile_predictor", False)),
             )
         else:
             logging.info(

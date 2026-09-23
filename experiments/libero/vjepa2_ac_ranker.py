@@ -279,6 +279,7 @@ class VJEPA2ACRanker:
         device: str = "cuda:1",
         dtype: torch.dtype = torch.float32,
         max_ac_steps: int = 8,
+        compile_predictor: bool = False,
     ) -> None:
         repo = str(Path(vjepa2_repo).resolve())
         if repo not in sys.path:
@@ -309,6 +310,12 @@ class VJEPA2ACRanker:
         self.max_ac_steps = int(max_ac_steps)
         self.encoder.to(device=self.device, dtype=dtype).eval().requires_grad_(False)
         self.predictor.to(device=self.device, dtype=dtype).eval().requires_grad_(False)
+        if compile_predictor:
+            self.predictor = torch.compile(
+                self.predictor,
+                mode="reduce-overhead",
+                fullgraph=True,
+            )
         self.tokens_per_frame = (256 // int(self.encoder.patch_size)) ** 2
         self.last_timing: dict[str, float] = {}
 
