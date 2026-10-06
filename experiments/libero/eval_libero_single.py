@@ -2015,6 +2015,13 @@ def eval_single_process(cfg: DictConfig):
             compile_predictor=bool(
                 ac_cfg.get("guidance", {}).get("compile_predictor", False)
             ),
+            encoder_image_rotation_degrees=int(
+                ac_cfg.get("encoder_image_rotation_degrees", 0)
+            ),
+        )
+        logging.info(
+            "JEPA encoder input rotation after agentview extraction: %d degrees",
+            ac_ranker.encoder_image_rotation_degrees,
         )
         if trigger_probe_enabled and not bool(ac_cfg.get("enabled", False)):
             logging.info(

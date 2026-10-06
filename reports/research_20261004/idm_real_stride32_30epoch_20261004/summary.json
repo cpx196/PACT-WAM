@@ -1,0 +1,84 @@
+{
+  "config": {
+    "train": 3871,
+    "val": 436,
+    "stride": 32,
+    "epochs": 30,
+    "early_stopping": false,
+    "batch": 8,
+    "steps_per_epoch": 484,
+    "seed": 239,
+    "dtype": "float32",
+    "dropout": 0.1,
+    "idm_lr": 0.0001,
+    "head_lr": 0.0003,
+    "weight_decay": 0.01,
+    "grad_clip": 1,
+    "warm_start": "/data/pxchen/PACT-WAM/artifacts/libero10_idm_pretrain_then_mlp450_20261004/stage1/best.pt",
+    "optimizer": "fresh AdamW for expanded dataset",
+    "encoder_frozen": true,
+    "predictor_not_used": true,
+    "raw_action_input": false,
+    "training_input": "cached real JEPA current and two future clips; all spatial tokens",
+    "target": "two 4-step normalized demonstrated 6D action segments; no gripper",
+    "wam_future": "validation diagnostic only; never used for training",
+    "manifest": "/data/pxchen/PACT-WAM/artifacts/libero10_idm_dense_windows_20261004/windows_stride32.json",
+    "token_cache": "/data/pxchen/PACT-WAM/artifacts/libero10_idm_cache_stride32_20261004/tokens",
+    "idm_parameters": 21284736,
+    "total_parameters": 21626008
+  },
+  "initial": {
+    "real_val": {
+      "mse": 0.023843690752983093,
+      "la1_la2_cosine": 0.9190443754196167,
+      "la_channel_std": 1.2781176567077637
+    },
+    "wam_val": {
+      "mse": 0.02858109213411808,
+      "la1_la2_cosine": 0.9107863903045654,
+      "la_channel_std": 1.2952169179916382
+    },
+    "repeated_current": {
+      "mse": 0.05662407726049423,
+      "la1_la2_cosine": 1.0,
+      "la_channel_std": 1.3703843355178833
+    },
+    "train_probe": {
+      "mse": 0.02226318046450615,
+      "la1_la2_cosine": 0.9234497547149658,
+      "la_channel_std": 1.2669100761413574
+    }
+  },
+  "best_val_mse": 0.013324243947863579,
+  "best_epoch": 29,
+  "final": {
+    "epoch": 30,
+    "step": 14520,
+    "optimization_mse": 0.005305475497859389,
+    "real_val": {
+      "mse": 0.013468687422573566,
+      "la1_la2_cosine": 0.9329110383987427,
+      "la_channel_std": 1.462770938873291
+    },
+    "wam_val": {
+      "mse": 0.021631745621562004,
+      "la1_la2_cosine": 0.9224427938461304,
+      "la_channel_std": 1.4781525135040283
+    },
+    "repeated_current": {
+      "mse": 0.05993441119790077,
+      "la1_la2_cosine": 1.0,
+      "la_channel_std": 1.5616040229797363
+    },
+    "train_probe": {
+      "mse": 0.0044078887440264225,
+      "la1_la2_cosine": 0.9438725709915161,
+      "la_channel_std": 1.4769374132156372
+    },
+    "clip_rate": 0.0,
+    "peak_gib": 2.2765321731567383,
+    "epoch_seconds": 45.97684356756508,
+    "seconds": 1495.0426092855632
+  },
+  "seconds": 1496.636305309832
+}

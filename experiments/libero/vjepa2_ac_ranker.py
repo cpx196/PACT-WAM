@@ -280,6 +280,7 @@ class VJEPA2ACRanker:
         dtype: torch.dtype = torch.float32,
         max_ac_steps: int = 8,
         compile_predictor: bool = False,
+        encoder_image_rotation_degrees: int = 0,
     ) -> None:
         repo = str(Path(vjepa2_repo).resolve())
         if repo not in sys.path:
@@ -308,6 +309,9 @@ class VJEPA2ACRanker:
         self.device = torch.device(device)
         self.dtype = dtype
         self.max_ac_steps = int(max_ac_steps)
+        self.encoder_image_rotation_degrees = int(encoder_image_rotation_degrees) % 360
+        if self.encoder_image_rotation_degrees % 90:
+            raise ValueError("JEPA encoder image rotation must be a multiple of 90 degrees")
         self.encoder.to(device=self.device, dtype=dtype).eval().requires_grad_(False)
         self.predictor.to(device=self.device, dtype=dtype).eval().requires_grad_(False)
         if compile_predictor:
@@ -326,8 +330,7 @@ class VJEPA2ACRanker:
             for key, value in state_dict.items()
         }
 
-    @staticmethod
-    def _as_agentview(image: Any) -> np.ndarray:
+    def _as_agentview(self, image: Any) -> np.ndarray:
         if isinstance(image, dict):
             image = image["image"]
         if isinstance(image, Image.Image):
@@ -338,6 +341,10 @@ class VJEPA2ACRanker:
         # FastWAM future frames concatenate agent and wrist views horizontally.
         if array.shape[1] == 2 * array.shape[0]:
             array = array[:, : array.shape[0]]
+        # Rotate only the selected primary view. Rotating the concatenated
+        # two-camera frame would also swap agent and wrist positions.
+        if self.encoder_image_rotation_degrees:
+            array = np.rot90(array, k=self.encoder_image_rotation_degrees // 90)
         # PIL-backed arrays can be read-only; make an owned writable copy
         # before torch.from_numpy to avoid undefined-behavior warnings.
         return np.array(array, copy=True, order="C")
