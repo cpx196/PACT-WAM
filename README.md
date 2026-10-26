@@ -1,145 +1,154 @@
 # PACT-WAM
 
-基于 [FastWAM](https://github.com/yuantianyuan01/FastWAM) 和 V-JEPA2-AC 的机器人动作修正研究代码。仓库包含 LIBERO / LIBERO-Plus 评测、JEPA guidance 与 trigger 诊断，以及当前的 **latent-action IDM + residual Transformer** 训练实验。
+基于 [FastWAM](https://github.com/yuantianyuan01/FastWAM) 与 JEPA 的机器人动作修正研究。当前方案是 **冻结 WAM / JEPA / AR2 Predictor，使用离线动作响应权重计算 JEPA guidance loss，再修正动作**。
 
-> 更新于 2026-10-06。当前重点是监督学习动作修正模块，不是继续优化梯度 guidance。IDM 与 Transformer 的最新结果来自离线演示窗口验证，**尚不能作为闭环成功率提升的证据**。FastWAM 本体和 JEPA encoder 保持冻结。
+**最新闭环结果（2026-10-26）：无 guidance 30/42，无加权 guidance 30/42，加权 guidance 34/42。加权在本组实验中表现最好，比另外两组提高9.52个百分点。**
 
-## 当前路线
+## 最新实验：42个机器人初始状态扰动
 
-1. FastWAM 生成 imagined future 和原始 action chunk。
-2. 冻结 JEPA encoder 保留主视角全部空间 tokens。
-3. 共享视觉 IDM 将两个相邻时间段编码为 `LA1`、`LA2`。
-4. Residual Transformer 读取原动作与 LA，输出前 8 步动作的修正量。
+任务是 LIBERO-Plus `libero_10` 中的 **“把白杯放到盘子上，把巧克力布丁放到盘子右边”**。测试覆盖该任务官方 **Robot Initial States 类别的全部42个版本**，不是42个不同基础任务，也不是只挑失败案例。
+
+| 方案 | 成功 / 总数 | 成功率 | 相对无 guidance |
+|---|---:|---:|---:|
+| 无 guidance，固定执行8步 | 30 / 42 | 71.43% | — |
+| 无加权 guidance，所有特征权重为1 | 30 / 42 | 71.43% | 0个百分点 |
+| **离线加权 guidance** | **34 / 42** | **80.95%** | **+9.52个百分点** |
+
+三组共126次正式 episode。固定 `seed=7`、每版本1次、`trial=0`、初始状态索引0；运行时 task ID 为525–566，对应官方分类ID526–567。每个场景在各组复用相同的 T5 tensor、初始状态和观测，检查未加 guidance 的首32步计划一致，再运行各自方法。
+
+加权相对无 guidance 救回7个场景，同时损失3个，净增4个；相对无加权 guidance 救回6个、损失2个，也是净增4个。**这支持“离线加权在当前任务和扰动集合中优于统一加权”**，并不表示每个场景都改善，也不证明对其他任务、seed或扰动类型普遍有效。无加权与无 guidance 总成功数相同，但成功场景不完全相同。
+
+- [逐场景三组结果](reports/research_20261026/robot42/unweighted_20261026/three_arm_summary.json)
+- [原始正式结果与配置](reports/research_20261026/robot42/)
+- [可重算结果的核对脚本](scripts/verify_robot42_report.py)
+- [本次实验说明](docs/LATEST_ROBOT42_20261026.md)
+
+## 当前 guidance 如何工作
 
 ```text
-观测 + 文本 + proprioception
+当前观测 + 固定T5上下文
           │
           ▼
-    冻结 FastWAM ─────────────► raw action 的前 8×7 步
-          │                               │
-          ▼                               │
-   生成 future frames                     │
-          │                               │
-          ▼                               │
-冻结 JEPA encoder → Z0, Z1, Z2             │
-          │                               │
-          ▼                               ▼
-  IDM(Z0,Z1), IDM(Z1,Z2) → LA1, LA2 → Residual Transformer
-                                            │
-                                            ▼
-                             a'[:, :6] = a[:, :6] + Δa
-                             a'[:, 6]  = a[:, 6]
+       FastWAM ─────────────► 原始32步动作计划
+          │                          │
+          ▼                          ▼
+   想象未来图像                  取前8步动作
+          │                          │
+          ▼                          ▼
+  冻结JEPA编码 → 想象目标 W    AR2 Predictor → 预测未来 P
+                   │                 │
+                   └──── 加权 |P−W| ─┘
+                             │
+                        对位姿动作求梯度
+                             │
+                        有界修正并执行8步
 ```
 
-这是当前研究模块的链路；现有训练脚本在缓存上验证，尚未把最新 corrector 接入闭环评测。不要把 **FastWAM 发布权重中的 Optional-IDM** 与这里新训练的 **21.28M 视觉 latent-action IDM** 混为一谈。
+AR2 分两段预测：前4步动作得到 `P1`，接着用 `P1` 和后4步动作得到 `P2`。当前保留跨段反向传播，没有对 `P1` 做 detach。JEPA 特征为 `B×576×1024`，分别对应576个空间 token、每个1024维。
 
-### 模型与监督
+### 离线权重
 
-| 模块 | 结构 / 参数量 | 训练方式 |
-|---|---|---|
-| JEPA encoder | 每个 clip `256×1408`，保留空间 tokens | 冻结；主视角，不加入 wrist |
-| 视觉 IDM | 1408→512 token 投影；空间/时间位置编码；motion query cross-attention；6 层 Transformer，8 heads，FFN 2048；输出 128D LA | 本体 **21.28M**；加动作解码头 **21.63M** |
-| IDM 解码头 | 128→512→512→24 | 每个 LA 监督对应 4×6 演示动作；IDM 不接收 raw action |
-| Residual Transformer | 8 action tokens + 2 LA tokens；4 层，256D，8 heads，FFN 1024；self-attention + gated cross-attention | **4.25M**；监督前 8×6 演示动作，夹爪不修改 |
+参考 FeedbackWM 的离线动作响应加权思路，保留本项目原有的 L1 loss 和 WAM 想象目标；**没有实现它的完整在线反馈或目标替换机制**。
 
-IDM 首先使用真实 future 训练；随后冻结 IDM，使用 **WAM future 提取的 LA** 训练 Transformer。真实 future oracle 仅用于诊断，在线推理不能读取真实未来。当前修正模块使用 FP32；训练不启用 RMS cap 或残差惩罚，输出头零初始化。历史 guidance 的 `RMS ≤ 0.02` 不适用于这里的训练。
+1. 只从该基础任务45条训练示范中，选200个当前状态；不使用5条验证示范或测试 rollout 校准。
+2. 固定每个状态，分别输入32组示范8步动作，计算 `P1` 和 `P2`。
+3. 对每个特征元素计算“更换动作后预测变化多大”，再对200个状态求平均。
+4. 每个预测时刻分别除以全部元素的均值，得到均值约1的固定权重。
 
-## 数据与坐标口径
+```text
+v[h,n,d] = mean_200_states(variance_32_actions(P[h,n,d]))
+w[h,n,d] = v[h,n,d] / (mean_n,d(v[h,n,d]) + 1e-8)
+L = mean_h,n,d(w[h,n,d] * abs(P[h,n,d] - W[h,n,d]))
+```
 
-- 训练数据为原始 `libero_10`：10 个任务、500 条演示。**不是** LIBERO-Plus 的 2,519 条 long-horizon 测试场景。
-- 按轨迹隔离：`demo_index % 10 == 0` 为验证，共 450 条训练轨迹 / 50 条验证轨迹；同一轨迹的窗口不会跨 split。
-- 当前 `stride=32`：**3,871 个训练窗口 / 436 个验证窗口，共 4,307 个窗口**。更多窗口不等于更多独立轨迹。
-- 当前 clip 使用 `[t-8,t]`；两个 future clip 使用 `[t,t+4]`、`[t+4,t+8]`；标签为 `[t:t+8]`，分成两个 4 步段。
-- 7D 标签是可执行的 6D 末端动作命令 + 夹爪。动作标签不等于 `ee_states`：后者的姿态是轴角 / rotvec，进入 AC state 适配时必须显式转换为 Euler，不能直接当作 Euler。
-- 当前缓存沿用 `rot180` 契约：真实主视角先旋转 180°，与 FastWAM 输入和生成 future 方向一致。双相机生成帧先取左侧 agentview；额外旋转只应用到所选主视角，避免交换 agent / wrist。
-- `encoder_image_rotation_degrees` 是提取主视角后的额外旋转，不是所有实验通用的“正视/倒置”开关。以该实验 config 和数据处理路径为准，不要重复旋转。
+权重形状为 **`[2,576,1024]`**：两个未来预测时刻，各 token、各通道分别加权；不是二值机械臂掩码，也不保证动作敏感的特征一定代表正确动作。无加权对照使用全1权重，其他 guidance 参数相同。
 
-## 已核对的最新结果
+最新42场景复用白杯基础任务的**同一张离线权重表**，不对每个扰动重新调权。此前固定六案例集合 `6task_seed7_sameT5` 对应三个基础任务，因此保存了三张表；不能把“六案例”理解为六个不同基础任务。[六案例定义](docs/6task_seed7_sameT5.md)
 
-以下均为**归一化前 8×6 动作的离线验证 MSE，越低越好**。IDM 解码与 Transformer 修正是不同任务；450/50 与全量窗口是不同验证集合，不应跨表直接比较绝对误差。
+### 固定参数与夹爪修复
 
-### 全量 stride-32：Transformer 修正
+| 项目 | 最新成功率实验的设置 |
+|---|---|
+| WAM | `libero_optional_idm_2cam224.pt`，冻结 |
+| JEPA encoder | V-JEPA2.1 ViT-L，384px，FP32，冻结 |
+| Predictor | AR2，epoch10 / step19690，FP32，冻结 |
+| 每次计划 / 实际执行 | 32步 / 8步 |
+| 去噪 / guidance节点 | 10步 / 7、8、9 |
+| 梯度倍率 / 单次RMS上限 | 4 / 0.02，不归一化梯度 |
+| loss核对 / 自适应触发 | 开启 / 关闭，每次replan启用guidance |
+| video/action sigma shift | 1 / 1 |
+| 最多控制步 / 开始等待步 | 700 / 30 |
+| 离线权重 | beta=1，epsilon=1e-8；无加权组为全1 |
+| 编译 | 本组126次成功率实验关闭编译；单独进行性能编译测试 |
 
-| 模型 / 输入 | 验证 MSE | 最佳 epoch |
-|---|---:|---:|
-| raw action，不修正 | 0.01379743 | — |
-| Transformer，无 LA 对照 | 0.01326274 | 8 |
-| Transformer + 旧 IDM 的 WAM LA | 0.01327799 | 31 |
-| **Transformer + 新 IDM（epoch 29）的 WAM LA** | **0.01314435** | **8** |
+LIBERO 路径中，Predictor 接收与执行端一致的二值夹爪命令；直接 guidance 对夹爪的梯度为0，只修正连续位姿动作。后续策略去噪或新的观测仍可能改变夹爪决定。运行日志保留夹爪输入与梯度核对记录。
 
-新 IDM 版本比匹配的无 LA 对照降低约 **0.89%**，比 raw action 降低约 **4.73%**。固定新模型后打乱 LA，误差升到 **0.01471988**；交换 LA1/LA2 后为 **0.01359281**，说明模型使用了未来信息，但收益目前很小。单 seed 结果、验证集 checkpoint 选择及轨迹相关性都限制结论；需要独立测试与闭环验证。
-
-### 全量 stride-32：真实帧 IDM 训练
-
-加载旧 IDM，继续训练 30 epoch / 14,520 step，无早停。下表统一使用真实 future 验证最优的 **epoch 29** 权重：
-
-| IDM 输入 | 训练前验证 MSE | epoch 29 验证 MSE |
-|---|---:|---:|
-| 真实 future | 0.02384369 | 0.01332424 |
-| WAM future，仅作验证 | 0.02858109 | 0.02057321 |
-
-真实帧上的改善部分迁移到了生成帧，但生成帧误差仍较高。不能仅由 latent 差异断言 WAM 画面生成质量差：运动预测偏差与真实/生成特征分布差异尚未分离。
-
-### 450/50 单窗口 pilot（历史诊断）
-
-| 模型 | 无 LA | WAM LA |
-|---|---:|---:|
-| MLP，约 0.45M | 0.01556739 | 0.01567051 |
-| Transformer，4.25M | 0.01583955 | 0.01519595 |
-
-pilot 的 LA 优势未直接延续到使用旧 IDM 的全量窗口实验。这也是先扩大 IDM 训练、再冻结重训 Transformer 的动机。
-
-## 代码导航
+## 代码与实验导航
 
 | 入口 | 用途 |
 |---|---|
-| [`scripts/prepare_libero10_dense_windows.py`](scripts/prepare_libero10_dense_windows.py) | 轨迹隔离的 stride 1/4/8/32 窗口索引 |
-| [`scripts/cache_libero10_idm_tokens.py`](scripts/cache_libero10_idm_tokens.py) | 冻结 WAM / JEPA 原始输出与完整 token 缓存 |
-| [`scripts/run_libero10_idm_cache_shard.sh`](scripts/run_libero10_idm_cache_shard.sh) | 双 shard、可断点缓存准备 |
-| [`scripts/train_libero10_idm_two_stage450.py`](scripts/train_libero10_idm_two_stage450.py) | IDM 结构、真实帧预训练、冻结 IDM 后的 MLP pilot |
-| [`scripts/train_libero10_idm_dense30.py`](scripts/train_libero10_idm_dense30.py) | 全量真实帧 IDM 继续训练，30 epoch、无早停 |
-| [`scripts/train_libero10_transformer_la450.py`](scripts/train_libero10_transformer_la450.py) | 4 层 residual Transformer；pilot / 全量窗口 / 新 IDM 对照 |
-| [`scripts/train_libero10_idm_oracle_comparison450.py`](scripts/train_libero10_idm_oracle_comparison450.py) | 真实 future oracle、WAM future、无 LA 匹配对照 |
-| [`scripts/audit_idm_real_wam_gap450.py`](scripts/audit_idm_real_wam_gap450.py) | 真实/生成 LA 的维度、时间段及任务差异诊断 |
-| [`experiments/libero/eval_libero_single.py`](experiments/libero/eval_libero_single.py) | FastWAM / JEPA 闭环评测；尚未接入最新 Transformer |
-| [`experiments/libero/vjepa2_ac_ranker.py`](experiments/libero/vjepa2_ac_ranker.py) | 历史 ranking、guidance 与图像 / AC 适配 |
+| [`experiments/libero/eval_libero_single.py`](experiments/libero/eval_libero_single.py) | 原生闭环评测、实际动作后处理和夹爪修复 |
+| [`experiments/libero/text_context_cache.py`](experiments/libero/text_context_cache.py) | 固定T5缓存及指纹核对 |
+| [`scripts/fastwam_ar2_eval.py`](scripts/fastwam_ar2_eval.py) | 当前FP32 JEPA / AR2接口 |
+| [`scripts/weighted_ar2_ranker.py`](scripts/weighted_ar2_ranker.py) | 逐元素加权L1 |
+| [`scripts/calibrate_weighted_six.py`](scripts/calibrate_weighted_six.py) | 200状态×32动作离线校准 |
+| [`scripts/launch_robot42.py`](scripts/launch_robot42.py)、[`scripts/eval_robot42.py`](scripts/eval_robot42.py) | 加权、无guidance两组正式评测与配对检查 |
+| [`scripts/launch_unweighted42.py`](scripts/launch_unweighted42.py) | 补充全1权重guidance组；实际生成的运行源码保存在结果快照中 |
+| [`research/runtime/`](research/runtime/) | AR2依赖的JointPredictor和向量化attention源码 |
+| [`reports/research_20261026/robot42/`](reports/research_20261026/robot42/) | 126次正式结果、首计划核对、T5指纹、配置、loss/梯度结构化日志与源码快照 |
+| [`reproducibility/robot42_20261026/`](reproducibility/robot42_20261026/) | 原样T5缓存、三张离线权重表及SHA256索引 |
+| [`reports/research_20261026/archives/`](reports/research_20261026/archives/) | 历史实验配置、summary、训练/评测日志及运行源码的完整文本快照压缩包 |
 
-历史 predictor finetune、反传、ranking、harm/rescue、trigger 和 latency 脚本保留用于追溯。完整的原 README 已移到 [`docs/HISTORICAL_GUIDANCE_README.md`](docs/HISTORICAL_GUIDANCE_README.md)，其中配置和“当前”结论均属于当时实验，不是新 corrector 的默认设置。
+运行源码快照是“当时实际执行了什么”的依据，`scripts/` 是当前整理后的入口。历史脚本继续保留，不能仅凭其文件名中的“latest/default”判断当前方案。
 
-## 环境与复现
+## 核对结果和准备复现
 
-本次提交是研究快照，**不是一键安装的可移植训练包**。训练脚本目前使用服务器目录 `/data/pxchen/PACT-WAM`、外部 LIBERO / V-JEPA2 checkout 和本地 checkpoint；在其他机器运行前必须修改脚本的 `ROOT`、数据与 checkpoint 路径，安装仓库依赖并准备匹配的外部环境。权重、演示 HDF5 和约 47GB token 缓存不会随 GitHub 下载。
-
-在已配置的服务器环境中，先按代码导航准备窗口与缓存。下述命令均在仓库根目录执行；`PYTHONPATH` 必须包含仓库根目录。`best.pt` 和 `last.pt` 包含模型、优化器、epoch/step 和 RNG 状态，但目前脚本**没有自动加载 last.pt 续训的 CLI**，不要直接重跑覆盖已存在的实验目录。
+无需 GPU 即可从126份正式结果重算成功率，并检查预检记录及已发布T5/权重的SHA256：
 
 ```bash
-# 全量 IDM：固定 30 epoch，加载旧 IDM 权重；先检查 source 和 OUT 路径。
-CUDA_VISIBLE_DEVICES=4 PYTHONPATH="$PWD" OMP_NUM_THREADS=4 \
-  nohup /data/pxchen/envs/jepa-wam/bin/python -u \
-  scripts/train_libero10_idm_dense30.py > idm_dense30.log 2>&1 < /dev/null &
-
-# 新 IDM 的 LA + Transformer：独立输出目录，确保 checkpoint 为第 29 epoch。
-CUDA_VISIBLE_DEVICES=4 PYTHONPATH="$PWD" OMP_NUM_THREADS=4 \
-  nohup /data/pxchen/envs/jepa-wam/bin/python -u \
-  scripts/train_libero10_transformer_la450.py --dense \
-  --idm-checkpoint "$PWD/artifacts/libero10_idm_real_stride32_30epoch_20261004/best.pt" \
-  --expected-idm-epoch 29 \
-  --out "$PWD/artifacts/libero10_transformer_la_stride32_idm29_20261004" \
-  > transformer_idm29.log 2>&1 < /dev/null &
+python scripts/verify_robot42_report.py
 ```
 
-GPU 编号只是本次运行示例，启动前需确认空闲。Transformer 两组在同一张卡依次运行：`wam_la` 与 `zero_la`，相同初始化 / batch 顺序；batch 8、AdamW LR 3e-4、weight decay 0.01、dropout 0.1、clip 1、最多 50 epoch、patience 10。每 5 epoch 保存，并保留 best / last。IDM 的无早停设置**不等于** Transformer 也禁用早停。
+归档索引位于 [`archive_index.json`](reports/research_20261026/archive_index.json)，每个包附逐文件SHA256和大小；源码、失败尝试及历史结果保留用于追溯。查看某个包：
 
-## 历史 guidance / trigger 与 latency
+```bash
+tar -tzf reports/research_20261026/archives/evaluate_results__white_mug_robot42_seed7_sameT5_20261025.tar.gz
+```
 
-- FastWAM 严格级联 `infer_video() → infer_action_from_video()`；评测 video/action shift 固定 1/1。
-- 历史 raw-gradient guidance 在 denoise steps 7/8/9 修正动作，倍率 4×、2 个 AC steps、单次修正 RMS cap 0.02。该设置不用于新 residual Transformer。
-- 历史 trigger 使用 ActionExpert future response 的 denoise 相对变化，校准预算统一 30%；固定阈值在线调用率不保证恰好 30%。前 0–3 replan 的漏触发促使采用强制前四次触发策略，但会增加总体调用预算。
-- response 是分组 attention 输出贡献的范数信号，不是严格因果归因；JEPA loss 下降也不保证动作更接近真实执行目标。
-- 历史 FP32 稳态 latency 示例：no guidance 576ms，完整 decode 串行 1,193ms，前缀异步 + compiled energy 优化 837ms。no guidance 不统计不参与控制输出的 decode。不同硬件 / 编译 / 测量口径不可混用；这些数值不是新 Transformer 的实测 latency。
+这是研究快照，**不是一键安装包**。原脚本含服务器路径 `/data/pxchen/PACT-WAM` 以及外部 LIBERO-Plus、JEPA_WAM / V-JEPA2 checkout。正式复现还需要匹配环境、WAM与Predictor checkpoint、LIBERO示范/状态资产，并按保存的 `command.json`、`runtime_config.json` 和源码快照设置路径。原启动器拒绝覆盖已有输出目录，不能在旧结果目录直接重跑。
 
-## 仓库边界
+- 42场景共享T5缓存SHA256：`a308f7ad80a0b385ee3f5460cbe296a0a4dba75418ad806f54d7ea0067e228a3`。
+- 白杯权重表SHA256：`a539121cd6c4a5356523fd2b38330901ff177ae041d2beedbf601695ce1f0c6b`。
+- Predictor checkpoint SHA256：`dec6eef937335a04c9fd8e23d7065163d2348919041e548749d8fe132313289e`。
+- [发布资产相对路径与哈希](reproducibility/robot42_20261026/artifact_manifest.json)。固定T5必须原样复用，不能重新编码后假定完全相同。
 
-版本管理包含源码、文档以及 [`reports/research_20261004/`](reports/research_20261004/) 下精选的轻量配置、summary 和 epoch 指标。原始 `artifacts/` 中既有历史受控元数据保留；新增实验缓存默认不提交。
+上传包含代码、实验文本记录、T5和离线权重表；不包含大模型checkpoint、示范HDF5、token缓存、原始视频或编译二进制。其来源、配置与服务器位置保留在清单中。
 
-不提交 checkpoint、HDF5 / NPZ、raw / token / LA 缓存、rollout 视频、下载包、运行日志、PID / lock、编辑备份和凭据。第三方模型和代码请遵循各自许可证；本仓库的许可证见 [`LICENSE`](LICENSE)。
+## 独立性能测试与尚未完成的编排
+
+2026-10-26在RTX4090D上，对task559/seed7固定输入完成当前模型编译，每方案预热后20次采样。它与上面的闭环成功率实验是**两套独立测量**。
+
+| 已编译方案 | 单次计划中位延迟 |
+|---|---:|
+| 无guidance | 571.7ms |
+| 完整解码、编码串行放到动作之前的消融基准 | 1152.6ms |
+| 前缀解码＋串行 | 1084.2ms |
+| 前缀解码＋异步 | 1027.0ms |
+
+本次串行/并行动作完全一致，编译/未编译动作存在小幅差异（最大0.005859375）。没有用编译版重跑126个episode，因此不能声称编译后成功率不变。
+
+**本次异步实现尚未完整复现旧837ms流程图：** 当前图像编码仍在视频生成、前缀解码之后，与未来图像一起编码；Predictor前向/反向在主流的guidance节点执行。当前图像编码与视频生成提前重叠仍待实现和验证。图中Predictor若迁到异步流，也必须保留对当前动作及梯度结果的同步依赖。
+
+旧837ms的完整配置尚未恢复，不能把这次1027ms当作相同配置的直接回归；旧680ms是40%触发率的混合估算，并非本次实测。当前消融中，前缀解码省68.4ms，再并行省57.1ms；guidance前后向约340ms、视频生成约320ms，是明显开销。并行使JEPA编码约42.7→47.3ms，存在组件变慢，尚不能据此认定显存带宽饱和。性能测试时另有378MiB常驻GPU进程，非严格独占。
+
+[性能原始结果、追踪索引与报告](reports/research_20261026/latency/)。完整163MB原始trace随对应文本日志压缩包保存；编译缓存留在服务器，不把二进制缓存当作可移植模型发布。
+
+## 历史路线与结论边界
+
+此前的latent-action IDM、residual Transformer、144场景guidance、六案例多seed、adaptive replan等实验均作为历史保留。当前README的主结论只使用上述42版本三组闭环结果，不将不同模型、旧坐标适配、旧T5或筛选子集的数字混在一起。
+
+- [2026-10-06研究状态](docs/RESEARCH_STATE_20261006.md)
+- [更早guidance历史说明](docs/HISTORICAL_GUIDANCE_README.md)
+- [本次完整文本归档清单](reports/research_20261026/publication_manifest.json)
+
+代码与第三方依赖遵循各自许可证；见 [`LICENSE`](LICENSE)。

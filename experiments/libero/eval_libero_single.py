@@ -179,9 +179,28 @@ def _preencode_prompt_contexts(
     text_config.download_if_necessary()
     tokenizer_config.download_if_necessary()
     context_len = int(model_cfg.get("tokenizer_max_len", cfg.data.train.get("context_len", 128)))
-    batch_size = int(cfg.EVALUATION.get("text_encoder_batch_size", 8))
-    if batch_size <= 0:
-        raise ValueError("EVALUATION.text_encoder_batch_size must be positive.")
+    # Batch-dependent BF16 T5 contexts changed actions across task lists.
+    # Keep every prompt's numerical encoding path independent of list size.
+    batch_size = int(cfg.EVALUATION.get("text_encoder_batch_size", 1))
+    if batch_size != 1:
+        raise ValueError(
+            "Reproducible LIBERO evaluation requires text_encoder_batch_size=1. "
+            "Use a pinned text_context_cache_path to reuse identical contexts."
+        )
+    from experiments.libero.text_context_cache import (
+        cache_identity, load_cache, record_audit, save_cache,
+    )
+    identity = cache_identity(text_config.path, tokenizer_config.path, context_len, dtype)
+    pinned_path = cfg.EVALUATION.get("text_context_cache_path", None)
+    if pinned_path:
+        pinned_path = Path(os.path.expanduser(os.path.expandvars(str(pinned_path)))).resolve()
+        cache, checksum = load_cache(
+            pinned_path, identity, prompts,
+            cfg.EVALUATION.get("text_context_cache_sha256", None),
+        )
+        audit = record_audit(cfg.EVALUATION.output_dir, cache, identity, "pinned_cache", pinned_path, checksum)
+        logging.info("Loaded pinned T5 contexts; audit=%s", audit)
+        return cache
 
     logging.info(
         "Loading standalone T5 on %s to pre-encode %d LIBERO prompts.",
@@ -223,6 +242,10 @@ def _preencode_prompt_contexts(
         torch.cuda.reset_peak_memory_stats(torch.device(device))
     logging.info("Released standalone T5; cached %d prompt embeddings on CPU.", len(cache))
     _log_cuda_memory("After releasing standalone T5", device)
+    cache_path = Path(str(cfg.EVALUATION.output_dir)).expanduser().resolve() / f"text_context_cache_{os.getpid()}.pt"
+    checksum = save_cache(cache, cache_path, identity)
+    audit = record_audit(cfg.EVALUATION.output_dir, cache, identity, "canonical_batch1", cache_path, checksum)
+    logging.info("Saved canonical T5 contexts; cache=%s sha256=%s audit=%s", cache_path, checksum, audit)
     return cache
 
 
@@ -551,12 +574,19 @@ def _build_jepa_action_guidance(
         current_rep, target_reps = resolve_encoded_context()
         clean = normalized_clean_action.to(device=ac_ranker.device, dtype=ac_ranker.dtype)
         denormalized = (clean[:, :guidance_horizon] - offset) / scale
-        # Match the existing evaluation postprocess without the final discrete
-        # gripper binarization: dataset 0=close/1=open -> LIBERO +1=close/-1=open.
-        executable = torch.cat(
-            (denormalized[..., :6], 1.0 - 2.0 * denormalized[..., 6:7]),
-            dim=-1,
+        # Gripper commands must match execution, including the original CPU
+        # normalizer precision at the open/close boundary. Keep this discrete
+        # policy decision outside guidance; only pose actions receive gradients.
+        executed_gripper = _denormalize_action(
+            clean.detach()[:, :guidance_horizon], processor
+        )[..., 6:7]
+        executed_gripper = -(executed_gripper * 2.0 - 1.0)
+        if bool(cfg.EVALUATION.get("binarize_gripper", False)):
+            executed_gripper = np.sign(executed_gripper)
+        gripper = torch.as_tensor(
+            executed_gripper, device=clean.device, dtype=clean.dtype
         )
+        executable = torch.cat((denormalized[..., :6], gripper), dim=-1)
         ac_batch = ac_adapter.convert_torch(executable, initial_state)
         return ac_ranker.differentiable_energy(
             current_rep=current_rep,

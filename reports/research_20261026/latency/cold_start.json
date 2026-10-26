@@ -1,0 +1,120 @@
+[
+  {
+    "mode": "no_guidance",
+    "wall_s": 31.92094960436225,
+    "metrics": {
+      "mode": "no_guidance",
+      "compiled": true,
+      "gpu_preprocess": false,
+      "verify_descent": true,
+      "wall_ms": 31920.422552153468,
+      "cuda_ms": {
+        "video": 15476.9716796875,
+        "action_including_guidance_and_wait": 16443.185546875
+      },
+      "host_dispatch_ms": {
+        "video": 15448.450662195683,
+        "action_including_guidance_and_wait": 16471.706410869956
+      },
+      "encoder_wait_gpu_ms": 0,
+      "encoder_wait_host_ms": 0,
+      "energy_forward_ms": 0,
+      "energy_backward_ms": 0,
+      "peak_allocated_mib": 15404.7666015625,
+      "peak_reserved_mib": 17206.0
+    }
+  },
+  {
+    "mode": "full_serial",
+    "wall_s": 335.0775517448783,
+    "metrics": {
+      "mode": "full_serial",
+      "compiled": true,
+      "gpu_preprocess": false,
+      "verify_descent": true,
+      "wall_ms": 335076.7289046198,
+      "cuda_ms": {
+        "video": 320.24627685546875,
+        "decode_full": 7650.9765625,
+        "future_preprocess": 35.104766845703125,
+        "jepa_encoder": 74849.6015625,
+        "action_including_guidance_and_wait": 252218.9375
+      },
+      "host_dispatch_ms": {
+        "video": 292.08812676370144,
+        "decode_full": 7551.081260666251,
+        "future_preprocess": 162.95279189944267,
+        "jepa_encoder": 74833.04666727781,
+        "action_including_guidance_and_wait": 252219.63476017118
+      },
+      "encoder_wait_gpu_ms": 0.05427199974656105,
+      "encoder_wait_host_ms": 0.05120411515235901,
+      "energy_forward_ms": 206657.10007095337,
+      "energy_backward_ms": 45250.37949371338,
+      "peak_allocated_mib": 16550.9111328125,
+      "peak_reserved_mib": 17506.0
+    }
+  },
+  {
+    "mode": "prefix_serial",
+    "wall_s": 56.08230667561293,
+    "metrics": {
+      "mode": "prefix_serial",
+      "compiled": true,
+      "gpu_preprocess": false,
+      "verify_descent": true,
+      "wall_ms": 56081.50635100901,
+      "cuda_ms": {
+        "video": 320.321044921875,
+        "decode_prefix": 55064.9296875,
+        "future_preprocess": 25.1648006439209,
+        "jepa_encoder": 47.62112045288086,
+        "action_including_guidance_and_wait": 622.5584716796875
+      },
+      "host_dispatch_ms": {
+        "video": 291.9318377971649,
+        "decode_prefix": 55093.3189522475,
+        "future_preprocess": 25.168972089886665,
+        "jepa_encoder": 24.215035140514374,
+        "action_including_guidance_and_wait": 622.5627288222313
+      },
+      "encoder_wait_gpu_ms": 0.05222399905323982,
+      "encoder_wait_host_ms": 0.05301833152770996,
+      "energy_forward_ms": 218.16320037841797,
+      "energy_backward_ms": 125.2300796508789,
+      "peak_allocated_mib": 16469.119140625,
+      "peak_reserved_mib": 17506.0
+    }
+  },
+  {
+    "mode": "async",
+    "wall_s": 1.0512984488159418,
+    "metrics": {
+      "mode": "async",
+      "compiled": true,
+      "gpu_preprocess": false,
+      "verify_descent": true,
+      "wall_ms": 1050.6169348955154,
+      "cuda_ms": {
+        "video": 316.0771789550781,
+        "decode_prefix": 126.3636474609375,
+        "future_preprocess": 40.47264099121094,
+        "jepa_encoder": 54.51366424560547,
+        "action_including_guidance_and_wait": 733.9198608398438
+      },
+      "host_dispatch_ms": {
+        "video": 287.85624727606773,
+        "decode_prefix": 137.97602243721485,
+        "future_preprocess": 55.36963231861591,
+        "jepa_encoder": 49.219632521271706,
+        "action_including_guidance_and_wait": 733.8525839149952
+      },
+      "encoder_wait_gpu_ms": 0.048128001391887665,
+      "encoder_wait_host_ms": 0.04527531564235687,
+      "energy_forward_ms": 207.41532516479492,
+      "energy_backward_ms": 128.50704193115234,
+      "peak_allocated_mib": 16476.123046875,
+      "peak_reserved_mib": 19078.0
+    }
+  }
+]

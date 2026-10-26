@@ -19,6 +19,7 @@ MANIFEST = ROOT/'artifacts/libero10_idm_dense_windows_20261004/windows_stride32.
 IDM_CKPT = ROOT/'artifacts/libero10_idm_pretrain_then_mlp450_20261004/stage1/best.pt'
 EXPECTED_IDM_EPOCH = None
 IDM_EPOCH = None
+FUTURE_SOURCE = 'wam'
 
 
 def emit(event, **kw):
@@ -80,6 +81,7 @@ class Corrector(nn.Module):
 def dense_features():
     global IDM_EPOCH
     from scripts.train_libero10_idm_two_stage450 import InverseDynamics
+    from scripts.train_libero10_idm_residual_pilot import IDM
     rows = json.loads(MANIFEST.read_text())
     train = [i for i, row in enumerate(rows) if row['split'] == 'train']
     val = [i for i, row in enumerate(rows) if row['split'] == 'val']
@@ -90,16 +92,27 @@ def dense_features():
     if dest.exists():
         data = torch.load(dest, map_location='cpu', weights_only=False)
         assert data['rows'] == rows and data['idm_checkpoint'] == str(IDM_CKPT)
+        assert data.get('future_source', 'wam') == FUTURE_SOURCE
         IDM_EPOCH = data.get('idm_epoch')
         if EXPECTED_IDM_EPOCH is not None:
             assert IDM_EPOCH == EXPECTED_IDM_EPOCH
         return data
-    model = InverseDynamics().cuda().eval().requires_grad_(False)
+    if FUTURE_SOURCE == 'correction':
+        from scripts.train_libero10_future_correction_reconstruct10 import Model
+        model = Model().cuda().eval().requires_grad_(False)
+    else:
+        model = (IDM() if FUTURE_SOURCE == 'compare' else InverseDynamics()).cuda().eval().requires_grad_(False)
     checkpoint = torch.load(IDM_CKPT, map_location='cpu', weights_only=False)
     IDM_EPOCH = checkpoint['epoch']
     if EXPECTED_IDM_EPOCH is not None:
         assert IDM_EPOCH == EXPECTED_IDM_EPOCH, 'Unexpected IDM checkpoint epoch'
-    model.load_state_dict(checkpoint['model'])
+    model.load_state_dict(checkpoint['idm'] if FUTURE_SOURCE == 'compare' else checkpoint['model'])
+    if FUTURE_SOURCE == 'compare':
+        assert checkpoint['config']['source_embedding_order'] == ['predictor', 'wam']
+        assert checkpoint['config']['transformer_trained'] is False
+    if FUTURE_SOURCE == 'correction':
+        assert checkpoint['config']['source_order'] == ['predictor', 'wam']
+        assert checkpoint['config']['arb_trained'] is False
     del checkpoint
     actions, experts, latent = [], [], []
     started = time.monotonic()
@@ -110,8 +123,14 @@ def dense_features():
             for i in range(start, min(start+8, len(rows))):
                 item = torch.load(DENSE/'tokens'/f'{i:05d}.pt', map_location='cpu', weights_only=False)
                 assert item['index'] == i and item['row'] == rows[i]
-                z = torch.cat((item['current'][None], item['wam_future']), 0)
-                assert z.shape == (3, 256, 1408) and torch.isfinite(z).all()
+                if FUTURE_SOURCE in ('compare', 'correction'):
+                    # Two matching-time source pairs; never read real_future.
+                    z = torch.stack((item['predicted_future'], item['wam_future']), 1)
+                    assert z.shape == (2, 2, 256, 1408)
+                else:
+                    z = torch.cat((item['current'][None], item[FUTURE_SOURCE+'_future']), 0)
+                    assert z.shape == (3, 256, 1408)
+                assert torch.isfinite(z).all()
                 a, y = item['action'].float(), item['expert_normalized_first6'].float()
                 assert a.shape == (8, 7) and y.shape == (8, 6)
                 expected = (item['expert_executable']*item['scale']+item['offset'])[:, :6]
@@ -120,7 +139,12 @@ def dense_features():
                 actions.append(a)
                 experts.append(y)
                 tokens.append(z)
-            _, la = model(torch.stack(tokens).cuda())
+            if FUTURE_SOURCE in ('compare', 'correction'):
+                pairs = torch.stack(tokens).cuda()
+                features = model.encode(pairs.flatten(0, 1))[0] if FUTURE_SOURCE == 'correction' else model(pairs.flatten(0, 1))
+                la = features.reshape(len(tokens), 2, 128)
+            else:
+                _, la = model(torch.stack(tokens).cuda())
             assert torch.isfinite(la).all()
             latent.append(la.cpu())
             processed = len(actions)
@@ -129,8 +153,9 @@ def dense_features():
                      seconds=time.monotonic()-started,
                      seconds_per_window=(time.monotonic()-started)/processed)
     data = dict(action=torch.stack(actions), expert=torch.stack(experts),
-                wam_la=torch.cat(latent), train_ids=train, val_ids=val, rows=rows,
-                idm_checkpoint=str(IDM_CKPT), idm_epoch=IDM_EPOCH, source_manifest=str(MANIFEST))
+                la=torch.cat(latent), train_ids=train, val_ids=val, rows=rows,
+                idm_checkpoint=str(IDM_CKPT), idm_epoch=IDM_EPOCH, source_manifest=str(MANIFEST),
+                future_source=FUTURE_SOURCE)
     save(data, dest)
     del model
     torch.cuda.empty_cache()
@@ -139,12 +164,18 @@ def dense_features():
 
 
 def main():
-    global OUT, IDM_CKPT, EXPECTED_IDM_EPOCH
+    global OUT, IDM_CKPT, EXPECTED_IDM_EPOCH, FUTURE_SOURCE
     parser = argparse.ArgumentParser()
     parser.add_argument('--dense', action='store_true')
     parser.add_argument('--idm-checkpoint', type=Path)
     parser.add_argument('--expected-idm-epoch', type=int)
     parser.add_argument('--out', type=Path)
+    parser.add_argument('--future-source', choices=['wam', 'real', 'compare', 'correction'], default='wam')
+    parser.add_argument('--epochs', type=int, default=50)
+    parser.add_argument('--lr', type=float, default=3e-4)
+    parser.add_argument('--source-only', action='store_true')
+    parser.add_argument('--early-stop-patience', type=int, default=0,
+                        help='Default 0 runs every epoch; positive values explicitly enable early stopping')
     args = parser.parse_args()
     if args.dense:
         OUT = ROOT/'artifacts/libero10_transformer_la_stride32_20261004'
@@ -154,11 +185,20 @@ def main():
     if args.out is not None:
         OUT = args.out.resolve()
     EXPECTED_IDM_EPOCH = args.expected_idm_epoch
+    FUTURE_SOURCE = args.future_source
+    if FUTURE_SOURCE == 'real':
+        assert args.dense and args.out is not None, 'Real-future oracle requires separate dense output'
+    if FUTURE_SOURCE == 'compare':
+        assert args.dense and args.out is not None and EXPECTED_IDM_EPOCH == 30
+    if FUTURE_SOURCE == 'correction':
+        assert args.dense and args.out is not None and EXPECTED_IDM_EPOCH == 20
+    assert args.epochs > 0 and args.lr > 0
     torch.set_num_threads(4)
     OUT.mkdir(parents=True, exist_ok=True)
     lock = (OUT/'launcher.lock').open('a')
     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
     assert not (OUT/'summary.json').exists(), 'Do not overwrite completed pilot'
+    assert not any(OUT.glob('*/metrics.jsonl')), 'Existing training requires explicit resume, not duplicate launch'
     if args.dense:
         data = dense_features()
         cache = data
@@ -169,24 +209,37 @@ def main():
     train, val = data['train_ids'], data['val_ids']
     assert set(train).isdisjoint(val)
     a, y = data['action'].cuda(), data['expert'].cuda()
-    la = cache['wam_la'].cuda()
+    la = cache.get('la', cache.get('wam_la')).cuda()
     assert la.shape == (len(train)+len(val), 2, 128) and torch.isfinite(la).all()
     mean = data['action'][train].flatten(1).mean(0)
     std = data['action'][train].flatten(1).std(0).clamp_min(1e-4)
     del data, cache
-    config = dict(train=len(train), val=len(val), batch=8, max_epochs=50, patience=10,
-                  seed=239, lr=3e-4, weight_decay=.01, grad_clip=1, dropout=.1,
+    assert args.early_stop_patience >= 0
+    config = dict(train=len(train), val=len(val), batch=8, max_epochs=args.epochs,
+                  patience=args.early_stop_patience or None,
+                  early_stopping=args.early_stop_patience > 0,
+                  seed=239, lr=args.lr, weight_decay=.01, grad_clip=1, dropout=.1,
                   layers=4, hidden=256, heads=8, ffn=1024, dtype='float32',
                   frozen_idm=True, latent_source=str(OUT/'dense_features.pt' if args.dense else LA),
                   dataset=str(MANIFEST if args.dense else DATA),
                   idm_checkpoint=str(IDM_CKPT), idm_epoch=IDM_EPOCH, warm_start_transformer=False,
-                  inputs='8 raw action tokens + 2 WAM-future IDM latent action tokens',
+                  inputs=('8 raw WAM action tokens + 2 frozen Predictor/WAM comparison IDM features'
+                          if FUTURE_SOURCE in ('compare', 'correction') else
+                          f'8 raw action tokens + 2 {FUTURE_SOURCE}-future IDM latent action tokens'),
+                  future_source=FUTURE_SOURCE,
+                  real_future_used=FUTURE_SOURCE == 'real',
+                  module_name='Action Refinement Block (ARB)',
+                  oracle_warning='Real future unavailable online; diagnostic only' if FUTURE_SOURCE == 'real' else None,
                   target='normalized demonstrated first 8x6 actions',
                   gripper_unchanged=True, rms_cap=None, residual_penalty=0,
                   matched_initialization=True, matched_batch_order=True)
+    if FUTURE_SOURCE == 'correction':
+        config.update(feature='posterior mean mu, deterministic; no sampling; Decoder not used',
+                      feature_source='frozen epoch20 reconstruction-trained IDM and posterior',
+                      evaluation_scope='offline action MSE only, not rollout success')
     torch.manual_seed(239)
     smoke = Corrector(mean, std).cuda()
-    opt = torch.optim.AdamW(smoke.parameters(), lr=3e-4, weight_decay=.01)
+    opt = torch.optim.AdamW(smoke.parameters(), lr=args.lr, weight_decay=.01)
     ix = train[:8]
     initial = {k: v.detach().cpu().clone() for k, v in smoke.state_dict().items()}
     grads = []
@@ -208,12 +261,14 @@ def main():
     emit('SMOKE_PASSED', parameters=config['parameters'], gradients=grads)
     del smoke, opt
     results = {}
-    for variant in ('wam_la', 'zero_la'):
+    source_variant = {'wam': 'wam_la', 'real': 'real_la', 'compare': 'compare_la', 'correction': 'correction_code'}[FUTURE_SOURCE]
+    variants = (source_variant,) if args.source_only else (source_variant, 'zero_la')
+    for variant in variants:
         torch.manual_seed(239)
         model = Corrector(mean, std).cuda()
         model.load_state_dict(initial)
-        optimizer = torch.optim.AdamW(model.parameters(), lr=3e-4, weight_decay=.01)
-        feat = la if variant == 'wam_la' else torch.zeros_like(la)
+        optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=.01)
+        feat = la if variant == source_variant else torch.zeros_like(la)
         dest = OUT/variant
         dest.mkdir(exist_ok=True)
 
@@ -243,7 +298,7 @@ def main():
 
         best, best_epoch, stale, step = float('inf'), 0, 0, 0
         started = time.monotonic()
-        for epoch in range(50):
+        for epoch in range(args.epochs):
             ids = np.random.default_rng(239+epoch).permutation(train).tolist()
             model.train()
             losses, clipped = [], 0
@@ -271,11 +326,11 @@ def main():
             else:
                 stale += 1
             checkpoint('last.pt', epoch+1, step, best)
-            if (epoch+1)%5 == 0:
-                checkpoint(f'epoch{epoch+1:03d}.pt', epoch+1, step, best)
+            checkpoint(f'epoch{epoch+1:03d}.pt', epoch+1, step, best)
             emit('EPOCH_COMPLETED', variant=variant, **row)
-            if stale >= 10:
+            if args.early_stop_patience > 0 and stale >= args.early_stop_patience:
                 break
+        final_evaluation = evaluate(val)
         model.load_state_dict(torch.load(dest/'best.pt', map_location='cpu', weights_only=False)['model'])
         permutation = torch.randperm(len(val), generator=torch.Generator().manual_seed(239)).cuda()
         checks = dict(normal=evaluate(val), zero_la=evaluate(val, torch.zeros_like(la[val])),
@@ -283,6 +338,7 @@ def main():
                       swapped_la=evaluate(val, la[val].flip(1)),
                       mean_la=evaluate(val, la[train].mean(0, keepdim=True).expand(len(val), -1, -1)))
         results[variant] = dict(best_val_mse=best, best_epoch=best_epoch, final=row,
+                                final_checkpoint_val=final_evaluation,
                                 diagnostics=checks, seconds=time.monotonic()-started)
         emit('VARIANT_COMPLETED', variant=variant, **results[variant])
         del model, optimizer

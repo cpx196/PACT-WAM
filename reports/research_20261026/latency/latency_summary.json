@@ -1,0 +1,111 @@
+{
+  "variants": {
+    "no_guidance_gpu0_verify1": {
+      "n": 20,
+      "median_ms": 571.6912820935249,
+      "p95_ms": 588.4940786287189,
+      "mean_ms": 571.5215818025172,
+      "stage_cuda_median_ms": {
+        "video": 319.5897674560547,
+        "action_including_guidance_and_wait": 251.2179183959961
+      },
+      "wait_median_ms": 0.0,
+      "energy_forward_median_ms": 0.0,
+      "energy_backward_median_ms": 0.0
+    },
+    "full_serial_gpu0_verify1": {
+      "n": 20,
+      "median_ms": 1152.5568636134267,
+      "p95_ms": 1167.5347989425063,
+      "mean_ms": 1151.867270283401,
+      "stage_cuda_median_ms": {
+        "video": 318.5875244140625,
+        "jepa_encoder": 42.735103607177734,
+        "action_including_guidance_and_wait": 613.8870544433594,
+        "future_preprocess": 18.414624214172363,
+        "decode_full": 157.32479858398438
+      },
+      "wait_median_ms": 0.03993599861860275,
+      "energy_forward_median_ms": 210.17083168029785,
+      "energy_backward_median_ms": 130.28864097595215
+    },
+    "prefix_serial_gpu0_verify1": {
+      "n": 20,
+      "median_ms": 1084.181098267436,
+      "p95_ms": 1096.7482787556946,
+      "mean_ms": 1083.762525394559,
+      "stage_cuda_median_ms": {
+        "video": 319.592041015625,
+        "decode_prefix": 89.73107147216797,
+        "jepa_encoder": 42.69772720336914,
+        "action_including_guidance_and_wait": 613.1051330566406,
+        "future_preprocess": 18.439727783203125
+      },
+      "wait_median_ms": 0.04039999842643738,
+      "energy_forward_median_ms": 210.12785530090332,
+      "energy_backward_median_ms": 130.6798095703125
+    },
+    "async_gpu0_verify1": {
+      "n": 20,
+      "median_ms": 1027.0314998924732,
+      "p95_ms": 1062.1117612347007,
+      "mean_ms": 1034.0571445412934,
+      "stage_cuda_median_ms": {
+        "video": 319.64259338378906,
+        "decode_prefix": 96.7751693725586,
+        "jepa_encoder": 47.25606346130371,
+        "action_including_guidance_and_wait": 707.4044189453125,
+        "future_preprocess": 20.94444751739502
+      },
+      "wait_median_ms": 0.03788800165057182,
+      "energy_forward_median_ms": 210.46368217468262,
+      "energy_backward_median_ms": 129.6153621673584
+    },
+    "async_gpu1_verify1": {
+      "n": 20,
+      "median_ms": 1016.3015304133296,
+      "p95_ms": 1028.2094672322273,
+      "mean_ms": 1016.5828022174537,
+      "stage_cuda_median_ms": {
+        "video": 319.633056640625,
+        "decode_prefix": 96.92160034179688,
+        "jepa_encoder": 58.36083221435547,
+        "action_including_guidance_and_wait": 696.0556945800781,
+        "future_preprocess": 0.06348799914121628
+      },
+      "wait_median_ms": 0.038863999769091606,
+      "energy_forward_median_ms": 210.33054733276367,
+      "energy_backward_median_ms": 129.36044883728027
+    },
+    "async_gpu0_verify0": {
+      "n": 20,
+      "median_ms": 934.7100742161274,
+      "p95_ms": 958.9196906425059,
+      "mean_ms": 931.4711291342974,
+      "stage_cuda_median_ms": {
+        "video": 319.9259338378906,
+        "decode_prefix": 96.79769515991211,
+        "jepa_encoder": 47.60371208190918,
+        "action_including_guidance_and_wait": 613.5464172363281,
+        "future_preprocess": 21.463040351867676
+      },
+      "wait_median_ms": 0.03993599861860275,
+      "energy_forward_median_ms": 103.43780708312988,
+      "energy_backward_median_ms": 129.4115810394287
+    }
+  },
+  "scope": "Fixed initial559/seed7, same cached T5, warmed compiled current WAM+JEPA2.1+AR2+weighted L1 forward/backward; no task success evaluation.",
+  "gpu_preprocess_equivalent": false,
+  "scheduling_validation": {
+    "max_abs": 0.0,
+    "rms": 0.0,
+    "relative_l2": 0.0,
+    "finite": true
+  },
+  "compiled_vs_eager": {
+    "max_abs": 0.005859375,
+    "rms": 0.0018802837003022432,
+    "relative_l2": 0.004221897106617689,
+    "finite": true
+  }
+}

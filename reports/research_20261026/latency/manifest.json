@@ -1,0 +1,54 @@
+{
+  "input_task": 559,
+  "seed": 7,
+  "purpose": "Current-model fresh compilation, cold/warm latency, equivalent prefix pipeline and contention diagnosis",
+  "fresh_cache": "/data/pxchen/PACT-WAM/evaluate_results/ar2_compiled_latency_20261026/compiler_cache",
+  "no_rollouts": true,
+  "no_changes_to_robot42_runs": true,
+  "core_compilation": [
+    "WAM image VAE encode",
+    "WAM video denoise",
+    "WAM video attention prefill",
+    "WAM action denoise",
+    "VAE decode",
+    "JEPA image/pair encoder",
+    "AR2 weighted L1 energy and AOT backward",
+    "GPU preprocessing candidate"
+  ],
+  "cuda_graphs": false,
+  "note": "Host PIL path remains canonical. GPU preprocessing separately checked; approximate paths are not equivalent speedup evidence. Automatic bottleneck report plus separate profiler trace. No fabricated 40-percent online trigger run.",
+  "source_sha256": {
+    "test_weighted_energy.py": "751a9176db957053ab1aeaaf704d21fb57136ca4c7c6f273f33135528e405187",
+    "launch_robot42.py": "97e5bb9f4013a3604cb5d4af5613209abeff6ab807b859c8b2c0006f26b2d7c1",
+    "test_guidance_gripper_consistency.py": "329c09229f4e65a06f78302fcff5838efe4dc3403e4d0105b902837df41a758d",
+    "eval_libero_single.py": "25d1940d14035d9416ac26e42fb01d7350f61a8a330a09c48fc12c49b9d93d1b",
+    "eval_weighted_six.py": "7747e37d42ffc09b855f907b62e3c4886d2a2165b40fd1eefe347c4c31503769",
+    "fastwam_ar2_eval.py": "6b1f9cc7ef47c8de0e188b12db7c9add34595d262be4743aa77843c647767552",
+    "text_context_cache.py": "12e83e34e28f32e8b6429b8b6808c76ca03f93479573c083d4967dbc8ab8a0d6",
+    "eval_four_seed_arm.py": "2383089fa4b80f79148cfa168db3ea62dc44673aa9de106b35489171da531e57",
+    "launch_four_seed_pairs.py": "ebb15656b227fc21c079fbca6b2a064a7d5331e4249cf0fc0d52154e2d67b8e8",
+    "bench_compiled.py": "d1a7b8b073076bc240ac06f9d4ce98d1089ce29a0d2c3ee65dd03132a791fc72",
+    "eval_robot42.py": "9d6ba4c4912f8d95707dfa726256a2e06480a8358f02056c17131e32938b5b1f",
+    "scheduler_continuous.py": "1a316820d3c5c0405363dcddc541d906bdf45291e8d804646a6627aa9d9d3a5e",
+    "fastwam_idm.py": "6dacb88ce8ef4f60a2c957d4ba94b51673d34469301524f9caf4557c92fe663e",
+    "vectorized_ac_attention.py": "603f30430c8cf6891a3142ca90f950f2bf6f6a93a383c8ee0c937d919fa95ddc",
+    "weighted_ar2_ranker.py": "eab966279ef8d4bce57134a17186761c7500662d76c68d4fe3f27577283af744",
+    "smoke_joint_predictor.py": "1d5b22ce09a34f3d277608f238c51d3b0ada4d305066c339b59a45df88d938b0",
+    "launch_compiled.py": "77206ce73472a0a9fb1dcd28098a24bb9b8452cd97cea91d1f8f75b370265d9f",
+    "sim_libero.yaml": "d35910d4d8620f0a467cbb09fda18308d2b768878cad272f9ed7319c9036a1ef"
+  },
+  "gpu_vae_note": "Bypass legacy CPU latent copy; independent mutable cache owner shares read-only decoder weights; original pixel equality check",
+  "queue_policy": {
+    "finished": true,
+    "actual_final_gpu": 7
+  },
+  "shared_gpu_measurement": true,
+  "restart_reason": "Preserve wrapped inference signatures used by native inspect.signature argument filtering",
+  "restart_time": "2026-10-26 15:45:29",
+  "actual_completed_run": {
+    "gpu": 7,
+    "pid": 794343,
+    "completed": "2026-10-26 15:59:02"
+  },
+  "cache_resume_note": "Fresh isolated cache started today; successful components reused across repairs in this run. Resume cold times are not all fresh-cache compile times. first_attempt_cold_start.json preserves first WAM compile."
+}

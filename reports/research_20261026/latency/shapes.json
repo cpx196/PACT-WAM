@@ -1,0 +1,22 @@
+{
+  "video_latents": [
+    1,
+    48,
+    3,
+    14,
+    28
+  ],
+  "current_transform": "Compose(\n    Resize(size=(384, 384), interpolation=bicubic, max_size=None, antialias=True)\n    ToTensor()\n    Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))\n)",
+  "guidance": {
+    "nodes": [
+      7,
+      8,
+      9
+    ],
+    "scale": 4,
+    "cap": 0.02,
+    "verify_descent": true,
+    "weights": "original fixed white-mug table",
+    "ar_chain": "P1 then P2 without detach"
+  }
+}

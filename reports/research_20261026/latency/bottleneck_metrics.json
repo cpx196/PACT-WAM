@@ -1,0 +1,13 @@
+{
+  "video_cuda_ms": 319.64259338378906,
+  "action_span_cuda_ms": 707.4044189453125,
+  "encoder_dependency_wait_ms": 0.03788800165057182,
+  "energy_forward_ms": 210.46368217468262,
+  "energy_backward_ms": 129.6153621673584,
+  "prefix_decode_wall_saving_ms": 68.37576534599066,
+  "overlap_wall_saving_ms": 57.14959837496281,
+  "verification_wall_overhead_ms": 92.32142567634583,
+  "encoder_slowdown_in_overlap": 1.1067582880049618,
+  "dominant_measured_span": "action_including_guidance_and_wait",
+  "limitation": "Component slowdown is timing evidence of overlap interference, not proof of compute or DRAM saturation. Profiler trace distinguishes kernels and synchronization; bandwidth cause requires hardware counters."
+}
