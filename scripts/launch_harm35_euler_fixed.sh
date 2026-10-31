@@ -52,11 +52,6 @@ run_group() {
     return "$status"
 }
 
-used=$(nvidia-smi --id=2 --query-gpu=memory.used --format=csv,noheader,nounits)
-if [[ "$used" -gt 1024 ]]; then
-    echo "GPU2 no longer idle: $used MiB; refusing to start"
-    exit 4
-fi
 run_group guidance4x_euler_fixed 2 true 1
 result=$?
 echo "[$(date '+%F %T')] FINISHED status=$result" >> "$root/completion.log"

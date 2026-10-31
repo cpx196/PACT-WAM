@@ -1,0 +1,507 @@
+/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py:24: DeprecationWarning: `vllm.entrypoints.openai.api_server` is deprecated and will likely beunsupported in a future version. Use the corresponding function from `vllm.entrypoints.launchers` instead.
+  warnings.warn(
+/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py:51: DeprecationWarning: The `python -m vllm.entrypoints.openai.api_server` command is deprecated and may be removed in a future release. Please use `vllm server` instead.
+  warnings.warn(
+INFO 10-28 12:11:34 [patch.py:253] NVFP4 W4A4 weight_scale NaN-clamp: skipped — upstream serves ModelOpt linears through the generic ModelOptLinearMethod and rejects any NaN weight_scale (unloaded-scale sentinel), so a load-time error replaces the `!!!!` decode-time collapse.
+INFO 10-28 12:11:34 [patch.py:565] inductor factorable-divisibility patch: installed.
+INFO 10-28 12:11:34 [patch.py:630] [cumem-cuda] CuMemAllocator._python_free_callback patched: asleep guard extended to all platforms.
+(APIServer pid=3331156) INFO 10-28 12:11:35 [api_utils.py:347] 
+(APIServer pid=3331156) INFO 10-28 12:11:35 [api_utils.py:347]        █     █     █▄   ▄█
+(APIServer pid=3331156) INFO 10-28 12:11:35 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.30.0
+(APIServer pid=3331156) INFO 10-28 12:11:35 [api_utils.py:347]   █▄█▀ █     █     █     █  model   /home/pxchen/workspace/models/MAI-UI-8B
+(APIServer pid=3331156) INFO 10-28 12:11:35 [api_utils.py:347]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=3331156) INFO 10-28 12:11:35 [api_utils.py:347] 
+(APIServer pid=3331156) INFO 10-28 12:11:35 [api_utils.py:286] non-default args: {'host': '0.0.0.0', 'port': 8097, 'model': '/home/pxchen/workspace/models/MAI-UI-8B', 'dtype': 'bfloat16', 'max_model_len': 24576, 'enforce_eager': True, 'served_model_name': ['MAI-UI-8B'], 'attention_backend': 'TRITON_ATTN', 'gpu_memory_utilization': 0.97, 'limit_mm_per_prompt': {'image': 3, 'video': 0}, 'max_num_batched_tokens': 1024, 'max_num_seqs': 8}
+(APIServer pid=3331156) INFO 10-28 12:11:35 [model.py:692] Resolved architecture: Qwen3VLForConditionalGeneration
+(APIServer pid=3331156) INFO 10-28 12:11:35 [model.py:2361] Downcasting torch.float32 to torch.bfloat16.
+(APIServer pid=3331156) INFO 10-28 12:11:35 [model.py:2030] Using max model len 24576
+(APIServer pid=3331156) INFO 10-28 12:11:37 [scheduler.py:288] Chunked prefill is enabled with max_num_batched_tokens=1024.
+(APIServer pid=3331156) WARNING 10-28 12:11:37 [vllm.py:1547] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(APIServer pid=3331156) WARNING 10-28 12:11:37 [vllm.py:1570] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(APIServer pid=3331156) INFO 10-28 12:11:37 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+(APIServer pid=3331156) INFO 10-28 12:11:37 [vllm.py:1780] Cudagraph is disabled under eager mode
+(APIServer pid=3331156) INFO 10-28 12:11:37 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(APIServer pid=3331156) [transformers] The `use_fast` parameter is deprecated and will be removed in a future version. Use `backend="torchvision"` instead of `use_fast=True`, or `backend="pil"` instead of `use_fast=False`.
+(EngineCore pid=3336777) INFO 10-28 12:12:04 [patch.py:253] NVFP4 W4A4 weight_scale NaN-clamp: skipped — upstream serves ModelOpt linears through the generic ModelOptLinearMethod and rejects any NaN weight_scale (unloaded-scale sentinel), so a load-time error replaces the `!!!!` decode-time collapse.
+(EngineCore pid=3336777) INFO 10-28 12:12:04 [patch.py:565] inductor factorable-divisibility patch: installed.
+(EngineCore pid=3336777) INFO 10-28 12:12:04 [patch.py:630] [cumem-cuda] CuMemAllocator._python_free_callback patched: asleep guard extended to all platforms.
+(EngineCore pid=3336777) INFO 10-28 12:12:04 [core.py:123] Initializing a V1 LLM engine (v0.30.0) with config: model='/home/pxchen/workspace/models/MAI-UI-8B', speculative_config=None, tokenizer='/home/pxchen/workspace/models/MAI-UI-8B', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=24576, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=MAI-UI-8B, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'ir_enable_torch_wrap': False, 'splitting_ops': [], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [1024], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)
+(EngineCore pid=3336777) INFO 10-28 12:12:06 [parallel_state.py:1827] world_size=1 rank=0 local_rank=0 distributed_init_method=file:///tmp/vllm_dist_1795c638cd2a44bd81beea61f173f6ce backend=nccl
+(EngineCore pid=3336777) INFO 10-28 12:12:06 [parallel_state.py:2267] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore pid=3336777) INFO 10-28 12:12:06 [gpu_worker.py:441] Using V2 Model Runner
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366] EngineCore failed to start.
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366] Traceback (most recent call last):
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1328, in run_engine_core
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]     return func(*args, **kwargs)
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1085, in __init__
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]     super().__init__(
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 134, in __init__
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]     self.model_executor = executor_class(vllm_config)
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]     return func(*args, **kwargs)
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/executor/abstract.py", line 110, in __init__
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]     self._init_executor()
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/executor/uniproc_executor.py", line 69, in _init_executor
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]     self.driver_worker.init_device()
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/worker_base.py", line 355, in init_device
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]     self.worker.init_device()  # type: ignore
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]     ^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]     return func(*args, **kwargs)
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/gpu_worker.py", line 452, in init_device
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]     self.requested_memory = request_memory(init_snapshot, self.cache_config)
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/utils.py", line 544, in request_memory
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366]     raise ValueError(
+(EngineCore pid=3336777) ERROR 10-28 12:12:07 [core.py:1366] ValueError: Free memory on device cuda:0 (8.23/23.55 GiB) on startup is less than desired GPU memory utilization (0.97, 22.84 GiB). Decrease GPU memory utilization or reduce GPU memory used by other processes.
+(EngineCore pid=3336777) Process EngineCore:
+(EngineCore pid=3336777) Traceback (most recent call last):
+(EngineCore pid=3336777)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+(EngineCore pid=3336777)     self.run()
+(EngineCore pid=3336777)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/process.py", line 108, in run
+(EngineCore pid=3336777)     self._target(*self._args, **self._kwargs)
+(EngineCore pid=3336777)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1370, in run_engine_core
+(EngineCore pid=3336777)     raise e
+(EngineCore pid=3336777)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1328, in run_engine_core
+(EngineCore pid=3336777)     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=3336777)                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3336777)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3336777)     return func(*args, **kwargs)
+(EngineCore pid=3336777)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3336777)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1085, in __init__
+(EngineCore pid=3336777)     super().__init__(
+(EngineCore pid=3336777)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 134, in __init__
+(EngineCore pid=3336777)     self.model_executor = executor_class(vllm_config)
+(EngineCore pid=3336777)                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3336777)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3336777)     return func(*args, **kwargs)
+(EngineCore pid=3336777)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3336777)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/executor/abstract.py", line 110, in __init__
+(EngineCore pid=3336777)     self._init_executor()
+(EngineCore pid=3336777)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/executor/uniproc_executor.py", line 69, in _init_executor
+(EngineCore pid=3336777)     self.driver_worker.init_device()
+(EngineCore pid=3336777)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/worker_base.py", line 355, in init_device
+(EngineCore pid=3336777)     self.worker.init_device()  # type: ignore
+(EngineCore pid=3336777)     ^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3336777)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3336777)     return func(*args, **kwargs)
+(EngineCore pid=3336777)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3336777)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/gpu_worker.py", line 452, in init_device
+(EngineCore pid=3336777)     self.requested_memory = request_memory(init_snapshot, self.cache_config)
+(EngineCore pid=3336777)                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3336777)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/utils.py", line 544, in request_memory
+(EngineCore pid=3336777)     raise ValueError(
+(EngineCore pid=3336777) ValueError: Free memory on device cuda:0 (8.23/23.55 GiB) on startup is less than desired GPU memory utilization (0.97, 22.84 GiB). Decrease GPU memory utilization or reduce GPU memory used by other processes.
+[rank0]:[W1028 12:12:08.073464552 ProcessGroupNCCL.cpp:1624] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+(APIServer pid=3331156) INFO 10-28 12:12:08 [base.py:261] Multi-modal warmup completed in 20.161s
+(APIServer pid=3331156) INFO 10-28 12:12:10 [utils.py:632] [shutdown] Process manager: send sigterm to process EngineCore
+(APIServer pid=3331156) Traceback (most recent call last):
+(APIServer pid=3331156)   File "<frozen runpy>", line 198, in _run_module_as_main
+(APIServer pid=3331156)   File "<frozen runpy>", line 88, in _run_code
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 59, in <module>
+(APIServer pid=3331156)     main()
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 226, in main
+(APIServer pid=3331156)     uvloop.run(run_server(args))
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/uvloop/__init__.py", line 96, in run
+(APIServer pid=3331156)     return __asyncio.run(
+(APIServer pid=3331156)            ^^^^^^^^^^^^^^
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+(APIServer pid=3331156)     return runner.run(main)
+(APIServer pid=3331156)            ^^^^^^^^^^^^^^^^
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+(APIServer pid=3331156)     return self._loop.run_until_complete(task)
+(APIServer pid=3331156)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3331156)   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/uvloop/__init__.py", line 48, in wrapper
+(APIServer pid=3331156)     return await main
+(APIServer pid=3331156)            ^^^^^^^^^^
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 176, in run_server
+(APIServer pid=3331156)     await run_server_worker(listen_address, sock, args, **uvicorn_kwargs)
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 190, in run_server_worker
+(APIServer pid=3331156)     async with build_async_engine_client(
+(APIServer pid=3331156)                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=3331156)     return await anext(self.gen)
+(APIServer pid=3331156)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 58, in build_async_engine_client
+(APIServer pid=3331156)     async with build_async_engine_client_from_engine_args(
+(APIServer pid=3331156)                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=3331156)     return await anext(self.gen)
+(APIServer pid=3331156)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 94, in build_async_engine_client_from_engine_args
+(APIServer pid=3331156)     async_llm = AsyncLLM.from_vllm_config(
+(APIServer pid=3331156)                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/async_llm.py", line 235, in from_vllm_config
+(APIServer pid=3331156)     return cls(
+(APIServer pid=3331156)            ^^^^
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/async_llm.py", line 169, in __init__
+(APIServer pid=3331156)     self.engine_core = EngineCoreClient.make_async_mp_client(
+(APIServer pid=3331156)                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(APIServer pid=3331156)     return func(*args, **kwargs)
+(APIServer pid=3331156)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 163, in make_async_mp_client
+(APIServer pid=3331156)     return AsyncMPClient(
+(APIServer pid=3331156)            ^^^^^^^^^^^^^^
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(APIServer pid=3331156)     return func(*args, **kwargs)
+(APIServer pid=3331156)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 1060, in __init__
+(APIServer pid=3331156)     super().__init__(
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 656, in __init__
+(APIServer pid=3331156)     with launch_core_engines(
+(APIServer pid=3331156)          ^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 144, in __exit__
+(APIServer pid=3331156)     next(self.gen)
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1240, in launch_core_engines
+(APIServer pid=3331156)     wait_for_engine_startup(
+(APIServer pid=3331156)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1320, in wait_for_engine_startup
+(APIServer pid=3331156)     raise RuntimeError(
+(APIServer pid=3331156) RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}
+(APIServer pid=3331156) INFO 10-28 12:12:12 [base.py:261] Readonly multi-modal warmup completed in 3.652s
+/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py:24: DeprecationWarning: `vllm.entrypoints.openai.api_server` is deprecated and will likely beunsupported in a future version. Use the corresponding function from `vllm.entrypoints.launchers` instead.
+  warnings.warn(
+/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py:51: DeprecationWarning: The `python -m vllm.entrypoints.openai.api_server` command is deprecated and may be removed in a future release. Please use `vllm server` instead.
+  warnings.warn(
+INFO 10-28 12:21:31 [patch.py:253] NVFP4 W4A4 weight_scale NaN-clamp: skipped — upstream serves ModelOpt linears through the generic ModelOptLinearMethod and rejects any NaN weight_scale (unloaded-scale sentinel), so a load-time error replaces the `!!!!` decode-time collapse.
+INFO 10-28 12:21:32 [patch.py:565] inductor factorable-divisibility patch: installed.
+INFO 10-28 12:21:32 [patch.py:630] [cumem-cuda] CuMemAllocator._python_free_callback patched: asleep guard extended to all platforms.
+(APIServer pid=3423910) INFO 10-28 12:21:32 [api_utils.py:347] 
+(APIServer pid=3423910) INFO 10-28 12:21:32 [api_utils.py:347]        █     █     █▄   ▄█
+(APIServer pid=3423910) INFO 10-28 12:21:32 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.30.0
+(APIServer pid=3423910) INFO 10-28 12:21:32 [api_utils.py:347]   █▄█▀ █     █     █     █  model   /home/pxchen/workspace/models/MAI-UI-8B
+(APIServer pid=3423910) INFO 10-28 12:21:32 [api_utils.py:347]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=3423910) INFO 10-28 12:21:32 [api_utils.py:347] 
+(APIServer pid=3423910) INFO 10-28 12:21:32 [api_utils.py:286] non-default args: {'host': '0.0.0.0', 'port': 8097, 'model': '/home/pxchen/workspace/models/MAI-UI-8B', 'dtype': 'bfloat16', 'max_model_len': 24576, 'enforce_eager': True, 'served_model_name': ['MAI-UI-8B'], 'attention_backend': 'TRITON_ATTN', 'gpu_memory_utilization': 0.97, 'limit_mm_per_prompt': {'image': 3, 'video': 0}, 'max_num_batched_tokens': 1024, 'max_num_seqs': 8}
+(APIServer pid=3423910) INFO 10-28 12:21:32 [model.py:692] Resolved architecture: Qwen3VLForConditionalGeneration
+(APIServer pid=3423910) INFO 10-28 12:21:32 [model.py:2361] Downcasting torch.float32 to torch.bfloat16.
+(APIServer pid=3423910) INFO 10-28 12:21:32 [model.py:2030] Using max model len 24576
+(APIServer pid=3423910) INFO 10-28 12:21:34 [scheduler.py:288] Chunked prefill is enabled with max_num_batched_tokens=1024.
+(APIServer pid=3423910) WARNING 10-28 12:21:34 [vllm.py:1547] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(APIServer pid=3423910) WARNING 10-28 12:21:34 [vllm.py:1570] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(APIServer pid=3423910) INFO 10-28 12:21:34 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+(APIServer pid=3423910) INFO 10-28 12:21:34 [vllm.py:1780] Cudagraph is disabled under eager mode
+(APIServer pid=3423910) INFO 10-28 12:21:34 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(APIServer pid=3423910) [transformers] The `use_fast` parameter is deprecated and will be removed in a future version. Use `backend="torchvision"` instead of `use_fast=True`, or `backend="pil"` instead of `use_fast=False`.
+(EngineCore pid=3428986) INFO 10-28 12:22:03 [patch.py:253] NVFP4 W4A4 weight_scale NaN-clamp: skipped — upstream serves ModelOpt linears through the generic ModelOptLinearMethod and rejects any NaN weight_scale (unloaded-scale sentinel), so a load-time error replaces the `!!!!` decode-time collapse.
+(EngineCore pid=3428986) INFO 10-28 12:22:03 [patch.py:565] inductor factorable-divisibility patch: installed.
+(EngineCore pid=3428986) INFO 10-28 12:22:03 [patch.py:630] [cumem-cuda] CuMemAllocator._python_free_callback patched: asleep guard extended to all platforms.
+(EngineCore pid=3428986) INFO 10-28 12:22:04 [core.py:123] Initializing a V1 LLM engine (v0.30.0) with config: model='/home/pxchen/workspace/models/MAI-UI-8B', speculative_config=None, tokenizer='/home/pxchen/workspace/models/MAI-UI-8B', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=24576, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=MAI-UI-8B, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'ir_enable_torch_wrap': False, 'splitting_ops': [], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [1024], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)
+(APIServer pid=3423910) INFO 10-28 12:22:07 [base.py:261] Multi-modal warmup completed in 23.129s
+(EngineCore pid=3428986) INFO 10-28 12:22:07 [parallel_state.py:1827] world_size=1 rank=0 local_rank=0 distributed_init_method=file:///tmp/vllm_dist_25503209ca904dbe8f5d13ad5177944a backend=nccl
+(EngineCore pid=3428986) INFO 10-28 12:22:07 [parallel_state.py:2267] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore pid=3428986) INFO 10-28 12:22:07 [gpu_worker.py:441] Using V2 Model Runner
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366] EngineCore failed to start.
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366] Traceback (most recent call last):
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1328, in run_engine_core
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]     return func(*args, **kwargs)
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1085, in __init__
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]     super().__init__(
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 134, in __init__
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]     self.model_executor = executor_class(vllm_config)
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]     return func(*args, **kwargs)
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/executor/abstract.py", line 110, in __init__
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]     self._init_executor()
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/executor/uniproc_executor.py", line 69, in _init_executor
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]     self.driver_worker.init_device()
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/worker_base.py", line 355, in init_device
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]     self.worker.init_device()  # type: ignore
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]     ^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]     return func(*args, **kwargs)
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/gpu_worker.py", line 452, in init_device
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]     self.requested_memory = request_memory(init_snapshot, self.cache_config)
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/utils.py", line 544, in request_memory
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366]     raise ValueError(
+(EngineCore pid=3428986) ERROR 10-28 12:22:08 [core.py:1366] ValueError: Free memory on device cuda:0 (4.19/23.55 GiB) on startup is less than desired GPU memory utilization (0.97, 22.84 GiB). Decrease GPU memory utilization or reduce GPU memory used by other processes.
+(EngineCore pid=3428986) Process EngineCore:
+(EngineCore pid=3428986) Traceback (most recent call last):
+(EngineCore pid=3428986)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+(EngineCore pid=3428986)     self.run()
+(EngineCore pid=3428986)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/process.py", line 108, in run
+(EngineCore pid=3428986)     self._target(*self._args, **self._kwargs)
+(EngineCore pid=3428986)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1370, in run_engine_core
+(EngineCore pid=3428986)     raise e
+(EngineCore pid=3428986)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1328, in run_engine_core
+(EngineCore pid=3428986)     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=3428986)                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3428986)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3428986)     return func(*args, **kwargs)
+(EngineCore pid=3428986)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3428986)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1085, in __init__
+(EngineCore pid=3428986)     super().__init__(
+(EngineCore pid=3428986)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 134, in __init__
+(EngineCore pid=3428986)     self.model_executor = executor_class(vllm_config)
+(EngineCore pid=3428986)                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3428986)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3428986)     return func(*args, **kwargs)
+(EngineCore pid=3428986)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3428986)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/executor/abstract.py", line 110, in __init__
+(EngineCore pid=3428986)     self._init_executor()
+(EngineCore pid=3428986)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/executor/uniproc_executor.py", line 69, in _init_executor
+(EngineCore pid=3428986)     self.driver_worker.init_device()
+(EngineCore pid=3428986)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/worker_base.py", line 355, in init_device
+(EngineCore pid=3428986)     self.worker.init_device()  # type: ignore
+(EngineCore pid=3428986)     ^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3428986)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3428986)     return func(*args, **kwargs)
+(EngineCore pid=3428986)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3428986)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/gpu_worker.py", line 452, in init_device
+(EngineCore pid=3428986)     self.requested_memory = request_memory(init_snapshot, self.cache_config)
+(EngineCore pid=3428986)                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3428986)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/utils.py", line 544, in request_memory
+(EngineCore pid=3428986)     raise ValueError(
+(EngineCore pid=3428986) ValueError: Free memory on device cuda:0 (4.19/23.55 GiB) on startup is less than desired GPU memory utilization (0.97, 22.84 GiB). Decrease GPU memory utilization or reduce GPU memory used by other processes.
+[rank0]:[W1028 12:22:10.767162276 ProcessGroupNCCL.cpp:1624] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+(APIServer pid=3423910) INFO 10-28 12:22:11 [base.py:261] Readonly multi-modal warmup completed in 4.034s
+(APIServer pid=3423910) INFO 10-28 12:22:12 [utils.py:632] [shutdown] Process manager: send sigterm to process EngineCore
+(APIServer pid=3423910) Traceback (most recent call last):
+(APIServer pid=3423910)   File "<frozen runpy>", line 198, in _run_module_as_main
+(APIServer pid=3423910)   File "<frozen runpy>", line 88, in _run_code
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 59, in <module>
+(APIServer pid=3423910)     main()
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 226, in main
+(APIServer pid=3423910)     uvloop.run(run_server(args))
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/uvloop/__init__.py", line 96, in run
+(APIServer pid=3423910)     return __asyncio.run(
+(APIServer pid=3423910)            ^^^^^^^^^^^^^^
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+(APIServer pid=3423910)     return runner.run(main)
+(APIServer pid=3423910)            ^^^^^^^^^^^^^^^^
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+(APIServer pid=3423910)     return self._loop.run_until_complete(task)
+(APIServer pid=3423910)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3423910)   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/uvloop/__init__.py", line 48, in wrapper
+(APIServer pid=3423910)     return await main
+(APIServer pid=3423910)            ^^^^^^^^^^
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 176, in run_server
+(APIServer pid=3423910)     await run_server_worker(listen_address, sock, args, **uvicorn_kwargs)
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 190, in run_server_worker
+(APIServer pid=3423910)     async with build_async_engine_client(
+(APIServer pid=3423910)                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=3423910)     return await anext(self.gen)
+(APIServer pid=3423910)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 58, in build_async_engine_client
+(APIServer pid=3423910)     async with build_async_engine_client_from_engine_args(
+(APIServer pid=3423910)                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=3423910)     return await anext(self.gen)
+(APIServer pid=3423910)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 94, in build_async_engine_client_from_engine_args
+(APIServer pid=3423910)     async_llm = AsyncLLM.from_vllm_config(
+(APIServer pid=3423910)                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/async_llm.py", line 235, in from_vllm_config
+(APIServer pid=3423910)     return cls(
+(APIServer pid=3423910)            ^^^^
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/async_llm.py", line 169, in __init__
+(APIServer pid=3423910)     self.engine_core = EngineCoreClient.make_async_mp_client(
+(APIServer pid=3423910)                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(APIServer pid=3423910)     return func(*args, **kwargs)
+(APIServer pid=3423910)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 163, in make_async_mp_client
+(APIServer pid=3423910)     return AsyncMPClient(
+(APIServer pid=3423910)            ^^^^^^^^^^^^^^
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(APIServer pid=3423910)     return func(*args, **kwargs)
+(APIServer pid=3423910)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 1060, in __init__
+(APIServer pid=3423910)     super().__init__(
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 656, in __init__
+(APIServer pid=3423910)     with launch_core_engines(
+(APIServer pid=3423910)          ^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 144, in __exit__
+(APIServer pid=3423910)     next(self.gen)
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1240, in launch_core_engines
+(APIServer pid=3423910)     wait_for_engine_startup(
+(APIServer pid=3423910)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1320, in wait_for_engine_startup
+(APIServer pid=3423910)     raise RuntimeError(
+(APIServer pid=3423910) RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}
+/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py:24: DeprecationWarning: `vllm.entrypoints.openai.api_server` is deprecated and will likely beunsupported in a future version. Use the corresponding function from `vllm.entrypoints.launchers` instead.
+  warnings.warn(
+/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py:51: DeprecationWarning: The `python -m vllm.entrypoints.openai.api_server` command is deprecated and may be removed in a future release. Please use `vllm server` instead.
+  warnings.warn(
+INFO 10-28 13:01:33 [patch.py:253] NVFP4 W4A4 weight_scale NaN-clamp: skipped — upstream serves ModelOpt linears through the generic ModelOptLinearMethod and rejects any NaN weight_scale (unloaded-scale sentinel), so a load-time error replaces the `!!!!` decode-time collapse.
+INFO 10-28 13:01:34 [patch.py:565] inductor factorable-divisibility patch: installed.
+INFO 10-28 13:01:34 [patch.py:630] [cumem-cuda] CuMemAllocator._python_free_callback patched: asleep guard extended to all platforms.
+(APIServer pid=3790235) INFO 10-28 13:01:34 [api_utils.py:347] 
+(APIServer pid=3790235) INFO 10-28 13:01:34 [api_utils.py:347]        █     █     █▄   ▄█
+(APIServer pid=3790235) INFO 10-28 13:01:34 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.30.0
+(APIServer pid=3790235) INFO 10-28 13:01:34 [api_utils.py:347]   █▄█▀ █     █     █     █  model   /home/pxchen/workspace/models/MAI-UI-8B
+(APIServer pid=3790235) INFO 10-28 13:01:34 [api_utils.py:347]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=3790235) INFO 10-28 13:01:34 [api_utils.py:347] 
+(APIServer pid=3790235) INFO 10-28 13:01:34 [api_utils.py:286] non-default args: {'host': '0.0.0.0', 'port': 8097, 'model': '/home/pxchen/workspace/models/MAI-UI-8B', 'dtype': 'bfloat16', 'max_model_len': 24576, 'enforce_eager': True, 'served_model_name': ['MAI-UI-8B'], 'attention_backend': 'TRITON_ATTN', 'gpu_memory_utilization': 0.97, 'limit_mm_per_prompt': {'image': 3, 'video': 0}, 'max_num_batched_tokens': 1024, 'max_num_seqs': 8}
+(APIServer pid=3790235) INFO 10-28 13:01:34 [model.py:692] Resolved architecture: Qwen3VLForConditionalGeneration
+(APIServer pid=3790235) INFO 10-28 13:01:34 [model.py:2361] Downcasting torch.float32 to torch.bfloat16.
+(APIServer pid=3790235) INFO 10-28 13:01:34 [model.py:2030] Using max model len 24576
+(APIServer pid=3790235) INFO 10-28 13:01:36 [scheduler.py:288] Chunked prefill is enabled with max_num_batched_tokens=1024.
+(APIServer pid=3790235) WARNING 10-28 13:01:36 [vllm.py:1547] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(APIServer pid=3790235) WARNING 10-28 13:01:36 [vllm.py:1570] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(APIServer pid=3790235) INFO 10-28 13:01:36 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+(APIServer pid=3790235) INFO 10-28 13:01:36 [vllm.py:1780] Cudagraph is disabled under eager mode
+(APIServer pid=3790235) INFO 10-28 13:01:36 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(APIServer pid=3790235) [transformers] The `use_fast` parameter is deprecated and will be removed in a future version. Use `backend="torchvision"` instead of `use_fast=True`, or `backend="pil"` instead of `use_fast=False`.
+(EngineCore pid=3794414) INFO 10-28 13:02:06 [patch.py:253] NVFP4 W4A4 weight_scale NaN-clamp: skipped — upstream serves ModelOpt linears through the generic ModelOptLinearMethod and rejects any NaN weight_scale (unloaded-scale sentinel), so a load-time error replaces the `!!!!` decode-time collapse.
+(EngineCore pid=3794414) INFO 10-28 13:02:06 [patch.py:565] inductor factorable-divisibility patch: installed.
+(EngineCore pid=3794414) INFO 10-28 13:02:06 [patch.py:630] [cumem-cuda] CuMemAllocator._python_free_callback patched: asleep guard extended to all platforms.
+(EngineCore pid=3794414) INFO 10-28 13:02:06 [core.py:123] Initializing a V1 LLM engine (v0.30.0) with config: model='/home/pxchen/workspace/models/MAI-UI-8B', speculative_config=None, tokenizer='/home/pxchen/workspace/models/MAI-UI-8B', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=24576, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=MAI-UI-8B, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'ir_enable_torch_wrap': False, 'splitting_ops': [], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [1024], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)
+(APIServer pid=3790235) INFO 10-28 13:02:09 [base.py:261] Multi-modal warmup completed in 22.458s
+(EngineCore pid=3794414) INFO 10-28 13:02:09 [parallel_state.py:1827] world_size=1 rank=0 local_rank=0 distributed_init_method=file:///tmp/vllm_dist_83bc6ffa02bb4af69ba6b9a01a4a4f71 backend=nccl
+(EngineCore pid=3794414) INFO 10-28 13:02:09 [parallel_state.py:2267] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore pid=3794414) INFO 10-28 13:02:09 [gpu_worker.py:441] Using V2 Model Runner
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366] EngineCore failed to start.
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366] Traceback (most recent call last):
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1328, in run_engine_core
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]     return func(*args, **kwargs)
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1085, in __init__
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]     super().__init__(
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 134, in __init__
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]     self.model_executor = executor_class(vllm_config)
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]     return func(*args, **kwargs)
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/executor/abstract.py", line 110, in __init__
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]     self._init_executor()
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/executor/uniproc_executor.py", line 69, in _init_executor
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]     self.driver_worker.init_device()
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/worker_base.py", line 355, in init_device
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]     self.worker.init_device()  # type: ignore
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]     ^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]     return func(*args, **kwargs)
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/gpu_worker.py", line 452, in init_device
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]     self.requested_memory = request_memory(init_snapshot, self.cache_config)
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/utils.py", line 544, in request_memory
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366]     raise ValueError(
+(EngineCore pid=3794414) ERROR 10-28 13:02:11 [core.py:1366] ValueError: Free memory on device cuda:0 (2.8/23.55 GiB) on startup is less than desired GPU memory utilization (0.97, 22.84 GiB). Decrease GPU memory utilization or reduce GPU memory used by other processes.
+(EngineCore pid=3794414) Process EngineCore:
+(EngineCore pid=3794414) Traceback (most recent call last):
+(EngineCore pid=3794414)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+(EngineCore pid=3794414)     self.run()
+(EngineCore pid=3794414)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/process.py", line 108, in run
+(EngineCore pid=3794414)     self._target(*self._args, **self._kwargs)
+(EngineCore pid=3794414)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1370, in run_engine_core
+(EngineCore pid=3794414)     raise e
+(EngineCore pid=3794414)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1328, in run_engine_core
+(EngineCore pid=3794414)     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=3794414)                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3794414)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3794414)     return func(*args, **kwargs)
+(EngineCore pid=3794414)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3794414)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1085, in __init__
+(EngineCore pid=3794414)     super().__init__(
+(EngineCore pid=3794414)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 134, in __init__
+(EngineCore pid=3794414)     self.model_executor = executor_class(vllm_config)
+(EngineCore pid=3794414)                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3794414)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3794414)     return func(*args, **kwargs)
+(EngineCore pid=3794414)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3794414)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/executor/abstract.py", line 110, in __init__
+(EngineCore pid=3794414)     self._init_executor()
+(EngineCore pid=3794414)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/executor/uniproc_executor.py", line 69, in _init_executor
+(EngineCore pid=3794414)     self.driver_worker.init_device()
+(EngineCore pid=3794414)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/worker_base.py", line 355, in init_device
+(EngineCore pid=3794414)     self.worker.init_device()  # type: ignore
+(EngineCore pid=3794414)     ^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3794414)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=3794414)     return func(*args, **kwargs)
+(EngineCore pid=3794414)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3794414)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/gpu_worker.py", line 452, in init_device
+(EngineCore pid=3794414)     self.requested_memory = request_memory(init_snapshot, self.cache_config)
+(EngineCore pid=3794414)                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=3794414)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/worker/utils.py", line 544, in request_memory
+(EngineCore pid=3794414)     raise ValueError(
+(EngineCore pid=3794414) ValueError: Free memory on device cuda:0 (2.8/23.55 GiB) on startup is less than desired GPU memory utilization (0.97, 22.84 GiB). Decrease GPU memory utilization or reduce GPU memory used by other processes.
+(APIServer pid=3790235) INFO 10-28 13:02:13 [base.py:261] Readonly multi-modal warmup completed in 3.690s
+[rank0]:[W1028 13:02:13.777413931 ProcessGroupNCCL.cpp:1624] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+(APIServer pid=3790235) INFO 10-28 13:02:15 [utils.py:632] [shutdown] Process manager: send sigterm to process EngineCore
+(APIServer pid=3790235) Traceback (most recent call last):
+(APIServer pid=3790235)   File "<frozen runpy>", line 198, in _run_module_as_main
+(APIServer pid=3790235)   File "<frozen runpy>", line 88, in _run_code
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 59, in <module>
+(APIServer pid=3790235)     main()
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 226, in main
+(APIServer pid=3790235)     uvloop.run(run_server(args))
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/uvloop/__init__.py", line 96, in run
+(APIServer pid=3790235)     return __asyncio.run(
+(APIServer pid=3790235)            ^^^^^^^^^^^^^^
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+(APIServer pid=3790235)     return runner.run(main)
+(APIServer pid=3790235)            ^^^^^^^^^^^^^^^^
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+(APIServer pid=3790235)     return self._loop.run_until_complete(task)
+(APIServer pid=3790235)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3790235)   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/uvloop/__init__.py", line 48, in wrapper
+(APIServer pid=3790235)     return await main
+(APIServer pid=3790235)            ^^^^^^^^^^
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 176, in run_server
+(APIServer pid=3790235)     await run_server_worker(listen_address, sock, args, **uvicorn_kwargs)
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 190, in run_server_worker
+(APIServer pid=3790235)     async with build_async_engine_client(
+(APIServer pid=3790235)                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=3790235)     return await anext(self.gen)
+(APIServer pid=3790235)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 58, in build_async_engine_client
+(APIServer pid=3790235)     async with build_async_engine_client_from_engine_args(
+(APIServer pid=3790235)                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=3790235)     return await anext(self.gen)
+(APIServer pid=3790235)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 94, in build_async_engine_client_from_engine_args
+(APIServer pid=3790235)     async_llm = AsyncLLM.from_vllm_config(
+(APIServer pid=3790235)                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/async_llm.py", line 235, in from_vllm_config
+(APIServer pid=3790235)     return cls(
+(APIServer pid=3790235)            ^^^^
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/async_llm.py", line 169, in __init__
+(APIServer pid=3790235)     self.engine_core = EngineCoreClient.make_async_mp_client(
+(APIServer pid=3790235)                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(APIServer pid=3790235)     return func(*args, **kwargs)
+(APIServer pid=3790235)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 163, in make_async_mp_client
+(APIServer pid=3790235)     return AsyncMPClient(
+(APIServer pid=3790235)            ^^^^^^^^^^^^^^
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(APIServer pid=3790235)     return func(*args, **kwargs)
+(APIServer pid=3790235)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 1060, in __init__
+(APIServer pid=3790235)     super().__init__(
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 656, in __init__
+(APIServer pid=3790235)     with launch_core_engines(
+(APIServer pid=3790235)          ^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 144, in __exit__
+(APIServer pid=3790235)     next(self.gen)
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1240, in launch_core_engines
+(APIServer pid=3790235)     wait_for_engine_startup(
+(APIServer pid=3790235)   File "/home/pxchen/workspace/services/minicpmo45_20260929/venv312/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1320, in wait_for_engine_startup
+(APIServer pid=3790235)     raise RuntimeError(
+(APIServer pid=3790235) RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}

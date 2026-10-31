@@ -1,0 +1,49 @@
+{
+  "full_gpu_verify0_async": {
+    "prefill_decode_overlap_median_ms": 90.42790222167969,
+    "decode_start_minus_prefill_end_median_ms": -131.46156311035156,
+    "first_guidance_encoder_wait_median_ms": 0.0,
+    "first_guidance_encoder_wait_p95_ms": 0.0
+  },
+  "full_gpu_verify0_prefill_first": {
+    "prefill_decode_overlap_median_ms": 0.0,
+    "decode_start_minus_prefill_end_median_ms": 0.0061492919921875,
+    "first_guidance_encoder_wait_median_ms": 0.0,
+    "first_guidance_encoder_wait_p95_ms": 0.0
+  },
+  "_checks": {
+    "passed": true,
+    "steady_samples": 60,
+    "all_measured_guided_actions_identical": true,
+    "no_recompilation": true,
+    "wall_median_saving_ms": 26.859749108552933,
+    "paired_median_saving_ms": 30.91968223452568,
+    "paired_bootstrap_95_ms": [
+      23.367305286228657,
+      36.283547058701515
+    ]
+  },
+  "resources": {
+    "no_guidance": {
+      "samples": 10,
+      "gpu_util_pct": 81.9,
+      "sm_clock_mhz": 2629.5,
+      "other_processes": {},
+      "errors": []
+    },
+    "full_gpu_verify0_async": {
+      "samples": 19,
+      "gpu_util_pct": 79.26315789473684,
+      "sm_clock_mhz": 2578.0526315789475,
+      "other_processes": {},
+      "errors": []
+    },
+    "full_gpu_verify0_prefill_first": {
+      "samples": 18,
+      "gpu_util_pct": 87.05555555555556,
+      "sm_clock_mhz": 2620.0,
+      "other_processes": {},
+      "errors": []
+    }
+  }
+}

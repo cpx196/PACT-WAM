@@ -1,0 +1,132 @@
+[
+  {
+    "queued_gap_ms": 69.84894091796875,
+    "aux_kernels_in_gaps_ms": [
+      [
+        "sm80_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage3_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+        20.61382080078125
+      ],
+      [
+        "sm86_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize256x128x64_stage2_warpsize4x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+        20.274388671875
+      ],
+      [
+        "ampere_sgemm_128x64_tn",
+        11.424592773437494
+      ],
+      [
+        "sm80_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize128x128x64_stage3_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+        4.02744140625
+      ],
+      [
+        "void cudnn::engines_precompiled::nchwToNhwcKernel<__nv_bfloat16, __nv_bfloat16, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, __nv_bfloat16 const*, __nv_bfloat16*)",
+        3.205904296874999
+      ],
+      [
+        "fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEffAttention::AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, 64, true, true>::Params)",
+        1.8157495117187499
+      ],
+      [
+        "triton_poi_fused__to_copy__unsafe_index_clone_93",
+        1.2170927734375
+      ],
+      [
+        "triton_poi_fused_constant_pad_nd_101",
+        0.55088134765625
+      ],
+      [
+        "triton_poi_fused_cat_83",
+        0.48525
+      ],
+      [
+        "void cudnn::engines_precompiled::nhwcToNchwKernel<__nv_bfloat16, __nv_bfloat16, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, __nv_bfloat16 const*, __nv_bfloat16*)",
+        0.47065576171874995
+      ],
+      [
+        "sm86_xmma_fprop_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x64x32_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel__5x_cudnn",
+        0.4198095703125
+      ],
+      [
+        "triton_poi_fused_cat_constant_pad_nd_104",
+        0.3952646484375
+      ],
+      [
+        "triton_poi_fused_cat_100",
+        0.31126513671875
+      ],
+      [
+        "triton_poi_fused__to_copy__unsafe_index_66",
+        0.31011376953125
+      ],
+      [
+        "sm80_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize256x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+        0.2872646484375
+      ]
+    ]
+  },
+  {
+    "queued_gap_ms": 68.32737353515626,
+    "aux_kernels_in_gaps_ms": [
+      [
+        "sm80_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize256x64x32_stage3_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+        20.575547851562497
+      ],
+      [
+        "sm86_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize256x128x64_stage2_warpsize4x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+        20.2425537109375
+      ],
+      [
+        "ampere_sgemm_128x64_tn",
+        10.289671386718746
+      ],
+      [
+        "sm80_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize128x128x64_stage3_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+        4.033171386718751
+      ],
+      [
+        "void cudnn::engines_precompiled::nchwToNhwcKernel<__nv_bfloat16, __nv_bfloat16, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, __nv_bfloat16 const*, __nv_bfloat16*)",
+        3.603827148437499
+      ],
+      [
+        "fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEffAttention::AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, 64, true, true>::Params)",
+        1.5635585937499998
+      ],
+      [
+        "triton_poi_fused__to_copy__unsafe_index_clone_93",
+        1.2194609375
+      ],
+      [
+        "triton_poi_fused_constant_pad_nd_101",
+        0.5505297851562501
+      ],
+      [
+        "triton_poi_fused_cat_83",
+        0.5344658203125
+      ],
+      [
+        "sm86_xmma_fprop_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x64x32_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel__5x_cudnn",
+        0.406720703125
+      ],
+      [
+        "void cudnn::engines_precompiled::nhwcToNchwKernel<__nv_bfloat16, __nv_bfloat16, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, __nv_bfloat16 const*, __nv_bfloat16*)",
+        0.38973193359374997
+      ],
+      [
+        "triton_poi_fused_cat_constant_pad_nd_104",
+        0.38374609375
+      ],
+      [
+        "triton_poi_fused_cat_100",
+        0.29501025390625
+      ],
+      [
+        "sm80_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize256x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+        0.28236962890625
+      ],
+      [
+        "triton_poi_fused_constant_pad_nd_98",
+        0.279873046875
+      ]
+    ]
+  }
+]

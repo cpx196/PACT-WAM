@@ -1,0 +1,555 @@
+{
+  "format": 1,
+  "identity": {
+    "text_checkpoint": "/data/pxchen/FastWAM/checkpoints/Wan-AI/Wan2.2-TI2V-5B/models_t5_umt5-xxl-enc-bf16.pth",
+    "text_checkpoint_bytes": 11361920418,
+    "text_checkpoint_mtime_ns": 1789881970078103437,
+    "tokenizer": "/data/pxchen/FastWAM/checkpoints/Wan-AI/Wan2.1-T2V-1.3B/google/umt5-xxl",
+    "tokenizer_files": {
+      "special_tokens_map.json": "7b8a9f5040adb67b5805abdfd42c1f8d0f3d0e711f10726580eb3789cd0ad61d",
+      "spiece.model": "e3909a67b780650b35cf529ac782ad2b6b26e6d1f849d3fbb6a872905f452458",
+      "tokenizer.json": "6e197b4d3dbd71da14b4eb255f4fa91c9c1f2068b20a2de2472967ca3d22602b",
+      "tokenizer_config.json": "ed9a3a8b0faa71a70a32847e0435fe036e6e112d4df4edb7bb48a921e344dc05"
+    },
+    "context_len": 128,
+    "dtype": "torch.bfloat16",
+    "encoding_batch_size": "gpu_batch1_except_historical_task321",
+    "torch_version": "2.7.1+cu128"
+  },
+  "fingerprints": {
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 1": {
+      "context": "e0fc9b4eb407e6ace8ae498697c570d9df7284d552004ee85e72ef6b2f1177ae",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 11": {
+      "context": "55bba0b308e49d4fdaf7a56cf640f04ee082def3ae824f5a95467ae3293ca9ce",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 121": {
+      "context": "28d271fc1c36c15b485fad068eca5446dd579c693ca3ab7ef26d5930b09a876f",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 131": {
+      "context": "d4480ff22275b0e2c5267cfbe6a18913451b5399a9531009426bed10bde29dd3",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 141": {
+      "context": "16062e45f1f57def53ea552303d07abfc75d0173fe234a7a7e1b9f7a0be26308",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 151": {
+      "context": "0af5d65554f007f6a07355966cdaabf58f337af09245be166f51569935e1f917",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 161": {
+      "context": "c814810a29d27ffda2abbce7db8ef442552fc685800c7584f012836384cccf79",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 171": {
+      "context": "3e1a08a5d2f27fc97b0082be4acbbfc4d35e2c6a528f9b9975db3b24d55f3cb7",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 191": {
+      "context": "a52f1fa26aefd0fccfbf2f76523be810c176a08b8ab914c85ebed46b85ebb8f5",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 201": {
+      "context": "73332ecd8c04e3fb2e9e4d35b8068e9be46ab97475086fa517b8bf9981550d3e",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 211": {
+      "context": "5b34969e45d6a30dc988473db323496829b07208789b648ec1aeadf2a1dc97f1",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 221": {
+      "context": "c679f1b0d88132c2050e058fbc385f36787456f2f7cdeae312418fbad21b865f",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 231": {
+      "context": "00ba6c58a635f3d399cad7c88df27567310f54980dccebf42558f2e8d22d6364",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 241": {
+      "context": "2fd776c4541c14f0cfbe44e62f9dd27ab2b81cc8b9f3098b15271765021146fb",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 251": {
+      "context": "89ddfcf5dbd915534c87fff749a5fae70ddff4e69c82a4cbcc7a80fac8600534",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 261": {
+      "context": "d93737ea864fc18beaee71d7ca99ea2883c9da0af4980ad31855afd7df6c8cec",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 271": {
+      "context": "969f98e8419d474a2ac67e301d0155c1cef549385c4a9defc0c9e409d87ef670",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 281": {
+      "context": "065f999e197ca64e7433b8d9e99c61db35f7fe29202a45ef907491f27ff96ff8",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 291": {
+      "context": "aae58aa80e58bc52427a298e3b14b71e79b97ec5ef8cdfcdec30a3ed9c3fc4a1",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 301": {
+      "context": "12c94953479f9ee8e73d065d8e8787fbc74824ddd4c6a5c528fdde5189a7009a",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 311": {
+      "context": "856eff6d8d7903dc8ab3439d256ae4a9bef8fba5122d0a236ad08ecfdd4fdb06",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 321": {
+      "context": "4505b4a8b511b9fc343b791d095d837ac5afc3ab476d7f282246df4336a694af",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 331": {
+      "context": "bd957a9ff766d8bc82e13ff4d14cde1839c08584f7ac9fc0c45c902eea86c179",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 341": {
+      "context": "c86cd44bb635ec15c1ba9e2a529dbe9706637f00e74bc156562dbddc2bc0766a",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 351": {
+      "context": "ff891ec00c5f3489a0ddafd97b77862c9d0887221bdfbed6dd7476a58f6c2b91",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 361": {
+      "context": "8f3a9818c2a33a861d4d7ddb93b8c3eca3ff8fd6d3fdd1f8dfc4fead4293a62e",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 371": {
+      "context": "a5b39e8689ae6ae7a4d086893173762a4eb26ffde395706584c782959f570eea",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 381": {
+      "context": "8ee24d1df9798d7fb6f304fc93b40c4214307ebfe3bffc68c9ab57d3e76ad1ea",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 391": {
+      "context": "98be8687b1f2abd5da9d098c5c3367ad98081655629e81adda074e3be423b03a",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 401": {
+      "context": "e2ebd8aa5d2ecf0876febc253de5c9b15248f81e771c9ea6be79839a3bfbfe5f",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 411": {
+      "context": "f84a4ef0e1a5d1dc112438769974649cf8431c583effbb902a6676461b8ec81a",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 421": {
+      "context": "b8ab669e694859b0d892c5c32bf041e9897a186daf0e59950749b6f20e11af3c",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 441": {
+      "context": "e4ea8df806f26d0a49125a20711384f3ed8be6de467aa0389081242c07b7dbf3",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 451": {
+      "context": "fd92a6411f5bc36dd0ba4c5b23f0012f145949fe692d7ea0a702830a7a3a5016",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 461": {
+      "context": "1328047f57811af0744c8d3dba1ed27da185dfbe35f6b240bd6be0e0b6f10a85",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 471": {
+      "context": "ad3e4148e43786883970ec5a28f36123af37adbe36f80e070b6e131dea173897",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 481": {
+      "context": "d7e31299f11cb0553ec0227b77927e88849d88e2ac421af54f324744fe615931",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 491": {
+      "context": "95cd110926cfd3c1253cd6154793f90904f14e02245f93c40b914f23d07d682b",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 51": {
+      "context": "69604e293e610f308a8db3df82a7e5e7618b6cd9433e1a667bf3370fd08a325c",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 71": {
+      "context": "1a886bef0d292ba8ed33fccea4e8ed49cd836747f32de3f6779bd07a53260ad7",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    },
+    "A video recorded from a robot's point of view executing the following instruction: put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 81": {
+      "context": "3ad3a797009a95de6a6fb64bde7c68a1ef3a59195485c3bd02d21b3e0b7b8951",
+      "mask": "7eb24a18990ee4c958c89773da6cc9fbc5c278357762d02ec6ab947eb28726ff",
+      "context_shape": [
+        1,
+        128,
+        4096
+      ],
+      "mask_shape": [
+        1,
+        128
+      ]
+    }
+  },
+  "sha256": "e67b010adae11754e4715a615e3203b0ee65257c2cd64db54c1349ceeffa997b"
+}

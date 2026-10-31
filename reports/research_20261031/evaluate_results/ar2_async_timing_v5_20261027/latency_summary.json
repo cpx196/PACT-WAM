@@ -1,0 +1,456 @@
+{
+  "variants": {
+    "no_guidance": {
+      "n": 20,
+      "median_ms": 590.7254237681627,
+      "p95_ms": 621.3116955012083,
+      "gpu_span_median_ms": {
+        "video_total": 319.0246124267578,
+        "action_denoise_step": 230.98678350448608,
+        "wam_input_vae_encode_action": 8.935904026031494,
+        "wam_input_vae_encode_video": 8.76960039138794,
+        "video_denoise_step": 298.9363842010498,
+        "video_cache_prefill": 28.24396800994873,
+        "action_total": 271.0649871826172
+      },
+      "host_call_median_ms": {
+        "video_total": 290.24995025247335,
+        "action_denoise_step": 239.68913964927197,
+        "wam_input_vae_encode_action": 4.614219069480896,
+        "wam_input_vae_encode_video": 4.772811196744442,
+        "video_denoise_step": 271.5581310912967,
+        "video_cache_prefill": 21.949888207018375,
+        "action_total": 299.6331760659814
+      }
+    },
+    "partial_cpu_verify1": {
+      "n": 20,
+      "median_ms": 1085.1574037224054,
+      "p95_ms": 1098.10007866472,
+      "gpu_span_median_ms": {
+        "future_h2d": 0.6472640037536621,
+        "future_pair_assembly": 0.14619199931621552,
+        "future_uint8_conversion": 0.021503999829292297,
+        "predictor_forward_verification": 106.7703685760498,
+        "current_jepa_encoder": 27.433520317077637,
+        "video_denoise_step": 312.5674076080322,
+        "video_cache_prefill": 136.53964233398438,
+        "action_total": 751.3941650390625,
+        "action_denoise_step": 249.1161608695984,
+        "wam_input_vae_encode_action": 13.60588788986206,
+        "guidance_backward_total": 128.9799690246582,
+        "guidance_aux_dependency_wait": 344.3543167114258,
+        "encoder_dependency_wait": 0.03686400130391121,
+        "current_h2d": 0.4066559970378876,
+        "guidance_forward_total": 104.92262649536133,
+        "future_jepa_encoder": 35.67667198181152,
+        "scheduler_guidance_update": 0.0358880003914237,
+        "video_total": 333.7840576171875,
+        "prefix_decode": 98.12428665161133,
+        "wam_input_vae_encode_video": 8.729983806610107,
+        "guidance_verification_total": 108.81740760803223,
+        "guidance_setup": 0.44966399669647217,
+        "predictor_forward_gradient": 102.8244514465332,
+        "future_d2h": 0.36532799899578094
+      },
+      "host_call_median_ms": {
+        "future_h2d": 0.6642220541834831,
+        "future_pair_assembly": 0.15999097377061844,
+        "current_cpu_preprocess": 13.694155029952526,
+        "future_uint8_conversion": 0.4218854010105133,
+        "future_branch_submit": 0.05481299012899399,
+        "predictor_forward_verification": 66.35782402008772,
+        "current_jepa_encoder": 25.748764164745808,
+        "video_denoise_step": 282.99817256629467,
+        "video_cache_prefill": 129.38572745770216,
+        "action_total": 780.1461070775986,
+        "action_denoise_step": 252.1560899913311,
+        "wam_input_vae_encode_action": 9.3644168227911,
+        "guidance_backward_total": 71.69297989457846,
+        "guidance_aux_dependency_wait": 218.24684273451567,
+        "encoder_dependency_wait": 0.03760587424039841,
+        "current_h2d": 0.4056748002767563,
+        "guidance_forward_total": 71.21174037456512,
+        "future_jepa_encoder": 18.5172650963068,
+        "scheduler_guidance_update": 0.5321698263287544,
+        "future_cpu_preprocess": 18.9807191491127,
+        "video_total": 304.9177275970578,
+        "prefix_decode": 28.818046674132347,
+        "wam_input_vae_encode_video": 5.543217062950134,
+        "guidance_verification_total": 68.74851137399673,
+        "guidance_setup": 0.45007839798927307,
+        "predictor_forward_gradient": 68.54545511305332,
+        "future_d2h": 69.55040339380503
+      }
+    },
+    "full_cpu_verify1": {
+      "n": 20,
+      "median_ms": 1081.5276121720672,
+      "p95_ms": 1126.0729674249887,
+      "gpu_span_median_ms": {
+        "future_h2d": 0.6814559996128082,
+        "future_pair_assembly": 0.1587039977312088,
+        "future_uint8_conversion": 0.021503999829292297,
+        "current_jepa_encoder": 30.09209632873535,
+        "video_denoise_step": 314.668701171875,
+        "video_cache_prefill": 130.7847671508789,
+        "action_total": 741.4802856445312,
+        "action_denoise_step": 251.14822387695312,
+        "wam_input_vae_encode_action": 13.270527839660645,
+        "guidance_backward_total": 129.2369899749756,
+        "guidance_aux_dependency_wait": 340.57984161376953,
+        "current_h2d": 0.4046880006790161,
+        "guidance_forward_total": 102.89356803894043,
+        "scheduler_guidance_update": 0.034928000532090664,
+        "video_total": 337.16941833496094,
+        "prefix_decode": 102.79475402832031,
+        "compiled_action_to_energy": 209.61273765563965,
+        "wam_input_vae_encode_video": 8.898463726043701,
+        "guidance_verification_total": 107.27881813049316,
+        "guidance_setup": 0.44918400049209595,
+        "future_jepa_encoder": 33.1463680267334,
+        "future_d2h": 0.3574719876050949
+      },
+      "host_call_median_ms": {
+        "future_h2d": 0.6534503772854805,
+        "future_pair_assembly": 0.17159339040517807,
+        "current_cpu_preprocess": 14.799700118601322,
+        "future_uint8_conversion": 0.4389956593513489,
+        "future_branch_submit": 0.054897740483284,
+        "current_jepa_encoder": 29.89430818706751,
+        "video_denoise_step": 285.15831008553505,
+        "video_cache_prefill": 129.774228669703,
+        "action_total": 770.1863329857588,
+        "action_denoise_step": 253.34028527140617,
+        "wam_input_vae_encode_action": 8.794212713837624,
+        "guidance_backward_total": 71.58475276082754,
+        "guidance_aux_dependency_wait": 214.21990357339382,
+        "current_h2d": 0.4259161651134491,
+        "guidance_forward_total": 64.6937070414424,
+        "scheduler_guidance_update": 0.5917176604270935,
+        "future_cpu_preprocess": 18.07626523077488,
+        "video_total": 308.3569034934044,
+        "prefix_decode": 33.302078023552895,
+        "compiled_action_to_energy": 130.82335237413645,
+        "wam_input_vae_encode_video": 5.70305809378624,
+        "guidance_verification_total": 65.30579086393118,
+        "guidance_setup": 0.4500364884734154,
+        "future_jepa_encoder": 18.297421745955944,
+        "future_d2h": 68.97082552313805
+      }
+    },
+    "full_gpu_verify1": {
+      "n": 20,
+      "median_ms": 1041.1078408360481,
+      "p95_ms": 1071.6666685417295,
+      "gpu_span_median_ms": {
+        "current_jepa_encoder": 29.360383987426758,
+        "video_denoise_step": 314.0527048110962,
+        "video_cache_prefill": 119.14342498779297,
+        "action_total": 705.783935546875,
+        "action_denoise_step": 219.27491188049316,
+        "wam_input_vae_encode_action": 13.34112024307251,
+        "guidance_backward_total": 129.67475128173828,
+        "guidance_aux_dependency_wait": 340.81636810302734,
+        "future_gpu_preprocess": 0.0650239996612072,
+        "current_h2d": 0.41334401071071625,
+        "guidance_forward_total": 102.78451347351074,
+        "scheduler_guidance_update": 0.035840000957250595,
+        "video_total": 336.37428283691406,
+        "prefix_decode": 104.24780654907227,
+        "compiled_action_to_energy": 209.73925971984863,
+        "wam_input_vae_encode_video": 9.134847640991211,
+        "guidance_verification_total": 106.93731117248535,
+        "guidance_setup": 0.4898560047149658,
+        "future_jepa_encoder": 35.00441551208496
+      },
+      "host_call_median_ms": {
+        "current_cpu_preprocess": 16.09616167843342,
+        "future_branch_submit": 0.054513104259967804,
+        "current_jepa_encoder": 29.27390020340681,
+        "video_denoise_step": 284.7026502713561,
+        "video_cache_prefill": 44.156622141599655,
+        "action_total": 734.4143865630031,
+        "action_denoise_step": 295.54507695138454,
+        "wam_input_vae_encode_action": 9.189517237246037,
+        "guidance_backward_total": 73.3454404398799,
+        "guidance_aux_dependency_wait": 216.27495624125004,
+        "future_gpu_preprocess": 0.8646491914987564,
+        "current_h2d": 0.4432741552591324,
+        "guidance_forward_total": 67.203757353127,
+        "scheduler_guidance_update": 0.5871206521987915,
+        "video_total": 307.4040813371539,
+        "prefix_decode": 31.068995594978333,
+        "compiled_action_to_energy": 133.6262719705701,
+        "wam_input_vae_encode_video": 5.9216804802417755,
+        "guidance_verification_total": 66.166577860713,
+        "guidance_setup": 0.49043353646993637,
+        "future_jepa_encoder": 29.665417969226837
+      }
+    },
+    "full_gpu_verify0_serial": {
+      "n": 20,
+      "median_ms": 958.5969615727663,
+      "p95_ms": 997.5781261920929,
+      "gpu_span_median_ms": {
+        "current_h2d": 0.29631999135017395,
+        "guidance_forward_total": 102.60223770141602,
+        "current_jepa_encoder": 16.16264057159424,
+        "video_denoise_step": 299.06953620910645,
+        "scheduler_guidance_update": 0.6812960058450699,
+        "video_cache_prefill": 29.063103675842285,
+        "action_total": 507.63612365722656,
+        "video_total": 318.793212890625,
+        "prefix_decode": 89.4940185546875,
+        "action_denoise_step": 230.62684726715088,
+        "future_gpu_preprocess": 0.04211200028657913,
+        "compiled_action_to_energy": 102.45531463623047,
+        "wam_input_vae_encode_action": 9.244671821594238,
+        "wam_input_vae_encode_video": 8.807744026184082,
+        "guidance_backward_total": 130.11097717285156,
+        "guidance_aux_dependency_wait": 233.21758270263672,
+        "guidance_setup": 0.4728799909353256,
+        "future_jepa_encoder": 26.339839935302734
+      },
+      "host_call_median_ms": {
+        "current_cpu_preprocess": 6.359005346894264,
+        "current_jepa_encoder": 8.800693787634373,
+        "video_denoise_step": 271.7818282544613,
+        "video_cache_prefill": 23.584927432239056,
+        "action_total": 530.1745543256402,
+        "action_denoise_step": 240.62570743262768,
+        "wam_input_vae_encode_action": 4.697765223681927,
+        "guidance_backward_total": 71.10621966421604,
+        "guidance_aux_dependency_wait": 138.11255432665348,
+        "future_gpu_preprocess": 0.5004461854696274,
+        "current_h2d": 95.20739782601595,
+        "guidance_forward_total": 63.95844370126724,
+        "scheduler_guidance_update": 0.6739171221852303,
+        "video_total": 290.0222511962056,
+        "prefix_decode": 16.024825163185596,
+        "compiled_action_to_energy": 63.7472290545702,
+        "wam_input_vae_encode_video": 4.627743735909462,
+        "guidance_setup": 0.47344621270895004,
+        "future_jepa_encoder": 8.267534896731377
+      }
+    },
+    "full_gpu_verify0_async": {
+      "n": 20,
+      "median_ms": 933.1050841137767,
+      "p95_ms": 962.1636739932001,
+      "gpu_span_median_ms": {
+        "current_h2d": 0.4121119976043701,
+        "guidance_forward_total": 102.60531425476074,
+        "current_jepa_encoder": 29.89680004119873,
+        "video_denoise_step": 313.68761444091797,
+        "scheduler_guidance_update": 0.676816001534462,
+        "video_cache_prefill": 120.88832092285156,
+        "action_total": 600.2612609863281,
+        "video_total": 333.6463317871094,
+        "prefix_decode": 103.82950210571289,
+        "action_denoise_step": 221.63430213928223,
+        "future_gpu_preprocess": 0.06399999931454659,
+        "compiled_action_to_energy": 102.46297645568848,
+        "wam_input_vae_encode_action": 13.462527751922607,
+        "wam_input_vae_encode_video": 9.064144134521484,
+        "guidance_backward_total": 129.5779857635498,
+        "guidance_aux_dependency_wait": 232.9134063720703,
+        "guidance_setup": 0.48576000332832336,
+        "future_jepa_encoder": 35.34540939331055
+      },
+      "host_call_median_ms": {
+        "current_cpu_preprocess": 14.35878500342369,
+        "future_branch_submit": 0.05667470395565033,
+        "current_jepa_encoder": 29.85496912151575,
+        "video_denoise_step": 283.838227391243,
+        "video_cache_prefill": 46.285757794976234,
+        "action_total": 624.9349815770984,
+        "action_denoise_step": 297.7353045716882,
+        "wam_input_vae_encode_action": 9.179795160889626,
+        "guidance_backward_total": 70.75255271047354,
+        "guidance_aux_dependency_wait": 139.6656036376953,
+        "future_gpu_preprocess": 0.6244266405701637,
+        "current_h2d": 0.42024068534374237,
+        "guidance_forward_total": 66.41062721610069,
+        "scheduler_guidance_update": 0.6683832034468651,
+        "video_total": 304.7737404704094,
+        "prefix_decode": 31.4580500125885,
+        "compiled_action_to_energy": 66.21159985661507,
+        "wam_input_vae_encode_video": 6.881924346089363,
+        "guidance_setup": 0.48604048788547516,
+        "future_jepa_encoder": 25.26451926678419
+      }
+    }
+  },
+  "scheduling_validation": {
+    "partial_cpu_verify1": {
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "finite": true
+    },
+    "full_cpu_verify1": {
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "finite": true
+    },
+    "full_gpu_verify1": {
+      "max_abs": 0.00390625,
+      "rms": 0.0007024615770205855,
+      "relative_l2": 0.0015762978000566363,
+      "finite": true
+    },
+    "full_gpu_verify0_serial": {
+      "max_abs": 0.00390625,
+      "rms": 0.0007024615770205855,
+      "relative_l2": 0.0015762978000566363,
+      "finite": true
+    },
+    "full_gpu_verify0_async": {
+      "max_abs": 0.00390625,
+      "rms": 0.0007024615770205855,
+      "relative_l2": 0.0015762978000566363,
+      "finite": true
+    }
+  },
+  "gradient_validation": {
+    "loss": {
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "finite": true
+    },
+    "gradient": {
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "finite": true
+    },
+    "gripper_gradient_max": 0.0
+  },
+  "full_path_validation": {
+    "full_cpu_verify1": {
+      "native_loss": {
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "relative_l2": 0.0,
+        "finite": true
+      },
+      "native_gradient": {
+        "max_abs": 8.055940270423889e-08,
+        "rms": 1.4695618055782234e-08,
+        "relative_l2": 9.566484777678852e-07,
+        "finite": true
+      },
+      "eager_loss": {
+        "max_abs": 5.960464477539063e-08,
+        "rms": 5.960464477539063e-08,
+        "relative_l2": 6.351384485014933e-08,
+        "finite": true
+      },
+      "eager_gradient": {
+        "max_abs": 1.6391277313232422e-07,
+        "rms": 2.173207569455826e-08,
+        "relative_l2": 1.4147032061373466e-06,
+        "finite": true
+      },
+      "gripper_gradient_max": 0.0
+    },
+    "full_gpu_verify1": {
+      "native_loss": {
+        "max_abs": 5.960464477539063e-08,
+        "rms": 5.960464477539063e-08,
+        "relative_l2": 6.387381290551275e-08,
+        "finite": true
+      },
+      "native_gradient": {
+        "max_abs": 9.220093488693237e-08,
+        "rms": 1.5210567028134392e-08,
+        "relative_l2": 9.952746040653437e-07,
+        "finite": true
+      },
+      "eager_loss": {
+        "max_abs": 1.1920928955078125e-07,
+        "rms": 1.1920928955078125e-07,
+        "relative_l2": 1.277476258110255e-07,
+        "finite": true
+      },
+      "eager_gradient": {
+        "max_abs": 1.7881393432617188e-07,
+        "rms": 2.405531240867731e-08,
+        "relative_l2": 1.5740121170892962e-06,
+        "finite": true
+      },
+      "gripper_gradient_max": 0.0
+    },
+    "full_gpu_verify0_serial": {
+      "native_loss": {
+        "max_abs": 5.960464477539063e-08,
+        "rms": 5.960464477539063e-08,
+        "relative_l2": 6.387381290551275e-08,
+        "finite": true
+      },
+      "native_gradient": {
+        "max_abs": 9.220093488693237e-08,
+        "rms": 1.5210567028134392e-08,
+        "relative_l2": 9.952746040653437e-07,
+        "finite": true
+      },
+      "eager_loss": {
+        "max_abs": 1.1920928955078125e-07,
+        "rms": 1.1920928955078125e-07,
+        "relative_l2": 1.277476258110255e-07,
+        "finite": true
+      },
+      "eager_gradient": {
+        "max_abs": 1.7881393432617188e-07,
+        "rms": 2.405531240867731e-08,
+        "relative_l2": 1.5740121170892962e-06,
+        "finite": true
+      },
+      "gripper_gradient_max": 0.0
+    },
+    "full_gpu_verify0_async": {
+      "native_loss": {
+        "max_abs": 5.960464477539063e-08,
+        "rms": 5.960464477539063e-08,
+        "relative_l2": 6.387381290551275e-08,
+        "finite": true
+      },
+      "native_gradient": {
+        "max_abs": 9.220093488693237e-08,
+        "rms": 1.5210567028134392e-08,
+        "relative_l2": 9.952746040653437e-07,
+        "finite": true
+      },
+      "eager_loss": {
+        "max_abs": 1.1920928955078125e-07,
+        "rms": 1.1920928955078125e-07,
+        "relative_l2": 1.277476258110255e-07,
+        "finite": true
+      },
+      "eager_gradient": {
+        "max_abs": 1.7881393432617188e-07,
+        "rms": 2.405531240867731e-08,
+        "relative_l2": 1.5740121170892962e-06,
+        "finite": true
+      },
+      "gripper_gradient_max": 0.0
+    }
+  },
+  "preprocess_validation": {
+    "max_abs": 0.03501403331756592,
+    "rms": 0.005653211381286383,
+    "relative_l2": 0.005230131559073925,
+    "finite": true
+  },
+  "requested_mode": "full_gpu_verify0_async",
+  "guidance_setup": "Native builder before video generation; measured inside total wall time",
+  "future_branch_launch": "At entry to native Action Gen input VAE encoding, after native CPU random-noise H2D initialization; no RNG changes",
+  "current_encoder_launch": "immediately before video generation on auxiliary stream",
+  "compiler_scope": "Full normalized clean action -> execution pose+binary gripper -> RawAdapter state -> AR2 P1/P2 -> weighted L1; AOT backward; no CPU action roundtrip",
+  "cache": "reuse previous compiler cache; new full action-energy and GPU preprocessing graphs may compile",
+  "timing": "CUDA event spans and host call spans include queue/synchronization effects; CPU-only image transforms have host timing only; nested spans must not be summed",
+  "scope": "Fixed559 seed7 input and same T5; includes current/future JEPA preprocessing, WAM model pipeline, predictor forward/backward/verification and scheduler update; outer WAM observation preprocessing/camera/env rollout excluded; current AR2 model retained, not the old vitg model"
+}

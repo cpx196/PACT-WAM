@@ -1,0 +1,237 @@
+{
+  "variants": {
+    "no_guidance": {
+      "n": 20,
+      "median_ms": 562.3638080433011,
+      "p95_ms": 570.0860609300435,
+      "first_guidance_encoder_wait_median_ms": 0.0,
+      "gpu_span_median_ms": {
+        "action_total": 244.09870147705078,
+        "video_denoise_step": 297.795072555542,
+        "wam_input_vae_encode_video": 8.65940809249878,
+        "video_cache_prefill": 28.049407958984375,
+        "video_total": 316.7609405517578,
+        "action_denoise_step": 204.0095043182373,
+        "wam_input_vae_encode_action": 8.85759973526001
+      },
+      "host_call_median_ms": {
+        "action_total": 272.7547390386462,
+        "video_denoise_step": 270.8256533369422,
+        "wam_input_vae_encode_video": 4.236062988638878,
+        "video_cache_prefill": 20.304521545767784,
+        "video_total": 288.24818413704634,
+        "action_denoise_step": 214.87093158066273,
+        "wam_input_vae_encode_action": 4.294358193874359
+      }
+    },
+    "full_gpu_verify0_async": {
+      "n": 20,
+      "median_ms": 895.0090706348419,
+      "p95_ms": 913.2380075752735,
+      "first_guidance_encoder_wait_median_ms": 0.0,
+      "gpu_span_median_ms": {
+        "current_jepa_encoder": 26.06932830810547,
+        "guidance_forward_total": 100.99300575256348,
+        "prefix_decode": 103.52947235107422,
+        "wam_input_vae_encode_video": 8.782960414886475,
+        "guidance_aux_dependency_wait": 230.4025421142578,
+        "full_context_dependency_wait": 0.10806400142610073,
+        "guidance_setup": 0.43827199935913086,
+        "first_guidance_action_ready": 0.01740800030529499,
+        "scheduler_guidance_update": 0.7804640084505081,
+        "compiled_action_to_energy": 100.7882251739502,
+        "action_denoise_step": 194.89257669448853,
+        "current_h2d": 0.36713600158691406,
+        "action_total": 563.2801513671875,
+        "video_denoise_step": 311.8658399581909,
+        "video_cache_prefill": 118.48242950439453,
+        "guidance_backward_total": 129.2743682861328,
+        "encoded_context_ready": 0.002047999994829297,
+        "future_jepa_encoder": 34.5984001159668,
+        "video_total": 332.10060119628906,
+        "wam_input_vae_encode_action": 13.460991859436035,
+        "future_gpu_preprocess": 0.06348799914121628
+      },
+      "host_call_median_ms": {
+        "current_jepa_encoder": 22.85004500299692,
+        "guidance_forward_total": 58.56133997440338,
+        "prefix_decode": 23.85931834578514,
+        "wam_input_vae_encode_video": 5.234045907855034,
+        "guidance_aux_dependency_wait": 147.25774712860584,
+        "full_context_dependency_wait": 0.10846834629774094,
+        "guidance_setup": 0.4388708621263504,
+        "future_branch_submit": 0.05633663386106491,
+        "first_guidance_action_ready": 0.017292797565460205,
+        "scheduler_guidance_update": 0.771072693169117,
+        "compiled_action_to_energy": 58.27839393168688,
+        "action_denoise_step": 273.9796070381999,
+        "current_h2d": 0.3784671425819397,
+        "action_total": 591.8332990258932,
+        "video_denoise_step": 283.34007784724236,
+        "video_cache_prefill": 40.13958480209112,
+        "guidance_backward_total": 86.60376351326704,
+        "encoded_context_ready": 0.0583035871386528,
+        "future_jepa_encoder": 24.669972248375416,
+        "current_cpu_preprocess": 12.530139647424221,
+        "video_total": 302.64994502067566,
+        "wam_input_vae_encode_action": 8.418891578912735,
+        "future_gpu_preprocess": 0.6292592734098434
+      }
+    },
+    "full_gpu_verify0_prefill_first": {
+      "n": 20,
+      "median_ms": 868.149321526289,
+      "p95_ms": 886.4003234542906,
+      "first_guidance_encoder_wait_median_ms": 0.0,
+      "gpu_span_median_ms": {
+        "current_jepa_encoder": 27.311152458190918,
+        "guidance_forward_total": 101.01346015930176,
+        "prefix_decode": 90.50163269042969,
+        "wam_input_vae_encode_video": 8.636799812316895,
+        "guidance_aux_dependency_wait": 230.87558364868164,
+        "full_context_dependency_wait": 0.1076000016182661,
+        "guidance_setup": 0.4469760060310364,
+        "first_guidance_action_ready": 0.01740800030529499,
+        "scheduler_guidance_update": 0.7815520092844963,
+        "compiled_action_to_energy": 100.7866096496582,
+        "aux_prefill_dependency_wait": 11.388927936553955,
+        "action_denoise_step": 263.83703899383545,
+        "current_h2d": 0.38780800998210907,
+        "action_total": 537.3681335449219,
+        "video_denoise_step": 310.6282901763916,
+        "video_cache_prefill": 28.066816329956055,
+        "guidance_backward_total": 129.18375968933105,
+        "encoded_context_ready": 0.002047999994829297,
+        "future_jepa_encoder": 27.40223979949951,
+        "video_total": 330.9281463623047,
+        "wam_input_vae_encode_action": 8.859600067138672,
+        "future_gpu_preprocess": 0.04710400104522705
+      },
+      "host_call_median_ms": {
+        "current_jepa_encoder": 27.0913727581501,
+        "guidance_forward_total": 58.237312361598015,
+        "prefix_decode": 27.123622596263885,
+        "wam_input_vae_encode_video": 4.796658642590046,
+        "guidance_aux_dependency_wait": 164.13709241896868,
+        "full_context_dependency_wait": 0.10865461081266403,
+        "guidance_setup": 0.4473710432648659,
+        "future_branch_submit": 0.04758033901453018,
+        "first_guidance_action_ready": 0.01748930662870407,
+        "scheduler_guidance_update": 0.7698796689510345,
+        "compiled_action_to_energy": 57.9192154109478,
+        "aux_prefill_dependency_wait": 0.04281196743249893,
+        "action_denoise_step": 270.3654756769538,
+        "current_h2d": 0.3871787339448929,
+        "action_total": 565.9432141110301,
+        "video_denoise_step": 283.23961794376373,
+        "video_cache_prefill": 19.779104739427567,
+        "guidance_backward_total": 105.24653550237417,
+        "encoded_context_ready": 0.058049336075782776,
+        "future_jepa_encoder": 27.29743905365467,
+        "current_cpu_preprocess": 13.563564047217369,
+        "video_total": 301.85714550316334,
+        "wam_input_vae_encode_action": 4.234904423356056,
+        "future_gpu_preprocess": 0.608484260737896
+      }
+    }
+  },
+  "scheduling_validation": {
+    "full_gpu_verify0_async": {
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "finite": true
+    },
+    "full_gpu_verify0_prefill_first": {
+      "max_abs": 0.0,
+      "rms": 0.0,
+      "relative_l2": 0.0,
+      "finite": true
+    }
+  },
+  "gradient_validation": {
+    "loss": {
+      "max_abs": 5.960464477539063e-08,
+      "rms": 5.960464477539063e-08,
+      "relative_l2": 6.379502792697167e-08,
+      "finite": true
+    },
+    "gradient": {
+      "max_abs": 2.8312206268310547e-07,
+      "rms": 3.496239742162288e-08,
+      "relative_l2": 2.244908500870224e-06,
+      "finite": true
+    },
+    "gripper_gradient_max": 0.0
+  },
+  "full_path_validation": {
+    "full_gpu_verify0_async": {
+      "native_loss": {
+        "max_abs": 5.960464477539063e-08,
+        "rms": 5.960464477539063e-08,
+        "relative_l2": 6.379502792697167e-08,
+        "finite": true
+      },
+      "native_gradient": {
+        "max_abs": 2.8312206268310547e-07,
+        "rms": 3.496239742162288e-08,
+        "relative_l2": 2.244908500870224e-06,
+        "finite": true
+      },
+      "eager_loss": {
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "relative_l2": 0.0,
+        "finite": true
+      },
+      "eager_gradient": {
+        "max_abs": 4.917383193969727e-07,
+        "rms": 6.762504511925727e-08,
+        "relative_l2": 4.342142801760929e-06,
+        "finite": true
+      },
+      "gripper_gradient_max": 0.0
+    },
+    "full_gpu_verify0_prefill_first": {
+      "native_loss": {
+        "max_abs": 5.960464477539063e-08,
+        "rms": 5.960464477539063e-08,
+        "relative_l2": 6.379502792697167e-08,
+        "finite": true
+      },
+      "native_gradient": {
+        "max_abs": 2.8312206268310547e-07,
+        "rms": 3.496239742162288e-08,
+        "relative_l2": 2.244908500870224e-06,
+        "finite": true
+      },
+      "eager_loss": {
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "relative_l2": 0.0,
+        "finite": true
+      },
+      "eager_gradient": {
+        "max_abs": 4.917383193969727e-07,
+        "rms": 6.762504511925727e-08,
+        "relative_l2": 4.342142801760929e-06,
+        "finite": true
+      },
+      "gripper_gradient_max": 0.0
+    }
+  },
+  "preprocess_validation": {
+    "max_abs": 0.03501403331756592,
+    "rms": 0.005653211381286383,
+    "relative_l2": 0.005230131559073925,
+    "finite": true
+  },
+  "requested_mode": "full_gpu_verify0_prefill_first",
+  "guidance_setup": "Before video generation, identical in both guided modes",
+  "future_branch_launch": "Control: native action input VAE entry. Treatment: after compiled prefill returns to host, auxiliary stream waits on explicit prefill-complete CUDA event.",
+  "current_encoder_launch": "Before video generation in both guided modes; unchanged",
+  "compiler_scope": "Same fully compiled action-to-energy, FP32 JEPA/AR2, BF16 WAM, GPU preprocessing and verification disabled as v5",
+  "cache": "Reuse existing compiler cache; warm all modes serially before concurrency",
+  "timing": "CUDA-event and host spans include waits; nested/overlapping spans must not be summed",
+  "scope": "Fixed559 seed7 same T5/weights/input; only Decode+future branch release point changes between guided modes; no success-rate rollouts"
+}

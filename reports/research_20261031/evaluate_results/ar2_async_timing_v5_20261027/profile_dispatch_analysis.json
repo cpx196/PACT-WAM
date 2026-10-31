@@ -1,0 +1,211 @@
+{
+  "compiled_regions": {
+    "Torch-Compiled Region: 1/0": {
+      "calls": 4,
+      "cpu_ms": [
+        10.836514999999999,
+        12.309029,
+        12.887018,
+        11.081206
+      ]
+    },
+    "Torch-Compiled Region: 2/0": {
+      "calls": 20,
+      "cpu_ms": [
+        49.482922,
+        39.274800000000006,
+        38.83383,
+        38.408349,
+        37.50764100000001,
+        36.761146000000004,
+        36.197213000000005,
+        35.967931,
+        42.514224,
+        47.760356,
+        59.140116,
+        38.482438,
+        39.853581,
+        45.088103000000004,
+        38.798773999999995,
+        38.343116,
+        38.294424,
+        39.583752999999994,
+        42.234677000000005,
+        36.86438
+      ]
+    },
+    "Torch-Compiled Region: 3/0": {
+      "calls": 2,
+      "cpu_ms": [
+        44.769752999999994,
+        57.588262
+      ]
+    },
+    "Torch-Compiled Region: 4/0": {
+      "calls": 20,
+      "cpu_ms": [
+        75.945095,
+        36.672879,
+        37.590297,
+        39.05681,
+        37.98979,
+        38.715576999999996,
+        40.614775,
+        37.760847999999996,
+        40.115114,
+        38.120436,
+        63.75493,
+        40.554592,
+        38.89251,
+        38.995705,
+        40.885545,
+        40.845189,
+        37.406601,
+        39.473745,
+        37.401360999999994,
+        38.526790999999996
+      ]
+    },
+    "Torch-Compiled Region: 9/0": {
+      "calls": 6,
+      "cpu_ms": [
+        35.618552,
+        36.172446,
+        33.991087,
+        36.546902,
+        35.453993000000004,
+        41.395326000000004
+      ]
+    }
+  },
+  "small_call_regions": {
+    "Torch-Compiled Region: 1/0": [
+      {
+        "cpu_ms": 10.836514999999999,
+        "kernel_count": 178,
+        "kernel_duration_sum_ms": 7.829338,
+        "gpu_kernel_first_to_last_ms": 10.468748046875,
+        "non_kernel_gap_within_span_ms": 2.6394100468749997,
+        "streams": [
+          7
+        ],
+        "first_mm_shapes": []
+      },
+      {
+        "cpu_ms": 12.309029,
+        "kernel_count": 178,
+        "kernel_duration_sum_ms": 8.521537,
+        "gpu_kernel_first_to_last_ms": 12.5362138671875,
+        "non_kernel_gap_within_span_ms": 4.0146768671875,
+        "streams": [
+          7
+        ],
+        "first_mm_shapes": []
+      },
+      {
+        "cpu_ms": 12.887018,
+        "kernel_count": 178,
+        "kernel_duration_sum_ms": 7.8691900000000015,
+        "gpu_kernel_first_to_last_ms": 12.5620380859375,
+        "non_kernel_gap_within_span_ms": 4.692848085937499,
+        "streams": [
+          7
+        ],
+        "first_mm_shapes": []
+      },
+      {
+        "cpu_ms": 11.081206,
+        "kernel_count": 178,
+        "kernel_duration_sum_ms": 8.380195999999996,
+        "gpu_kernel_first_to_last_ms": 11.9010107421875,
+        "non_kernel_gap_within_span_ms": 3.520814742187504,
+        "streams": [
+          7
+        ],
+        "first_mm_shapes": []
+      }
+    ],
+    "Torch-Compiled Region: 3/0": [
+      {
+        "cpu_ms": 44.769752999999994,
+        "kernel_count": 735,
+        "kernel_duration_sum_ms": 46.41767099999992,
+        "gpu_kernel_first_to_last_ms": 118.10940185546875,
+        "non_kernel_gap_within_span_ms": 71.69173085546882,
+        "streams": [
+          7
+        ],
+        "first_mm_shapes": [
+          [
+            [
+              129,
+              3072
+            ],
+            [
+              3072,
+              3072
+            ],
+            [
+              129,
+              3072
+            ]
+          ],
+          [
+            [
+              129,
+              3072
+            ],
+            [
+              3072,
+              3072
+            ],
+            [
+              129,
+              3072
+            ]
+          ]
+        ]
+      },
+      {
+        "cpu_ms": 57.588262,
+        "kernel_count": 735,
+        "kernel_duration_sum_ms": 49.72555399999997,
+        "gpu_kernel_first_to_last_ms": 119.8026259765625,
+        "non_kernel_gap_within_span_ms": 70.07707197656254,
+        "streams": [
+          7
+        ],
+        "first_mm_shapes": [
+          [
+            [
+              129,
+              3072
+            ],
+            [
+              3072,
+              3072
+            ],
+            [
+              129,
+              3072
+            ]
+          ],
+          [
+            [
+              129,
+              3072
+            ],
+            [
+              3072,
+              3072
+            ],
+            [
+              129,
+              3072
+            ]
+          ]
+        ]
+      }
+    ]
+  }
+}

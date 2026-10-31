@@ -1,0 +1,13 @@
+# 汤罐＋番茄酱：41个初始位姿版本，seed7双组
+
+本次仅加权guidance及无guidance baseline，各41条，共82条。官方运行task ID289–329，完整覆盖，不按结果挑选。复用汤罐任务自己的固定离线权重，文件SHA256 6be17dc8a6fe29e08163d775c6db6d5ae69a0e46d5d357e8ff329cf5d854de4e。
+
+保持白杯实验的eager模型、动作后处理、夹爪修复、AR2梯度链和L1、guidance节点7/8/9、倍率4、RMS上限0.02、计划32步、执行8步重规划、10步去噪、700控制步上限。没有应用TF32或更换attention精度。T5在GPU4按batch1生成一次，321覆盖为历史精确张量；两组共用同一模型进程及不可变缓存。每个版本对齐初始观测及完整32步无guidance动作，guided重复及正式首段一致；保留夹爪输入/梯度检查。
+
+控制脚本以pxchen运行，不需要sudo，不采样硬件。启动前需至少40GiB MemAvailable；不满足时只等CPU内存，保持vLLM原样。CPU实际评测模型加载完成后，检查只停止自有vLLM能否满足其原0.97显存配置的恢复条件；若他人占用导致不满足则保持现有vLLM继续等待。绝不停止他人进程。
+
+先启动待命恢复监督进程和独立watchdog，再停止8097自有服务。vLLM在实验运行期间完成启动初始化，进程局部插件在init_device等待实验GPU释放标记及足够显存；轮询0.1秒，不更改原模型/服务参数。两实验组处在同一进程，组间不释放模型显存。实验退出后标记交接；恢复必须通过8097 health200并核对GPU4 EngineCore父子进程。共享GPU上不能保证排他性，不分配假数据占显存。
+
+输出：/data/pxchen/PACT-WAM/evaluate_results/soup_tomato_robot41_seed7_sameT5_20261028
+脚本：/data/pxchen/PACT-WAM/scripts/soup_tomato_robot41_gpu4_20261028
+controller_status.json 是当前状态；weighted/cpu_models_ready.json 是CPU加载完成凭据；gpu_ready.json 是GPU迁移凭据；experiment_completed.json 是82次完成凭据；vllm_recovery_health.json 是服务恢复凭据。旧硬件实验controller_status已经过时，不作为本次服务健康证据。

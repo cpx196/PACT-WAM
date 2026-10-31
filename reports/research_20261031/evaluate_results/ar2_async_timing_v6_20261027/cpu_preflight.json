@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "checked_at": "2026-10-26 17:46:35",
+  "cpu_only": true,
+  "hydra_resolved": true,
+  "gradient_bridge": {
+    "passed": true,
+    "checks": [
+      {
+        "multiplier": 1.0,
+        "loss_exact": true,
+        "gradient_max_error": 0.0,
+        "gripper_gradient_zero": true,
+        "unexecuted_suffix_zero": true
+      },
+      {
+        "multiplier": 0.37,
+        "loss_exact": true,
+        "gradient_max_error": 6.938893903907228e-18,
+        "gripper_gradient_zero": true,
+        "unexecuted_suffix_zero": true
+      }
+    ]
+  },
+  "queue_all_eight_gpus": true,
+  "queue_stable_seconds": 5,
+  "source_sha256": {
+    "bench_async_timing.py": "6cce5336b8dc5cd4398063b8e8f8cbd46dc7e35b8db8713403b91fe8e1d36846",
+    "async_guidance_bridge.py": "1b18e2653b994f9e67f51167c5246afbb506475e6ab5f67a82a90ecd95a5cf55",
+    "stage_timer.py": "fe3bf94c53f717ef8871e3ae7bd804775bfbc38ef15254806398582bf2a3d50a",
+    "launch_async_timing.py": "3019f7555b3ab44d5c134e26f227f53e008fe2bf1da18eb6ea6a8da56f0c93e1"
+  },
+  "gpu_schedule_and_numerics_validation": "deferred until GPU; abort on mismatch",
+  "startup_revision": "CPU preloading completed; all model parameters verified CPU before waiting",
+  "cpu_models_ready": {
+    "ready": true,
+    "time": "2026-10-26 18:19:00",
+    "wam_parameters": 6725399267,
+    "jepa_parameters": 304680960,
+    "predictor_parameters": 304441344,
+    "note": "Actual pretrained frozen weights loaded on CPU before GPU selection; no dummy VRAM reservation."
+  },
+  "startup_source_sha256": {
+    "bench_async_timing.py": "edd7ba3ab956ac28aa0f77745ebcaeb75d757dc75c66cc172d35b4cc3e18c725",
+    "cpu_model_ready.py": "204a88fa0938a0500b2e6fda4e1b72e0bbc5f4ad059866a75c71031d63697abf",
+    "launch_async_preloaded.py": "30a95dfc6a366136cfe61e8b9f1825a7a68b491626fad36fd08f937cde4548ad"
+  }
+}

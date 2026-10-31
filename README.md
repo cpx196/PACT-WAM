@@ -1,5 +1,10 @@
 # PACT-WAM
 
+## Latest snapshot (2026-10-31)
+
+Current server code and lightweight evidence are synchronized in this revision. [Updated experiment and timing notes](reports/research_20261031/README.md) include the completed soup/tomato comparison: baseline **31/41**, weighted guidance **34/41**, with no unweighted-guidance result yet. The previous white-mug comparison remains **30/42, 30/42, 34/42**. These are single-seed results. Decoder sharding is still under investigation, with no claimed speedup.
+
+
 基于 [FastWAM](https://github.com/yuantianyuan01/FastWAM) 与 JEPA 的机器人动作修正研究。当前方案是 **冻结 WAM / JEPA / AR2 Predictor，使用离线动作响应权重计算 JEPA guidance loss，再修正动作**。
 
 **最新闭环结果（2026-10-26）：无 guidance 30/42，无加权 guidance 30/42，加权 guidance 34/42。加权在本组实验中表现最好，比另外两组提高9.52个百分点。**

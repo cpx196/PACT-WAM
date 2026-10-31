@@ -1,0 +1,4616 @@
+{
+  "iteration": 3,
+  "origin_ns": 3216732379,
+  "end_ns": 4341528772,
+  "rows": [
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "video_total",
+      "step": 1,
+      "host_start": 3217574263,
+      "host_end": 3619802939,
+      "gpu_start": 3235125887,
+      "gpu_end": 3620393130,
+      "host_ms": 402.228676,
+      "kernel_sum_ms": 301.702211,
+      "kernel_span_ms": 385.267243,
+      "kernels": 7934,
+      "stream": 7,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 3853,
+          "mean": 72.7207370879834,
+          "p50": 83.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.6127692706981572
+        },
+        "SM Issue [Throughput %]": {
+          "n": 3853,
+          "mean": 12.531274331689593,
+          "p50": 13.0,
+          "p95": 17.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 3853,
+          "mean": 27.734233065144043,
+          "p50": 29.0,
+          "p95": 48.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 3853,
+          "mean": 14.23098883986504,
+          "p50": 16.0,
+          "p95": 23.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 3853,
+          "mean": 58.4801453412925,
+          "p50": 66.0,
+          "p95": 84.0,
+          "fraction_ge80": 0.20062289125356864
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 3853,
+          "mean": 32.35920062289125,
+          "p50": 34.0,
+          "p95": 64.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 3853,
+          "mean": 4.4962366986763564,
+          "p50": 3.0,
+          "p95": 15.399999999999636,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 3044,
+          "mean": 82.1954664914586,
+          "p50": 85.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.7201051248357424
+        },
+        "SM Issue [Throughput %]": {
+          "n": 3044,
+          "mean": 13.311760840998685,
+          "p50": 14.0,
+          "p95": 16.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 3044,
+          "mean": 32.16458607095927,
+          "p50": 31.0,
+          "p95": 48.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 3044,
+          "mean": 15.974704336399475,
+          "p50": 16.0,
+          "p95": 23.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 3044,
+          "mean": 66.19053876478318,
+          "p50": 68.0,
+          "p95": 84.0,
+          "fraction_ge80": 0.24540078843626806
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 3044,
+          "mean": 37.430683311432325,
+          "p50": 39.0,
+          "p95": 65.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 3044,
+          "mean": 4.84592641261498,
+          "p50": 3.0,
+          "p95": 16.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 83.56503199999969,
+        "next_launch_not_entered_ms": 59.86362799999997,
+        "launch_api_in_progress_ms": 9.907918000000006,
+        "already_submitted_gap_ms": 13.793486000000092,
+        "queued_aux_overlap_ms": 3.4073100000000003,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 3.4073100000000003,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 134,
+          "mean": 84.7910447761194,
+          "p50": 87.5,
+          "p95": 99.0,
+          "fraction_ge80": 0.753731343283582
+        },
+        "SM Issue [Throughput %]": {
+          "n": 134,
+          "mean": 19.83582089552239,
+          "p50": 14.0,
+          "p95": 53.69999999999999,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 134,
+          "mean": 27.47761194029851,
+          "p50": 27.0,
+          "p95": 46.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 134,
+          "mean": 17.559701492537314,
+          "p50": 18.0,
+          "p95": 29.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 134,
+          "mean": 67.2910447761194,
+          "p50": 69.0,
+          "p95": 83.0,
+          "fraction_ge80": 0.09701492537313433
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 134,
+          "mean": 32.850746268656714,
+          "p50": 33.0,
+          "p95": 53.04999999999998,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 134,
+          "mean": 7.67910447761194,
+          "p50": 4.0,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 579,
+          "mean": 23.54922279792746,
+          "p50": 4.0,
+          "p95": 87.10000000000002,
+          "fraction_ge80": 0.07772020725388601
+        },
+        "SM Issue [Throughput %]": {
+          "n": 579,
+          "mean": 6.856649395509499,
+          "p50": 1.0,
+          "p95": 41.10000000000002,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 579,
+          "mean": 6.317789291882556,
+          "p50": 0.0,
+          "p95": 25.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 579,
+          "mean": 4.905008635578584,
+          "p50": 1.0,
+          "p95": 20.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 579,
+          "mean": 18.713298791019,
+          "p50": 2.0,
+          "p95": 69.0,
+          "fraction_ge80": 0.0034542314335060447
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 579,
+          "mean": 7.682210708117444,
+          "p50": 1.0,
+          "p95": 30.100000000000023,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 579,
+          "mean": 2.0207253886010363,
+          "p50": 1.0,
+          "p95": 9.0,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "current_jepa_encoder",
+      "step": 1,
+      "host_start": 3241440237,
+      "host_end": 3276386677,
+      "gpu_start": 3243240998,
+      "gpu_end": 3276579092,
+      "host_ms": 34.94644,
+      "kernel_sum_ms": 16.434034,
+      "kernel_span_ms": 33.338094,
+      "kernels": 390,
+      "stream": 33,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 334,
+          "mean": 64.3562874251497,
+          "p50": 83.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.5269461077844312
+        },
+        "SM Issue [Throughput %]": {
+          "n": 334,
+          "mean": 25.07185628742515,
+          "p50": 17.0,
+          "p95": 68.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 334,
+          "mean": 13.464071856287426,
+          "p50": 8.0,
+          "p95": 47.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 334,
+          "mean": 15.359281437125748,
+          "p50": 16.0,
+          "p95": 31.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 334,
+          "mean": 49.01796407185629,
+          "p50": 63.0,
+          "p95": 83.0,
+          "fraction_ge80": 0.09580838323353294
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 334,
+          "mean": 18.389221556886227,
+          "p50": 15.0,
+          "p95": 51.349999999999966,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 334,
+          "mean": 5.152694610778443,
+          "p50": 3.0,
+          "p95": 15.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 167,
+          "mean": 82.77245508982035,
+          "p50": 93.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.7245508982035929
+        },
+        "SM Issue [Throughput %]": {
+          "n": 167,
+          "mean": 37.52694610778443,
+          "p50": 36.0,
+          "p95": 72.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 167,
+          "mean": 12.646706586826348,
+          "p50": 11.0,
+          "p95": 37.099999999999966,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 167,
+          "mean": 20.50299401197605,
+          "p50": 21.0,
+          "p95": 33.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 167,
+          "mean": 62.23353293413174,
+          "p50": 68.0,
+          "p95": 79.0,
+          "fraction_ge80": 0.04790419161676647
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 167,
+          "mean": 20.065868263473053,
+          "p50": 18.0,
+          "p95": 45.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 167,
+          "mean": 6.2395209580838324,
+          "p50": 5.0,
+          "p95": 17.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 16.90406000000004,
+        "next_launch_not_entered_ms": 10.696455999999996,
+        "launch_api_in_progress_ms": 1.7599299999999998,
+        "already_submitted_gap_ms": 4.4476739999999975,
+        "queued_aux_overlap_ms": 4.305880999999997,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 46,
+          "mean": 87.45652173913044,
+          "p50": 99.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.8260869565217391
+        },
+        "SM Issue [Throughput %]": {
+          "n": 46,
+          "mean": 23.97826086956522,
+          "p50": 18.0,
+          "p95": 56.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 46,
+          "mean": 28.58695652173913,
+          "p50": 31.0,
+          "p95": 48.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 46,
+          "mean": 20.347826086956523,
+          "p50": 20.0,
+          "p95": 29.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 46,
+          "mean": 67.19565217391305,
+          "p50": 73.0,
+          "p95": 84.0,
+          "fraction_ge80": 0.32608695652173914
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 46,
+          "mean": 37.06521739130435,
+          "p50": 40.5,
+          "p95": 66.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 46,
+          "mean": 8.521739130434783,
+          "p50": 8.5,
+          "p95": 15.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 105,
+          "mean": 26.02857142857143,
+          "p50": 14.0,
+          "p95": 95.0,
+          "fraction_ge80": 0.08571428571428572
+        },
+        "SM Issue [Throughput %]": {
+          "n": 105,
+          "mean": 6.219047619047619,
+          "p50": 2.0,
+          "p95": 19.599999999999994,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 105,
+          "mean": 8.257142857142858,
+          "p50": 0.0,
+          "p95": 37.39999999999999,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 105,
+          "mean": 5.371428571428571,
+          "p50": 2.0,
+          "p95": 16.799999999999997,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 105,
+          "mean": 20.752380952380953,
+          "p50": 11.0,
+          "p95": 78.99999999999999,
+          "fraction_ge80": 0.05714285714285714
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 105,
+          "mean": 8.552380952380952,
+          "p50": 1.0,
+          "p95": 41.79999999999998,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 105,
+          "mean": 2.2857142857142856,
+          "p50": 1.0,
+          "p95": 8.799999999999997,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "video_cache_prefill",
+      "step": 1,
+      "host_start": 3639904557,
+      "host_end": 3673612616,
+      "gpu_start": 3642094613,
+      "gpu_end": 3673760167,
+      "host_ms": 33.708059,
+      "kernel_sum_ms": 27.411047,
+      "kernel_span_ms": 31.665554,
+      "kernels": 735,
+      "stream": 7,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 316,
+          "mean": 78.51582278481013,
+          "p50": 84.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.6613924050632911
+        },
+        "SM Issue [Throughput %]": {
+          "n": 316,
+          "mean": 12.085443037974683,
+          "p50": 13.0,
+          "p95": 16.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 316,
+          "mean": 31.335443037974684,
+          "p50": 32.0,
+          "p95": 48.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 316,
+          "mean": 15.028481012658228,
+          "p50": 16.0,
+          "p95": 22.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 316,
+          "mean": 63.48101265822785,
+          "p50": 67.0,
+          "p95": 84.0,
+          "fraction_ge80": 0.20569620253164558
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 316,
+          "mean": 36.927215189873415,
+          "p50": 37.0,
+          "p95": 63.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 316,
+          "mean": 4.19620253164557,
+          "p50": 3.0,
+          "p95": 13.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 276,
+          "mean": 84.27173913043478,
+          "p50": 86.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.7427536231884058
+        },
+        "SM Issue [Throughput %]": {
+          "n": 276,
+          "mean": 12.873188405797102,
+          "p50": 14.0,
+          "p95": 16.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 276,
+          "mean": 33.641304347826086,
+          "p50": 34.0,
+          "p95": 48.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 276,
+          "mean": 16.213768115942027,
+          "p50": 16.0,
+          "p95": 23.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 276,
+          "mean": 68.01449275362319,
+          "p50": 68.5,
+          "p95": 84.0,
+          "fraction_ge80": 0.2318840579710145
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 276,
+          "mean": 39.028985507246375,
+          "p50": 40.0,
+          "p95": 63.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 276,
+          "mean": 4.471014492753623,
+          "p50": 3.0,
+          "p95": 13.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 4.254506999999972,
+        "next_launch_not_entered_ms": 2.550423,
+        "launch_api_in_progress_ms": 0.688506,
+        "already_submitted_gap_ms": 1.0155780000000005,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 4,
+          "mean": 95.75,
+          "p50": 98.0,
+          "p95": 98.85,
+          "fraction_ge80": 1.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 4,
+          "mean": 12.75,
+          "p50": 13.0,
+          "p95": 14.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 4,
+          "mean": 42.25,
+          "p50": 42.5,
+          "p95": 45.55,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 4,
+          "mean": 17.0,
+          "p50": 17.5,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 4,
+          "mean": 78.5,
+          "p50": 78.5,
+          "p95": 82.4,
+          "fraction_ge80": 0.25
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 4,
+          "mean": 47.5,
+          "p50": 49.0,
+          "p95": 55.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 4,
+          "mean": 4.75,
+          "p50": 5.0,
+          "p95": 8.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 28,
+          "mean": 33.82142857142857,
+          "p50": 31.0,
+          "p95": 61.0,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 28,
+          "mean": 6.142857142857143,
+          "p50": 6.0,
+          "p95": 11.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 28,
+          "mean": 13.071428571428571,
+          "p50": 12.0,
+          "p95": 24.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 28,
+          "mean": 5.892857142857143,
+          "p50": 5.0,
+          "p95": 10.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 28,
+          "mean": 28.178571428571427,
+          "p50": 26.0,
+          "p95": 51.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 28,
+          "mean": 20.321428571428573,
+          "p50": 19.0,
+          "p95": 38.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 28,
+          "mean": 2.25,
+          "p50": 1.0,
+          "p95": 8.299999999999997,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "prefix_decode",
+      "step": 1,
+      "host_start": 3674519233,
+      "host_end": 3712171747,
+      "gpu_start": 3676031340,
+      "gpu_end": 3774875297,
+      "host_ms": 37.652514,
+      "kernel_sum_ms": 88.9292,
+      "kernel_span_ms": 98.843957,
+      "kernels": 489,
+      "stream": 33,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 989,
+          "mean": 84.49039433771486,
+          "p50": 100.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.8099089989888777
+        },
+        "SM Issue [Throughput %]": {
+          "n": 989,
+          "mean": 9.228513650151669,
+          "p50": 7.0,
+          "p95": 27.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 989,
+          "mean": 32.70374115267948,
+          "p50": 46.0,
+          "p95": 50.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 989,
+          "mean": 22.87057633973711,
+          "p50": 15.0,
+          "p95": 84.0,
+          "fraction_ge80": 0.07987866531850354
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 989,
+          "mean": 61.640040444893835,
+          "p50": 81.0,
+          "p95": 92.0,
+          "fraction_ge80": 0.5166835187057633
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 989,
+          "mean": 11.263902932254803,
+          "p50": 5.0,
+          "p95": 46.0,
+          "fraction_ge80": 0.0010111223458038423
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 989,
+          "mean": 9.377148634984833,
+          "p50": 3.0,
+          "p95": 46.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 891,
+          "mean": 92.94276094276094,
+          "p50": 100.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.8945005611672279
+        },
+        "SM Issue [Throughput %]": {
+          "n": 891,
+          "mean": 10.033670033670033,
+          "p50": 8.0,
+          "p95": 28.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 891,
+          "mean": 36.20314253647587,
+          "p50": 48.0,
+          "p95": 50.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 891,
+          "mean": 24.835016835016834,
+          "p50": 17.0,
+          "p95": 85.0,
+          "fraction_ge80": 0.08641975308641975
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 891,
+          "mean": 68.12570145903479,
+          "p50": 83.0,
+          "p95": 92.0,
+          "fraction_ge80": 0.5723905723905723
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 891,
+          "mean": 12.164983164983164,
+          "p50": 6.0,
+          "p95": 47.0,
+          "fraction_ge80": 0.001122334455667789
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 891,
+          "mean": 10.140291806958473,
+          "p50": 3.0,
+          "p95": 46.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 9.914757000000067,
+        "next_launch_not_entered_ms": 8.810934000000001,
+        "launch_api_in_progress_ms": 0.5940890000000001,
+        "already_submitted_gap_ms": 0.5097339999999989,
+        "queued_aux_overlap_ms": 0.3000329999999999,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 4,
+          "mean": 99.75,
+          "p50": 100.0,
+          "p95": 100.0,
+          "fraction_ge80": 1.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 4,
+          "mean": 26.75,
+          "p50": 18.5,
+          "p95": 57.29999999999998,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 4,
+          "mean": 13.25,
+          "p50": 2.0,
+          "p95": 41.249999999999986,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 4,
+          "mean": 69.75,
+          "p50": 85.0,
+          "p95": 92.7,
+          "fraction_ge80": 0.5
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 4,
+          "mean": 30.0,
+          "p50": 15.0,
+          "p95": 73.69999999999997,
+          "fraction_ge80": 0.25
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 4,
+          "mean": 29.5,
+          "p50": 31.5,
+          "p95": 51.8,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 4,
+          "mean": 26.0,
+          "p50": 28.5,
+          "p95": 45.25,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 89,
+          "mean": 2.7865168539325844,
+          "p50": 0.0,
+          "p95": 18.399999999999977,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 89,
+          "mean": 0.5842696629213483,
+          "p50": 0.0,
+          "p95": 2.5999999999999943,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 89,
+          "mean": 0.3258426966292135,
+          "p50": 0.0,
+          "p95": 0.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 89,
+          "mean": 1.5280898876404494,
+          "p50": 0.0,
+          "p95": 7.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 89,
+          "mean": 1.2808988764044944,
+          "p50": 0.0,
+          "p95": 5.599999999999994,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 89,
+          "mean": 1.5168539325842696,
+          "p50": 0.0,
+          "p95": 8.599999999999994,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 89,
+          "mean": 1.1123595505617978,
+          "p50": 0.0,
+          "p95": 6.999999999999972,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "action_denoise_step",
+      "step": 1,
+      "host_start": 3681283595,
+      "host_end": 3754121991,
+      "gpu_start": 3689694513,
+      "gpu_end": 3781410927,
+      "host_ms": 72.838396,
+      "kernel_sum_ms": 20.445589,
+      "kernel_span_ms": 91.716414,
+      "kernels": 917,
+      "stream": 7,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 917,
+          "mean": 94.20610687022901,
+          "p50": 100.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.916030534351145
+        },
+        "SM Issue [Throughput %]": {
+          "n": 917,
+          "mean": 12.865866957470011,
+          "p50": 8.0,
+          "p95": 49.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 917,
+          "mean": 34.968375136314066,
+          "p50": 48.0,
+          "p95": 50.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 917,
+          "mean": 25.089422028353326,
+          "p50": 17.0,
+          "p95": 84.19999999999993,
+          "fraction_ge80": 0.08396946564885496
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 917,
+          "mean": 69.13958560523446,
+          "p50": 83.0,
+          "p95": 92.0,
+          "fraction_ge80": 0.5539803707742639
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 917,
+          "mean": 12.102508178844056,
+          "p50": 6.0,
+          "p95": 47.0,
+          "fraction_ge80": 0.0010905125408942203
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 917,
+          "mean": 9.815703380588877,
+          "p50": 3.0,
+          "p95": 46.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 210,
+          "mean": 90.83809523809524,
+          "p50": 94.5,
+          "p95": 100.0,
+          "fraction_ge80": 0.8904761904761904
+        },
+        "SM Issue [Throughput %]": {
+          "n": 210,
+          "mean": 15.371428571428572,
+          "p50": 8.0,
+          "p95": 53.54999999999998,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 210,
+          "mean": 31.63809523809524,
+          "p50": 41.0,
+          "p95": 49.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 210,
+          "mean": 27.242857142857144,
+          "p50": 18.0,
+          "p95": 84.54999999999998,
+          "fraction_ge80": 0.0761904761904762
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 210,
+          "mean": 63.666666666666664,
+          "p50": 71.0,
+          "p95": 89.0,
+          "fraction_ge80": 0.22380952380952382
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 210,
+          "mean": 17.11904761904762,
+          "p50": 12.0,
+          "p95": 49.64999999999995,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 210,
+          "mean": 10.652380952380952,
+          "p50": 4.0,
+          "p95": 40.54999999999998,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 71.2708249999999,
+        "next_launch_not_entered_ms": 7.361435999999999,
+        "launch_api_in_progress_ms": 1.7079299999999997,
+        "already_submitted_gap_ms": 62.201459000000035,
+        "queued_aux_overlap_ms": 62.13330000000002,
+        "queued_overlap_prefix_decode_ms": 57.77098999999997,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 4.335973999999996
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 609,
+          "mean": 98.45812807881774,
+          "p50": 100.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.9852216748768473
+        },
+        "SM Issue [Throughput %]": {
+          "n": 609,
+          "mean": 12.052545155993432,
+          "p50": 8.0,
+          "p95": 51.60000000000002,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 609,
+          "mean": 38.11330049261084,
+          "p50": 49.0,
+          "p95": 50.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 609,
+          "mean": 23.599343185550083,
+          "p50": 17.0,
+          "p95": 84.0,
+          "fraction_ge80": 0.08702791461412152
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 609,
+          "mean": 74.87027914614121,
+          "p50": 83.0,
+          "p95": 92.0,
+          "fraction_ge80": 0.7241379310344828
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 609,
+          "mean": 10.060755336617406,
+          "p50": 4.0,
+          "p95": 46.0,
+          "fraction_ge80": 0.0016420361247947454
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 609,
+          "mean": 8.486042692939245,
+          "p50": 2.0,
+          "p95": 46.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 75,
+          "mean": 75.22666666666667,
+          "p50": 82.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.52
+        },
+        "SM Issue [Throughput %]": {
+          "n": 75,
+          "mean": 12.4,
+          "p50": 8.0,
+          "p95": 41.499999999999986,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 75,
+          "mean": 23.12,
+          "p50": 24.0,
+          "p95": 50.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 75,
+          "mean": 29.44,
+          "p50": 14.0,
+          "p95": 88.3,
+          "fraction_ge80": 0.10666666666666667
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 75,
+          "mean": 45.733333333333334,
+          "p50": 54.0,
+          "p95": 92.0,
+          "fraction_ge80": 0.21333333333333335
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 75,
+          "mean": 13.88,
+          "p50": 7.0,
+          "p95": 47.599999999999994,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 75,
+          "mean": 15.293333333333333,
+          "p50": 5.0,
+          "p95": 46.3,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "future_jepa_encoder",
+      "step": 1,
+      "host_start": 3713146201,
+      "host_end": 3741386058,
+      "gpu_start": 3774929474,
+      "gpu_end": 3802890902,
+      "host_ms": 28.239857,
+      "kernel_sum_ms": 27.379083,
+      "kernel_span_ms": 27.961428,
+      "kernels": 391,
+      "stream": 33,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 280,
+          "mean": 93.01428571428572,
+          "p50": 95.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.9285714285714286
+        },
+        "SM Issue [Throughput %]": {
+          "n": 280,
+          "mean": 51.36785714285714,
+          "p50": 55.0,
+          "p95": 74.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 280,
+          "mean": 7.103571428571429,
+          "p50": 1.0,
+          "p95": 35.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 280,
+          "mean": 26.439285714285713,
+          "p50": 29.5,
+          "p95": 34.05000000000001,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 280,
+          "mean": 66.56428571428572,
+          "p50": 67.0,
+          "p95": 80.10000000000002,
+          "fraction_ge80": 0.06428571428571428
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 280,
+          "mean": 13.57857142857143,
+          "p50": 13.0,
+          "p95": 26.05000000000001,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 280,
+          "mean": 8.117857142857142,
+          "p50": 7.0,
+          "p95": 17.05000000000001,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 270,
+          "mean": 92.91481481481482,
+          "p50": 95.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.9259259259259259
+        },
+        "SM Issue [Throughput %]": {
+          "n": 270,
+          "mean": 51.63333333333333,
+          "p50": 55.0,
+          "p95": 74.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 270,
+          "mean": 6.844444444444444,
+          "p50": 1.0,
+          "p95": 35.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 270,
+          "mean": 26.38888888888889,
+          "p50": 29.5,
+          "p95": 34.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 270,
+          "mean": 66.51851851851852,
+          "p50": 67.0,
+          "p95": 81.09999999999997,
+          "fraction_ge80": 0.06666666666666667
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 270,
+          "mean": 13.6,
+          "p50": 13.0,
+          "p95": 26.549999999999983,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 270,
+          "mean": 8.085185185185185,
+          "p50": 7.0,
+          "p95": 17.549999999999983,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 0.5823449999999998,
+        "next_launch_not_entered_ms": 0.0,
+        "launch_api_in_progress_ms": 0.0,
+        "already_submitted_gap_ms": 0.5823449999999998,
+        "queued_aux_overlap_ms": 0.44816399999999956,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 10,
+          "mean": 95.7,
+          "p50": 96.0,
+          "p95": 99.55,
+          "fraction_ge80": 1.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 10,
+          "mean": 44.2,
+          "p50": 41.0,
+          "p95": 71.1,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 10,
+          "mean": 14.1,
+          "p50": 12.0,
+          "p95": 32.65,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 10,
+          "mean": 27.8,
+          "p50": 29.5,
+          "p95": 38.199999999999996,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 10,
+          "mean": 67.8,
+          "p50": 68.5,
+          "p95": 77.64999999999999,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 10,
+          "mean": 13.0,
+          "p50": 11.5,
+          "p95": 21.549999999999997,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 10,
+          "mean": 9.0,
+          "p50": 9.0,
+          "p95": 15.649999999999997,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {}
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "action_denoise_step",
+      "step": 2,
+      "host_start": 3754309825,
+      "host_end": 3791225161,
+      "gpu_start": 3781422639,
+      "gpu_end": 3805420544,
+      "host_ms": 36.915336,
+      "kernel_sum_ms": 8.753113,
+      "kernel_span_ms": 23.997905,
+      "kernels": 917,
+      "stream": 7,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 240,
+          "mean": 89.1375,
+          "p50": 94.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.8375
+        },
+        "SM Issue [Throughput %]": {
+          "n": 240,
+          "mean": 47.52916666666667,
+          "p50": 54.0,
+          "p95": 73.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 240,
+          "mean": 6.454166666666667,
+          "p50": 2.0,
+          "p95": 34.04999999999998,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 240,
+          "mean": 25.0125,
+          "p50": 28.0,
+          "p95": 34.04999999999998,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 240,
+          "mean": 64.1125,
+          "p50": 67.0,
+          "p95": 79.04999999999998,
+          "fraction_ge80": 0.05
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 240,
+          "mean": 15.479166666666666,
+          "p50": 14.0,
+          "p95": 31.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 240,
+          "mean": 7.845833333333333,
+          "p50": 7.0,
+          "p95": 18.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 92,
+          "mean": 79.47826086956522,
+          "p50": 83.5,
+          "p95": 100.0,
+          "fraction_ge80": 0.5978260869565217
+        },
+        "SM Issue [Throughput %]": {
+          "n": 92,
+          "mean": 33.891304347826086,
+          "p50": 31.5,
+          "p95": 69.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 92,
+          "mean": 7.586956521739131,
+          "p50": 5.0,
+          "p95": 24.900000000000006,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 92,
+          "mean": 21.641304347826086,
+          "p50": 19.0,
+          "p95": 36.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 92,
+          "mean": 57.83695652173913,
+          "p50": 60.0,
+          "p95": 73.45,
+          "fraction_ge80": 0.03260869565217391
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 92,
+          "mean": 21.217391304347824,
+          "p50": 21.0,
+          "p95": 35.45,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 92,
+          "mean": 7.467391304347826,
+          "p50": 6.5,
+          "p95": 16.450000000000003,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 15.244792000000077,
+        "next_launch_not_entered_ms": 0.0,
+        "launch_api_in_progress_ms": 0.0,
+        "already_submitted_gap_ms": 15.244792000000077,
+        "queued_aux_overlap_ms": 14.706357000000018,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 14.706357000000018
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 148,
+          "mean": 95.14189189189189,
+          "p50": 99.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.9864864864864865
+        },
+        "SM Issue [Throughput %]": {
+          "n": 148,
+          "mean": 56.00675675675676,
+          "p50": 65.0,
+          "p95": 74.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 148,
+          "mean": 5.75,
+          "p50": 1.0,
+          "p95": 35.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 148,
+          "mean": 27.10810810810811,
+          "p50": 30.0,
+          "p95": 33.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 148,
+          "mean": 68.01351351351352,
+          "p50": 67.0,
+          "p95": 80.0,
+          "fraction_ge80": 0.060810810810810814
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 148,
+          "mean": 11.912162162162161,
+          "p50": 10.0,
+          "p95": 24.950000000000017,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 148,
+          "mean": 8.08108108108108,
+          "p50": 7.0,
+          "p95": 18.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {}
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "action_denoise_step",
+      "step": 3,
+      "host_start": 3791387357,
+      "host_end": 3828581538,
+      "gpu_start": 3805431169,
+      "gpu_end": 3828301375,
+      "host_ms": 37.194181,
+      "kernel_sum_ms": 5.641214,
+      "kernel_span_ms": 22.870206,
+      "kernels": 917,
+      "stream": 7,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 229,
+          "mean": 16.139737991266376,
+          "p50": 11.0,
+          "p95": 56.599999999999994,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 229,
+          "mean": 1.9170305676855894,
+          "p50": 1.0,
+          "p95": 6.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 229,
+          "mean": 2.3799126637554586,
+          "p50": 1.0,
+          "p95": 9.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 229,
+          "mean": 2.7554585152838427,
+          "p50": 2.0,
+          "p95": 9.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 229,
+          "mean": 13.40174672489083,
+          "p50": 10.0,
+          "p95": 47.599999999999994,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 229,
+          "mean": 9.275109170305678,
+          "p50": 6.0,
+          "p95": 33.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 229,
+          "mean": 1.3362445414847162,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 59,
+          "mean": 29.610169491525422,
+          "p50": 18.0,
+          "p95": 60.099999999999994,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 59,
+          "mean": 3.305084745762712,
+          "p50": 2.0,
+          "p95": 7.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 59,
+          "mean": 4.305084745762712,
+          "p50": 3.0,
+          "p95": 11.099999999999994,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 59,
+          "mean": 4.983050847457627,
+          "p50": 3.0,
+          "p95": 10.099999999999994,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 59,
+          "mean": 24.610169491525422,
+          "p50": 15.0,
+          "p95": 51.099999999999994,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 59,
+          "mean": 17.25423728813559,
+          "p50": 11.0,
+          "p95": 36.099999999999994,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 59,
+          "mean": 1.847457627118644,
+          "p50": 1.0,
+          "p95": 5.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 17.228991999999984,
+        "next_launch_not_entered_ms": 13.08331699999999,
+        "launch_api_in_progress_ms": 3.3783820000000016,
+        "already_submitted_gap_ms": 0.767293,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 8,
+          "mean": 23.0,
+          "p50": 16.0,
+          "p95": 54.14999999999999,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 8,
+          "mean": 2.625,
+          "p50": 1.5,
+          "p95": 5.6499999999999995,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 8,
+          "mean": 3.625,
+          "p50": 2.5,
+          "p95": 9.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 8,
+          "mean": 3.75,
+          "p50": 2.5,
+          "p95": 9.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 8,
+          "mean": 19.125,
+          "p50": 13.0,
+          "p95": 45.14999999999999,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 8,
+          "mean": 13.125,
+          "p50": 9.0,
+          "p95": 32.14999999999999,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 8,
+          "mean": 1.5,
+          "p50": 1.0,
+          "p95": 3.599999999999998,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 132,
+          "mean": 11.128787878787879,
+          "p50": 11.0,
+          "p95": 22.44999999999999,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 132,
+          "mean": 1.3863636363636365,
+          "p50": 1.0,
+          "p95": 2.4499999999999886,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 132,
+          "mean": 1.6893939393939394,
+          "p50": 1.0,
+          "p95": 5.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 132,
+          "mean": 1.8257575757575757,
+          "p50": 2.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 132,
+          "mean": 9.31060606060606,
+          "p50": 10.0,
+          "p95": 18.44999999999999,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 132,
+          "mean": 6.356060606060606,
+          "p50": 6.0,
+          "p95": 13.899999999999977,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 132,
+          "mean": 1.143939393939394,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "action_denoise_step",
+      "step": 4,
+      "host_start": 3828763020,
+      "host_end": 3869723050,
+      "gpu_start": 3831510005,
+      "gpu_end": 3869333709,
+      "host_ms": 40.96003,
+      "kernel_sum_ms": 5.454985,
+      "kernel_span_ms": 37.823704,
+      "kernels": 917,
+      "stream": 7,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 378,
+          "mean": 9.634920634920634,
+          "p50": 10.0,
+          "p95": 17.149999999999977,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 378,
+          "mean": 1.2010582010582012,
+          "p50": 1.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 378,
+          "mean": 1.4523809523809523,
+          "p50": 1.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 378,
+          "mean": 1.6613756613756614,
+          "p50": 2.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 378,
+          "mean": 7.976190476190476,
+          "p50": 9.0,
+          "p95": 15.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 378,
+          "mean": 5.674603174603175,
+          "p50": 6.0,
+          "p95": 12.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 378,
+          "mean": 1.0502645502645502,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 51,
+          "mean": 11.352941176470589,
+          "p50": 11.0,
+          "p95": 17.0,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 51,
+          "mean": 1.3529411764705883,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 51,
+          "mean": 1.803921568627451,
+          "p50": 1.0,
+          "p95": 5.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 51,
+          "mean": 1.9411764705882353,
+          "p50": 2.0,
+          "p95": 3.5,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 51,
+          "mean": 9.411764705882353,
+          "p50": 9.0,
+          "p95": 14.5,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 51,
+          "mean": 6.568627450980392,
+          "p50": 6.0,
+          "p95": 12.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 51,
+          "mean": 1.0980392156862746,
+          "p50": 1.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 32.36871900000001,
+        "next_launch_not_entered_ms": 26.103366999999988,
+        "launch_api_in_progress_ms": 5.8182130000000045,
+        "already_submitted_gap_ms": 0.4471390000000004,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 5,
+          "mean": 11.2,
+          "p50": 10.0,
+          "p95": 18.0,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 5,
+          "mean": 1.6,
+          "p50": 2.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 5,
+          "mean": 1.6,
+          "p50": 1.0,
+          "p95": 3.3999999999999995,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 5,
+          "mean": 2.2,
+          "p50": 2.0,
+          "p95": 3.8,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 5,
+          "mean": 8.8,
+          "p50": 8.0,
+          "p95": 14.2,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 5,
+          "mean": 6.4,
+          "p50": 6.0,
+          "p95": 13.2,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 5,
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 262,
+          "mean": 8.961832061068701,
+          "p50": 10.0,
+          "p95": 14.0,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 262,
+          "mean": 1.1297709923664123,
+          "p50": 1.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 262,
+          "mean": 1.3206106870229009,
+          "p50": 1.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 262,
+          "mean": 1.5114503816793894,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 262,
+          "mean": 7.4465648854961835,
+          "p50": 8.0,
+          "p95": 12.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 262,
+          "mean": 5.312977099236641,
+          "p50": 6.0,
+          "p95": 8.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 262,
+          "mean": 1.0267175572519085,
+          "p50": 1.0,
+          "p95": 2.9499999999999886,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "action_denoise_step",
+      "step": 5,
+      "host_start": 3869967290,
+      "host_end": 3906892355,
+      "gpu_start": 3872695814,
+      "gpu_end": 3906586973,
+      "host_ms": 36.925065,
+      "kernel_sum_ms": 5.422472,
+      "kernel_span_ms": 33.891159,
+      "kernels": 917,
+      "stream": 7,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 339,
+          "mean": 10.687315634218288,
+          "p50": 11.0,
+          "p95": 21.0,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 339,
+          "mean": 1.2743362831858407,
+          "p50": 1.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 339,
+          "mean": 1.5811209439528024,
+          "p50": 1.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 339,
+          "mean": 1.8436578171091444,
+          "p50": 2.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 339,
+          "mean": 8.876106194690266,
+          "p50": 9.0,
+          "p95": 18.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 339,
+          "mean": 6.312684365781711,
+          "p50": 6.0,
+          "p95": 14.099999999999966,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 339,
+          "mean": 1.126843657817109,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 59,
+          "mean": 11.271186440677965,
+          "p50": 10.0,
+          "p95": 22.099999999999994,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 59,
+          "mean": 1.423728813559322,
+          "p50": 1.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 59,
+          "mean": 1.9830508474576272,
+          "p50": 1.0,
+          "p95": 7.099999999999994,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 59,
+          "mean": 2.0508474576271185,
+          "p50": 2.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 59,
+          "mean": 9.288135593220339,
+          "p50": 9.0,
+          "p95": 19.099999999999994,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 59,
+          "mean": 6.4576271186440675,
+          "p50": 6.0,
+          "p95": 13.099999999999994,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 59,
+          "mean": 1.0169491525423728,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 28.468687000000003,
+        "next_launch_not_entered_ms": 22.57747800000001,
+        "launch_api_in_progress_ms": 5.599353999999991,
+        "already_submitted_gap_ms": 0.2918549999999998,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 1,
+          "mean": 7.0,
+          "p50": 7.0,
+          "p95": 7.0,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 1,
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 1,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 1,
+          "mean": 4.0,
+          "p50": 4.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 1,
+          "mean": 4.0,
+          "p50": 4.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 1,
+          "mean": 4.0,
+          "p50": 4.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 1,
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 226,
+          "mean": 10.460176991150442,
+          "p50": 11.0,
+          "p95": 19.75,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 226,
+          "mean": 1.2345132743362832,
+          "p50": 1.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 226,
+          "mean": 1.4955752212389382,
+          "p50": 1.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 226,
+          "mean": 1.7566371681415929,
+          "p50": 2.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 226,
+          "mean": 8.694690265486726,
+          "p50": 9.0,
+          "p95": 17.5,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 226,
+          "mean": 6.238938053097345,
+          "p50": 6.0,
+          "p95": 13.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 226,
+          "mean": 1.1460176991150441,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "action_denoise_step",
+      "step": 6,
+      "host_start": 3907057065,
+      "host_end": 3944084563,
+      "gpu_start": 3909737809,
+      "gpu_end": 3943775818,
+      "host_ms": 37.027498,
+      "kernel_sum_ms": 5.41185,
+      "kernel_span_ms": 34.038009,
+      "kernels": 917,
+      "stream": 7,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 341,
+          "mean": 10.565982404692082,
+          "p50": 11.0,
+          "p95": 22.0,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 341,
+          "mean": 1.2727272727272727,
+          "p50": 1.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 341,
+          "mean": 1.595307917888563,
+          "p50": 1.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 341,
+          "mean": 1.8328445747800586,
+          "p50": 2.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 341,
+          "mean": 8.785923753665688,
+          "p50": 9.0,
+          "p95": 18.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 341,
+          "mean": 6.293255131964809,
+          "p50": 6.0,
+          "p95": 15.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 341,
+          "mean": 1.093841642228739,
+          "p50": 1.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 58,
+          "mean": 10.637931034482758,
+          "p50": 10.0,
+          "p95": 21.0,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 58,
+          "mean": 1.2758620689655173,
+          "p50": 1.0,
+          "p95": 2.1499999999999986,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 58,
+          "mean": 1.6724137931034482,
+          "p50": 1.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 58,
+          "mean": 1.9310344827586208,
+          "p50": 2.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 58,
+          "mean": 8.741379310344827,
+          "p50": 8.0,
+          "p95": 18.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 58,
+          "mean": 6.103448275862069,
+          "p50": 6.0,
+          "p95": 13.299999999999997,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 58,
+          "mean": 1.0344827586206897,
+          "p50": 1.0,
+          "p95": 1.1499999999999986,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 28.626159000000026,
+        "next_launch_not_entered_ms": 22.651585000000026,
+        "launch_api_in_progress_ms": 5.576522999999993,
+        "already_submitted_gap_ms": 0.39805100000000065,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 3,
+          "mean": 12.666666666666666,
+          "p50": 12.0,
+          "p95": 21.9,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 3,
+          "mean": 1.6666666666666667,
+          "p50": 1.0,
+          "p95": 2.8,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 3,
+          "mean": 2.0,
+          "p50": 1.0,
+          "p95": 3.6999999999999997,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 3,
+          "mean": 2.3333333333333335,
+          "p50": 2.0,
+          "p95": 3.8,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 3,
+          "mean": 10.333333333333334,
+          "p50": 10.0,
+          "p95": 18.099999999999998,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 3,
+          "mean": 7.333333333333333,
+          "p50": 8.0,
+          "p95": 12.5,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 3,
+          "mean": 0.6666666666666666,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 231,
+          "mean": 10.316017316017316,
+          "p50": 10.0,
+          "p95": 21.0,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 231,
+          "mean": 1.2207792207792207,
+          "p50": 1.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 231,
+          "mean": 1.4978354978354977,
+          "p50": 1.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 231,
+          "mean": 1.7662337662337662,
+          "p50": 2.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 231,
+          "mean": 8.584415584415584,
+          "p50": 9.0,
+          "p95": 18.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 231,
+          "mean": 6.190476190476191,
+          "p50": 6.0,
+          "p95": 13.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 231,
+          "mean": 1.1385281385281385,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "action_denoise_step",
+      "step": 7,
+      "host_start": 3944248010,
+      "host_end": 3981111048,
+      "gpu_start": 3946969408,
+      "gpu_end": 3980814230,
+      "host_ms": 36.863038,
+      "kernel_sum_ms": 5.414102,
+      "kernel_span_ms": 33.844822,
+      "kernels": 917,
+      "stream": 7,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 339,
+          "mean": 10.657817109144542,
+          "p50": 11.0,
+          "p95": 20.099999999999966,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 339,
+          "mean": 1.2979351032448379,
+          "p50": 1.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 339,
+          "mean": 1.575221238938053,
+          "p50": 1.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 339,
+          "mean": 1.8466076696165192,
+          "p50": 2.0,
+          "p95": 3.099999999999966,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 339,
+          "mean": 8.843657817109145,
+          "p50": 9.0,
+          "p95": 18.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 339,
+          "mean": 6.348082595870206,
+          "p50": 6.0,
+          "p95": 13.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 339,
+          "mean": 1.103244837758112,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 51,
+          "mean": 10.784313725490197,
+          "p50": 11.0,
+          "p95": 18.5,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 51,
+          "mean": 1.3529411764705883,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 51,
+          "mean": 1.7647058823529411,
+          "p50": 1.0,
+          "p95": 4.5,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 51,
+          "mean": 1.9019607843137254,
+          "p50": 2.0,
+          "p95": 3.5,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 51,
+          "mean": 9.098039215686274,
+          "p50": 9.0,
+          "p95": 16.5,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 51,
+          "mean": 6.294117647058823,
+          "p50": 6.0,
+          "p95": 12.5,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 51,
+          "mean": 0.9019607843137255,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 28.430720000000008,
+        "next_launch_not_entered_ms": 22.361233000000027,
+        "launch_api_in_progress_ms": 5.606679999999997,
+        "already_submitted_gap_ms": 0.46280699999999964,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 5,
+          "mean": 12.4,
+          "p50": 12.0,
+          "p95": 18.2,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 5,
+          "mean": 1.2,
+          "p50": 1.0,
+          "p95": 1.7999999999999998,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 5,
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.7999999999999998,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 5,
+          "mean": 2.4,
+          "p50": 2.0,
+          "p95": 3.8,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 5,
+          "mean": 10.0,
+          "p50": 11.0,
+          "p95": 15.399999999999999,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 5,
+          "mean": 8.8,
+          "p50": 8.0,
+          "p95": 14.2,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 5,
+          "mean": 0.8,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 224,
+          "mean": 10.28125,
+          "p50": 11.0,
+          "p95": 19.849999999999994,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 224,
+          "mean": 1.2678571428571428,
+          "p50": 1.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 224,
+          "mean": 1.5178571428571428,
+          "p50": 1.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 224,
+          "mean": 1.7589285714285714,
+          "p50": 2.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 224,
+          "mean": 8.522321428571429,
+          "p50": 9.0,
+          "p95": 17.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 224,
+          "mean": 6.102678571428571,
+          "p50": 6.0,
+          "p95": 12.849999999999994,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 224,
+          "mean": 1.1160714285714286,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "action_denoise_step",
+      "step": 8,
+      "host_start": 3981305084,
+      "host_end": 4017951454,
+      "gpu_start": 3984010443,
+      "gpu_end": 4017646558,
+      "host_ms": 36.64637,
+      "kernel_sum_ms": 5.411158,
+      "kernel_span_ms": 33.636115,
+      "kernels": 917,
+      "stream": 7,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 336,
+          "mean": 10.738095238095237,
+          "p50": 11.0,
+          "p95": 21.0,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 336,
+          "mean": 1.2886904761904763,
+          "p50": 1.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 336,
+          "mean": 1.5982142857142858,
+          "p50": 1.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 336,
+          "mean": 1.8601190476190477,
+          "p50": 2.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 336,
+          "mean": 8.910714285714286,
+          "p50": 9.0,
+          "p95": 18.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 336,
+          "mean": 6.351190476190476,
+          "p50": 6.0,
+          "p95": 13.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 336,
+          "mean": 1.1220238095238095,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 49,
+          "mean": 9.918367346938776,
+          "p50": 11.0,
+          "p95": 16.599999999999994,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 49,
+          "mean": 1.1428571428571428,
+          "p50": 1.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 49,
+          "mean": 1.346938775510204,
+          "p50": 1.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 49,
+          "mean": 1.9387755102040816,
+          "p50": 2.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 49,
+          "mean": 8.020408163265307,
+          "p50": 9.0,
+          "p95": 13.599999999999994,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 49,
+          "mean": 5.73469387755102,
+          "p50": 6.0,
+          "p95": 10.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 49,
+          "mean": 1.163265306122449,
+          "p50": 1.0,
+          "p95": 2.5999999999999943,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 28.22495699999998,
+        "next_launch_not_entered_ms": 22.182281999999965,
+        "launch_api_in_progress_ms": 5.592587000000009,
+        "already_submitted_gap_ms": 0.4500879999999998,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 4,
+          "mean": 11.5,
+          "p50": 11.5,
+          "p95": 12.0,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 4,
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 4,
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 4,
+          "mean": 2.0,
+          "p50": 2.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 4,
+          "mean": 9.75,
+          "p50": 9.5,
+          "p95": 10.85,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 4,
+          "mean": 6.0,
+          "p50": 6.0,
+          "p95": 6.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 4,
+          "mean": 2.0,
+          "p50": 2.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 223,
+          "mean": 10.26457399103139,
+          "p50": 11.0,
+          "p95": 18.0,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 223,
+          "mean": 1.2466367713004485,
+          "p50": 1.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 223,
+          "mean": 1.5336322869955157,
+          "p50": 1.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 223,
+          "mean": 1.7130044843049328,
+          "p50": 2.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 223,
+          "mean": 8.565022421524663,
+          "p50": 9.0,
+          "p95": 15.899999999999977,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 223,
+          "mean": 6.130044843049327,
+          "p50": 6.0,
+          "p95": 13.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 223,
+          "mean": 1.0896860986547086,
+          "p50": 1.0,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "guidance_forward_total",
+      "step": 1,
+      "host_start": 4019018132,
+      "host_end": 4052713908,
+      "gpu_start": 4021403581,
+      "gpu_end": 4055302612,
+      "host_ms": 33.695776,
+      "kernel_sum_ms": 31.687205,
+      "kernel_span_ms": 33.899031,
+      "kernels": 745,
+      "stream": 33,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 339,
+          "mean": 82.42182890855457,
+          "p50": 87.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.7138643067846607
+        },
+        "SM Issue [Throughput %]": {
+          "n": 339,
+          "mean": 44.15634218289085,
+          "p50": 49.0,
+          "p95": 71.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 339,
+          "mean": 4.513274336283186,
+          "p50": 0.0,
+          "p95": 26.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 339,
+          "mean": 21.28613569321534,
+          "p50": 23.0,
+          "p95": 33.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 339,
+          "mean": 61.13274336283186,
+          "p50": 62.0,
+          "p95": 77.0,
+          "fraction_ge80": 0.0058997050147492625
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 339,
+          "mean": 8.516224188790561,
+          "p50": 10.0,
+          "p95": 16.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 339,
+          "mean": 9.371681415929203,
+          "p50": 8.0,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 323,
+          "mean": 84.19504643962848,
+          "p50": 87.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.7275541795665634
+        },
+        "SM Issue [Throughput %]": {
+          "n": 323,
+          "mean": 45.294117647058826,
+          "p50": 51.0,
+          "p95": 71.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 323,
+          "mean": 4.430340557275541,
+          "p50": 0.0,
+          "p95": 26.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 323,
+          "mean": 21.80185758513932,
+          "p50": 23.0,
+          "p95": 33.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 323,
+          "mean": 62.37770897832817,
+          "p50": 62.0,
+          "p95": 77.0,
+          "fraction_ge80": 0.0030959752321981426
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 323,
+          "mean": 8.764705882352942,
+          "p50": 10.0,
+          "p95": 15.899999999999977,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 323,
+          "mean": 9.603715170278639,
+          "p50": 9.0,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 2.2118259999999963,
+        "next_launch_not_entered_ms": 0.9721680000000001,
+        "launch_api_in_progress_ms": 0.20079299999999997,
+        "already_submitted_gap_ms": 1.0388650000000017,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 7,
+          "mean": 92.42857142857143,
+          "p50": 93.0,
+          "p95": 97.8,
+          "fraction_ge80": 1.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 7,
+          "mean": 42.57142857142857,
+          "p50": 54.0,
+          "p95": 69.6,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 7,
+          "mean": 11.714285714285714,
+          "p50": 0.0,
+          "p95": 27.7,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 7,
+          "mean": 21.571428571428573,
+          "p50": 25.0,
+          "p95": 33.4,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 7,
+          "mean": 70.85714285714286,
+          "p50": 69.0,
+          "p95": 80.1,
+          "fraction_ge80": 0.14285714285714285
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 7,
+          "mean": 6.714285714285714,
+          "p50": 1.0,
+          "p95": 15.399999999999999,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 7,
+          "mean": 9.857142857142858,
+          "p50": 9.0,
+          "p95": 15.7,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 8,
+          "mean": 12.25,
+          "p50": 1.5,
+          "p95": 46.29999999999999,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 8,
+          "mean": 5.0,
+          "p50": 1.0,
+          "p95": 18.449999999999992,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 8,
+          "mean": 2.125,
+          "p50": 0.0,
+          "p95": 11.04999999999999,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 8,
+          "mean": 2.75,
+          "p50": 1.0,
+          "p95": 8.599999999999998,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 8,
+          "mean": 9.875,
+          "p50": 1.0,
+          "p95": 38.249999999999986,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 8,
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 8,
+          "mean": 0.75,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "guidance_backward_total",
+      "step": 1,
+      "host_start": 4052727774,
+      "host_end": 4087884110,
+      "gpu_start": 4055309652,
+      "gpu_end": 4100057888,
+      "host_ms": 35.156336,
+      "kernel_sum_ms": 42.495556,
+      "kernel_span_ms": 44.748236,
+      "kernels": 877,
+      "stream": 33,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 447,
+          "mean": 77.06711409395973,
+          "p50": 84.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.6062639821029083
+        },
+        "SM Issue [Throughput %]": {
+          "n": 447,
+          "mean": 36.50111856823266,
+          "p50": 41.0,
+          "p95": 71.0,
+          "fraction_ge80": 0.026845637583892617
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 447,
+          "mean": 8.9082774049217,
+          "p50": 1.0,
+          "p95": 31.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 447,
+          "mean": 15.88814317673378,
+          "p50": 17.0,
+          "p95": 33.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 447,
+          "mean": 61.17673378076063,
+          "p50": 61.0,
+          "p95": 92.0,
+          "fraction_ge80": 0.15212527964205816
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 447,
+          "mean": 8.100671140939598,
+          "p50": 9.0,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 447,
+          "mean": 3.6420581655480984,
+          "p50": 2.0,
+          "p95": 12.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 426,
+          "mean": 78.11971830985915,
+          "p50": 83.5,
+          "p95": 100.0,
+          "fraction_ge80": 0.607981220657277
+        },
+        "SM Issue [Throughput %]": {
+          "n": 426,
+          "mean": 36.955399061032864,
+          "p50": 41.5,
+          "p95": 71.0,
+          "fraction_ge80": 0.028169014084507043
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 426,
+          "mean": 9.070422535211268,
+          "p50": 1.0,
+          "p95": 31.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 426,
+          "mean": 16.068075117370892,
+          "p50": 17.0,
+          "p95": 33.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 426,
+          "mean": 62.044600938967136,
+          "p50": 61.0,
+          "p95": 92.0,
+          "fraction_ge80": 0.15023474178403756
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 426,
+          "mean": 8.166666666666666,
+          "p50": 10.0,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 426,
+          "mean": 3.647887323943662,
+          "p50": 2.0,
+          "p95": 11.75,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 2.252680000000002,
+        "next_launch_not_entered_ms": 0.8809760000000001,
+        "launch_api_in_progress_ms": 0.17945699999999998,
+        "already_submitted_gap_ms": 1.1922470000000007,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 11,
+          "mean": 94.27272727272727,
+          "p50": 93.0,
+          "p95": 98.5,
+          "fraction_ge80": 1.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 11,
+          "mean": 48.63636363636363,
+          "p50": 59.0,
+          "p95": 74.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 11,
+          "mean": 8.181818181818182,
+          "p50": 0.0,
+          "p95": 27.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 11,
+          "mean": 21.545454545454547,
+          "p50": 24.0,
+          "p95": 32.5,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 11,
+          "mean": 72.72727272727273,
+          "p50": 70.0,
+          "p95": 86.0,
+          "fraction_ge80": 0.2727272727272727
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 11,
+          "mean": 11.909090909090908,
+          "p50": 13.0,
+          "p95": 15.5,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 11,
+          "mean": 6.0,
+          "p50": 5.0,
+          "p95": 13.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 8,
+          "mean": 4.375,
+          "p50": 0.5,
+          "p95": 17.749999999999993,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 8,
+          "mean": 2.75,
+          "p50": 0.5,
+          "p95": 11.799999999999994,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 8,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 8,
+          "mean": 1.375,
+          "p50": 0.5,
+          "p95": 4.299999999999999,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 8,
+          "mean": 3.25,
+          "p50": 0.5,
+          "p95": 13.799999999999994,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 8,
+          "mean": 0.625,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 8,
+          "mean": 0.5,
+          "p50": 0.5,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "action_denoise_step",
+      "step": 9,
+      "host_start": 4101481505,
+      "host_end": 4138716714,
+      "gpu_start": 4104208901,
+      "gpu_end": 4138433250,
+      "host_ms": 37.235209,
+      "kernel_sum_ms": 5.622,
+      "kernel_span_ms": 34.224349,
+      "kernels": 917,
+      "stream": 7,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 342,
+          "mean": 10.853801169590643,
+          "p50": 11.0,
+          "p95": 21.0,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 342,
+          "mean": 1.3596491228070176,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 342,
+          "mean": 1.6198830409356726,
+          "p50": 1.0,
+          "p95": 5.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 342,
+          "mean": 1.8859649122807018,
+          "p50": 2.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 342,
+          "mean": 8.976608187134502,
+          "p50": 9.0,
+          "p95": 18.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 342,
+          "mean": 6.2748538011695905,
+          "p50": 6.0,
+          "p95": 13.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 342,
+          "mean": 1.1754385964912282,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 50,
+          "mean": 12.42,
+          "p50": 11.0,
+          "p95": 22.549999999999997,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 50,
+          "mean": 1.48,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 50,
+          "mean": 2.26,
+          "p50": 1.0,
+          "p95": 5.549999999999997,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 50,
+          "mean": 2.08,
+          "p50": 2.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 50,
+          "mean": 10.44,
+          "p50": 9.5,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 50,
+          "mean": 6.84,
+          "p50": 6.0,
+          "p95": 15.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 50,
+          "mean": 1.08,
+          "p50": 1.0,
+          "p95": 1.5499999999999972,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 28.602349000000007,
+        "next_launch_not_entered_ms": 22.686633,
+        "launch_api_in_progress_ms": 5.627580000000003,
+        "already_submitted_gap_ms": 0.288136,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 4,
+          "mean": 9.25,
+          "p50": 10.5,
+          "p95": 11.85,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 4,
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 4,
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 4,
+          "mean": 1.5,
+          "p50": 1.5,
+          "p95": 2.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 4,
+          "mean": 7.75,
+          "p50": 8.5,
+          "p95": 9.85,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 4,
+          "mean": 5.25,
+          "p50": 6.0,
+          "p95": 7.699999999999999,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 4,
+          "mean": 1.0,
+          "p50": 1.0,
+          "p95": 1.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 230,
+          "mean": 10.31304347826087,
+          "p50": 11.0,
+          "p95": 18.099999999999966,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 230,
+          "mean": 1.317391304347826,
+          "p50": 1.0,
+          "p95": 2.549999999999983,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 230,
+          "mean": 1.5260869565217392,
+          "p50": 1.0,
+          "p95": 4.549999999999983,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 230,
+          "mean": 1.7391304347826086,
+          "p50": 2.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 230,
+          "mean": 8.513043478260869,
+          "p50": 9.0,
+          "p95": 15.099999999999966,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 230,
+          "mean": 5.930434782608696,
+          "p50": 6.0,
+          "p95": 12.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 230,
+          "mean": 1.191304347826087,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "guidance_forward_total",
+      "step": 2,
+      "host_start": 4139665129,
+      "host_end": 4173248053,
+      "gpu_start": 4142075359,
+      "gpu_end": 4176073560,
+      "host_ms": 33.582924,
+      "kernel_sum_ms": 31.806677,
+      "kernel_span_ms": 33.998201,
+      "kernels": 745,
+      "stream": 33,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 339,
+          "mean": 82.76106194690266,
+          "p50": 87.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.7315634218289085
+        },
+        "SM Issue [Throughput %]": {
+          "n": 339,
+          "mean": 44.4070796460177,
+          "p50": 51.0,
+          "p95": 72.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 339,
+          "mean": 4.536873156342183,
+          "p50": 0.0,
+          "p95": 26.099999999999966,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 339,
+          "mean": 21.38938053097345,
+          "p50": 23.0,
+          "p95": 33.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 339,
+          "mean": 61.4070796460177,
+          "p50": 63.0,
+          "p95": 77.0,
+          "fraction_ge80": 0.0058997050147492625
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 339,
+          "mean": 8.519174041297935,
+          "p50": 10.0,
+          "p95": 16.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 339,
+          "mean": 9.368731563421829,
+          "p50": 9.0,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 314,
+          "mean": 84.47133757961784,
+          "p50": 86.5,
+          "p95": 100.0,
+          "fraction_ge80": 0.7388535031847133
+        },
+        "SM Issue [Throughput %]": {
+          "n": 314,
+          "mean": 45.14331210191083,
+          "p50": 50.5,
+          "p95": 72.34999999999997,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 314,
+          "mean": 4.627388535031847,
+          "p50": 0.0,
+          "p95": 26.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 314,
+          "mean": 21.78980891719745,
+          "p50": 23.0,
+          "p95": 33.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 314,
+          "mean": 62.70063694267516,
+          "p50": 62.0,
+          "p95": 76.0,
+          "fraction_ge80": 0.0031847133757961785
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 314,
+          "mean": 8.713375796178344,
+          "p50": 10.0,
+          "p95": 16.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 314,
+          "mean": 9.665605095541402,
+          "p50": 9.0,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 2.191523999999993,
+        "next_launch_not_entered_ms": 0.9222390000000001,
+        "launch_api_in_progress_ms": 0.190079,
+        "already_submitted_gap_ms": 1.0792060000000014,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 13,
+          "mean": 92.6923076923077,
+          "p50": 92.0,
+          "p95": 97.4,
+          "fraction_ge80": 1.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 13,
+          "mean": 54.46153846153846,
+          "p50": 59.0,
+          "p95": 70.4,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 13,
+          "mean": 4.230769230769231,
+          "p50": 0.0,
+          "p95": 27.199999999999996,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 13,
+          "mean": 25.384615384615383,
+          "p50": 26.0,
+          "p95": 32.4,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 13,
+          "mean": 67.6923076923077,
+          "p50": 66.0,
+          "p95": 78.4,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 13,
+          "mean": 9.23076923076923,
+          "p50": 13.0,
+          "p95": 16.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 13,
+          "mean": 9.461538461538462,
+          "p50": 10.0,
+          "p95": 15.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 10,
+          "mean": 23.0,
+          "p50": 4.5,
+          "p95": 85.75,
+          "fraction_ge80": 0.2
+        },
+        "SM Issue [Throughput %]": {
+          "n": 10,
+          "mean": 15.2,
+          "p50": 1.0,
+          "p95": 62.099999999999994,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 10,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 10,
+          "mean": 6.6,
+          "p50": 1.0,
+          "p95": 26.099999999999998,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 10,
+          "mean": 16.6,
+          "p50": 3.5,
+          "p95": 59.39999999999999,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 10,
+          "mean": 2.9,
+          "p50": 1.0,
+          "p95": 10.049999999999988,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 10,
+          "mean": 1.5,
+          "p50": 1.0,
+          "p95": 4.199999999999996,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "guidance_backward_total",
+      "step": 2,
+      "host_start": 4173261628,
+      "host_end": 4205875789,
+      "gpu_start": 4176080343,
+      "gpu_end": 4219996950,
+      "host_ms": 32.614161,
+      "kernel_sum_ms": 42.723917,
+      "kernel_span_ms": 43.916607,
+      "kernels": 877,
+      "stream": 33,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 439,
+          "mean": 78.73348519362187,
+          "p50": 84.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.6195899772209568
+        },
+        "SM Issue [Throughput %]": {
+          "n": 439,
+          "mean": 37.32118451025057,
+          "p50": 34.0,
+          "p95": 77.09999999999997,
+          "fraction_ge80": 0.0387243735763098
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 439,
+          "mean": 9.120728929384965,
+          "p50": 3.0,
+          "p95": 31.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 439,
+          "mean": 16.211845102505695,
+          "p50": 16.0,
+          "p95": 32.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 439,
+          "mean": 62.51936218678816,
+          "p50": 62.0,
+          "p95": 92.0,
+          "fraction_ge80": 0.1480637813211845
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 439,
+          "mean": 8.220956719817767,
+          "p50": 9.0,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 439,
+          "mean": 3.7084282460136673,
+          "p50": 2.0,
+          "p95": 11.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 425,
+          "mean": 78.33882352941177,
+          "p50": 84.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.6070588235294118
+        },
+        "SM Issue [Throughput %]": {
+          "n": 425,
+          "mean": 36.75529411764706,
+          "p50": 33.0,
+          "p95": 76.79999999999995,
+          "fraction_ge80": 0.04
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 425,
+          "mean": 9.258823529411766,
+          "p50": 3.0,
+          "p95": 31.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 425,
+          "mean": 16.058823529411764,
+          "p50": 16.0,
+          "p95": 32.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 425,
+          "mean": 62.27529411764706,
+          "p50": 61.0,
+          "p95": 92.0,
+          "fraction_ge80": 0.15058823529411763
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 425,
+          "mean": 8.047058823529412,
+          "p50": 9.0,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 425,
+          "mean": 3.6705882352941175,
+          "p50": 2.0,
+          "p95": 11.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 1.19269,
+        "next_launch_not_entered_ms": 0.0,
+        "launch_api_in_progress_ms": 0.0,
+        "already_submitted_gap_ms": 1.19269,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 14,
+          "mean": 90.71428571428571,
+          "p50": 91.0,
+          "p95": 97.35,
+          "fraction_ge80": 1.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 14,
+          "mean": 54.5,
+          "p50": 64.0,
+          "p95": 77.35,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 14,
+          "mean": 4.928571428571429,
+          "p50": 0.0,
+          "p95": 16.64999999999999,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 14,
+          "mean": 20.857142857142858,
+          "p50": 23.0,
+          "p95": 27.449999999999996,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 14,
+          "mean": 69.92857142857143,
+          "p50": 69.0,
+          "p95": 80.55,
+          "fraction_ge80": 0.07142857142857142
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 14,
+          "mean": 13.5,
+          "p50": 13.0,
+          "p95": 17.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 14,
+          "mean": 4.857142857142857,
+          "p50": 5.0,
+          "p95": 8.049999999999999,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {}
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "action_denoise_step",
+      "step": 10,
+      "host_start": 4221187681,
+      "host_end": 4256530217,
+      "gpu_start": 4224034458,
+      "gpu_end": 4256248789,
+      "host_ms": 35.342536,
+      "kernel_sum_ms": 5.561896,
+      "kernel_span_ms": 32.214331,
+      "kernels": 917,
+      "stream": 7,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 322,
+          "mean": 11.428571428571429,
+          "p50": 11.0,
+          "p95": 22.0,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 322,
+          "mean": 1.3975155279503106,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 322,
+          "mean": 1.7142857142857142,
+          "p50": 1.0,
+          "p95": 5.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 322,
+          "mean": 1.968944099378882,
+          "p50": 2.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 322,
+          "mean": 9.4472049689441,
+          "p50": 9.0,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 322,
+          "mean": 6.670807453416149,
+          "p50": 6.0,
+          "p95": 15.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 322,
+          "mean": 1.1770186335403727,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 59,
+          "mean": 11.932203389830509,
+          "p50": 11.0,
+          "p95": 21.099999999999994,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 59,
+          "mean": 1.5084745762711864,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 59,
+          "mean": 1.9491525423728813,
+          "p50": 1.0,
+          "p95": 5.099999999999994,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 59,
+          "mean": 2.2711864406779663,
+          "p50": 2.0,
+          "p95": 4.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 59,
+          "mean": 9.813559322033898,
+          "p50": 10.0,
+          "p95": 18.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 59,
+          "mean": 6.661016949152542,
+          "p50": 6.0,
+          "p95": 13.199999999999989,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 59,
+          "mean": 1.0338983050847457,
+          "p50": 1.0,
+          "p95": 1.0999999999999943,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 26.652434999999993,
+        "next_launch_not_entered_ms": 20.701569999999982,
+        "launch_api_in_progress_ms": 5.400764999999999,
+        "already_submitted_gap_ms": 0.5500999999999993,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 9,
+          "mean": 11.666666666666666,
+          "p50": 11.0,
+          "p95": 22.2,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 9,
+          "mean": 1.1111111111111112,
+          "p50": 1.0,
+          "p95": 1.5999999999999996,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 9,
+          "mean": 1.3333333333333333,
+          "p50": 1.0,
+          "p95": 2.5999999999999996,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 9,
+          "mean": 1.6666666666666667,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 9,
+          "mean": 10.11111111111111,
+          "p50": 9.0,
+          "p95": 19.6,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 9,
+          "mean": 7.444444444444445,
+          "p50": 6.0,
+          "p95": 16.6,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 9,
+          "mean": 1.1111111111111112,
+          "p50": 1.0,
+          "p95": 1.5999999999999996,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 196,
+          "mean": 11.040816326530612,
+          "p50": 11.0,
+          "p95": 21.25,
+          "fraction_ge80": 0.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 196,
+          "mean": 1.336734693877551,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 196,
+          "mean": 1.6020408163265305,
+          "p50": 1.0,
+          "p95": 5.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 196,
+          "mean": 1.8010204081632653,
+          "p50": 2.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 196,
+          "mean": 9.153061224489797,
+          "p50": 9.0,
+          "p95": 18.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 196,
+          "mean": 6.454081632653061,
+          "p50": 6.0,
+          "p95": 13.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 196,
+          "mean": 1.2448979591836735,
+          "p50": 1.0,
+          "p95": 3.0,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "guidance_forward_total",
+      "step": 3,
+      "host_start": 4257436764,
+      "host_end": 4288457685,
+      "gpu_start": 4259493579,
+      "gpu_end": 4293526628,
+      "host_ms": 31.020921,
+      "kernel_sum_ms": 31.897144,
+      "kernel_span_ms": 34.033049,
+      "kernels": 745,
+      "stream": 33,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 340,
+          "mean": 82.79411764705883,
+          "p50": 87.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.7235294117647059
+        },
+        "SM Issue [Throughput %]": {
+          "n": 340,
+          "mean": 44.34117647058824,
+          "p50": 50.0,
+          "p95": 70.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 340,
+          "mean": 4.5852941176470585,
+          "p50": 0.0,
+          "p95": 25.05000000000001,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 340,
+          "mean": 21.347058823529412,
+          "p50": 23.0,
+          "p95": 33.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 340,
+          "mean": 61.43235294117647,
+          "p50": 62.0,
+          "p95": 77.0,
+          "fraction_ge80": 0.014705882352941176
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 340,
+          "mean": 8.508823529411766,
+          "p50": 10.0,
+          "p95": 16.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 340,
+          "mean": 9.33235294117647,
+          "p50": 9.0,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 324,
+          "mean": 84.48765432098766,
+          "p50": 87.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.7376543209876543
+        },
+        "SM Issue [Throughput %]": {
+          "n": 324,
+          "mean": 45.04938271604938,
+          "p50": 50.0,
+          "p95": 70.0,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 324,
+          "mean": 4.746913580246914,
+          "p50": 0.0,
+          "p95": 25.849999999999966,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 324,
+          "mean": 21.74074074074074,
+          "p50": 23.0,
+          "p95": 33.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 324,
+          "mean": 62.72839506172839,
+          "p50": 62.0,
+          "p95": 77.0,
+          "fraction_ge80": 0.015432098765432098
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 324,
+          "mean": 8.712962962962964,
+          "p50": 11.0,
+          "p95": 16.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 324,
+          "mean": 9.598765432098766,
+          "p50": 9.0,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 2.135905000000001,
+        "next_launch_not_entered_ms": 0.8864519999999999,
+        "launch_api_in_progress_ms": 0.17974999999999997,
+        "already_submitted_gap_ms": 1.0697030000000014,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 6,
+          "mean": 94.66666666666667,
+          "p50": 95.0,
+          "p95": 97.75,
+          "fraction_ge80": 1.0
+        },
+        "SM Issue [Throughput %]": {
+          "n": 6,
+          "mean": 63.333333333333336,
+          "p50": 64.0,
+          "p95": 69.5,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 6,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 6,
+          "mean": 27.5,
+          "p50": 25.5,
+          "p95": 32.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 6,
+          "mean": 67.0,
+          "p50": 66.5,
+          "p95": 70.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 6,
+          "mean": 7.333333333333333,
+          "p50": 6.0,
+          "p95": 15.5,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 6,
+          "mean": 8.5,
+          "p50": 8.0,
+          "p95": 14.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 10,
+          "mean": 20.8,
+          "p50": 5.0,
+          "p95": 76.89999999999998,
+          "fraction_ge80": 0.1
+        },
+        "SM Issue [Throughput %]": {
+          "n": 10,
+          "mean": 10.0,
+          "p50": 2.0,
+          "p95": 39.299999999999955,
+          "fraction_ge80": 0.0
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 10,
+          "mean": 2.1,
+          "p50": 0.0,
+          "p95": 11.549999999999978,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 10,
+          "mean": 4.9,
+          "p50": 2.0,
+          "p95": 16.799999999999983,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 10,
+          "mean": 16.1,
+          "p50": 3.0,
+          "p95": 59.55,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 10,
+          "mean": 2.6,
+          "p50": 1.0,
+          "p95": 8.94999999999999,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 10,
+          "mean": 1.2,
+          "p50": 1.0,
+          "p95": 2.099999999999998,
+          "fraction_ge80": 0.0
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "full_gpu_verify0_prefill_first",
+      "stage": "guidance_backward_total",
+      "step": 3,
+      "host_start": 4288469467,
+      "host_end": 4320994199,
+      "gpu_start": 4293533412,
+      "gpu_end": 4337730919,
+      "host_ms": 32.524732,
+      "kernel_sum_ms": 42.988749,
+      "kernel_span_ms": 44.197507,
+      "kernels": 877,
+      "stream": 33,
+      "metrics_span": {
+        "SMs Active [Throughput %]": {
+          "n": 442,
+          "mean": 78.73755656108597,
+          "p50": 84.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.6108597285067874
+        },
+        "SM Issue [Throughput %]": {
+          "n": 442,
+          "mean": 37.23303167420814,
+          "p50": 37.0,
+          "p95": 73.94999999999999,
+          "fraction_ge80": 0.03619909502262444
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 442,
+          "mean": 9.180995475113122,
+          "p50": 1.5,
+          "p95": 31.0,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 442,
+          "mean": 16.15158371040724,
+          "p50": 17.0,
+          "p95": 32.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 442,
+          "mean": 62.57918552036199,
+          "p50": 61.0,
+          "p95": 92.0,
+          "fraction_ge80": 0.15384615384615385
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 442,
+          "mean": 8.18552036199095,
+          "p50": 9.0,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 442,
+          "mean": 3.6990950226244346,
+          "p50": 3.0,
+          "p95": 11.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "metrics_busy": {
+        "SMs Active [Throughput %]": {
+          "n": 430,
+          "mean": 78.38837209302325,
+          "p50": 84.0,
+          "p95": 100.0,
+          "fraction_ge80": 0.6023255813953489
+        },
+        "SM Issue [Throughput %]": {
+          "n": 430,
+          "mean": 36.68372093023256,
+          "p50": 36.0,
+          "p95": 72.54999999999995,
+          "fraction_ge80": 0.030232558139534883
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 430,
+          "mean": 9.346511627906978,
+          "p50": 2.0,
+          "p95": 31.549999999999955,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 430,
+          "mean": 16.01860465116279,
+          "p50": 17.0,
+          "p95": 32.0,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 430,
+          "mean": 62.36046511627907,
+          "p50": 61.0,
+          "p95": 92.0,
+          "fraction_ge80": 0.15813953488372093
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 430,
+          "mean": 8.030232558139534,
+          "p50": 9.0,
+          "p95": 19.0,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 430,
+          "mean": 3.6627906976744184,
+          "p50": 2.0,
+          "p95": 11.0,
+          "fraction_ge80": 0.0
+        }
+      },
+      "gaps": {
+        "gap_ms": 1.2087580000000018,
+        "next_launch_not_entered_ms": 0.0,
+        "launch_api_in_progress_ms": 0.0,
+        "already_submitted_gap_ms": 1.2087580000000018,
+        "queued_aux_overlap_ms": 0.0,
+        "queued_overlap_prefix_decode_ms": 0.0,
+        "queued_overlap_current_jepa_encoder_ms": 0.0,
+        "queued_overlap_future_jepa_encoder_ms": 0.0
+      },
+      "queued_metrics": {
+        "SMs Active [Throughput %]": {
+          "n": 12,
+          "mean": 91.25,
+          "p50": 95.0,
+          "p95": 99.0,
+          "fraction_ge80": 0.9166666666666666
+        },
+        "SM Issue [Throughput %]": {
+          "n": 12,
+          "mean": 56.916666666666664,
+          "p50": 60.5,
+          "p95": 86.0,
+          "fraction_ge80": 0.25
+        },
+        "Tensor Active [Throughput %]": {
+          "n": 12,
+          "mean": 3.25,
+          "p50": 0.0,
+          "p95": 10.45,
+          "fraction_ge80": 0.0
+        },
+        "Compute Warps in Flight [Throughput %]": {
+          "n": 12,
+          "mean": 20.916666666666668,
+          "p50": 20.0,
+          "p95": 28.599999999999994,
+          "fraction_ge80": 0.0
+        },
+        "Unallocated Warps in Active SMs [Throughput %]": {
+          "n": 12,
+          "mean": 70.41666666666667,
+          "p50": 71.0,
+          "p95": 76.9,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Read Bandwidth [Throughput %]": {
+          "n": 12,
+          "mean": 13.75,
+          "p50": 13.5,
+          "p95": 16.45,
+          "fraction_ge80": 0.0
+        },
+        "DRAM Write Bandwidth [Throughput %]": {
+          "n": 12,
+          "mean": 5.0,
+          "p50": 3.0,
+          "p95": 9.699999999999996,
+          "fraction_ge80": 0.0
+        }
+      },
+      "host_gap_metrics": {}
+    }
+  ]
+}
