@@ -2,7 +2,7 @@
 
 ## Uploaded artifact
 
-The exact evaluated predictor and all ten calibration tables are hosted in the private model repository [Astrid16/PACT-WAM-AR2-Predictor](https://huggingface.co/Astrid16/PACT-WAM-AR2-Predictor). Pinned revision: `807861a8e301e4d2ef7e8d2d30838adf87ee1994`. All 16 payload files passed remote SHA256 verification on 2026-11-02. The original checkpoint is 3,653,630,615 bytes. Access requires authorization to this private repository.
+The exact evaluated predictor and all ten calibration tables are hosted in the public model repository [Astrid16/PACT-WAM-AR2-Predictor](https://huggingface.co/Astrid16/PACT-WAM-AR2-Predictor). Pinned revision: `807861a8e301e4d2ef7e8d2d30838adf87ee1994`. All 16 payload files passed remote SHA256 verification on 2026-11-02. The original checkpoint is 3,653,630,615 bytes. Repository visibility was changed to public on 2026-11-02; downloads no longer require private-repository authorization.
 
 
 Keep source and result reports on GitHub, and host checkpoint binaries in a Hugging Face model repository. A private repository is the default for the upload helper. The helper does not change weights or convert precision, and does not upload WAM or JEPA encoder checkpoints.
