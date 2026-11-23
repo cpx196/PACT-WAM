@@ -1,0 +1,1179 @@
+{
+  "run": "real_ab_old789_20261117",
+  "count": 12,
+  "motion_medians": {
+    "final_mm": 3.3764652120459284,
+    "max_mm": 3.3764652120459284,
+    "final_deg": 0.1790317743296359,
+    "max_deg": 0.1790317743296359,
+    "action_rms": 0.017955344170331955,
+    "relative_action_rms": 0.07871662825345993
+  },
+  "motion_maxima": {
+    "final_mm": 10.807612611057287,
+    "max_mm": 10.807612611057287,
+    "final_deg": 0.3592054076954248,
+    "max_deg": 0.3592054076954248,
+    "action_rms": 0.04709937795996666,
+    "relative_action_rms": 0.6524770259857178
+  },
+  "predicted_improved": 9,
+  "actual_improved": 5,
+  "rows": [
+    {
+      "task": 536,
+      "seed": 42,
+      "replan": 0,
+      "control_step": 0,
+      "repeat_mse": 0.0,
+      "branches": {
+        "A": {
+          "prediction_mse": 0.3487657606601715,
+          "predicted_target_mse": 0.7360713481903076,
+          "actual_target_mse": 0.69163578748703
+        },
+        "B": {
+          "prediction_mse": 0.32981714606285095,
+          "predicted_target_mse": 0.7330114245414734,
+          "actual_target_mse": 0.7133480906486511
+        }
+      },
+      "predicted_target_mse_improvement": 0.0030599236488342285,
+      "actual_target_mse_improvement": -0.021712303161621094,
+      "matched_previous_baseline": true,
+      "guidance_diagnostics": [
+        {
+          "flow_step": 7,
+          "after_flow_step": 7,
+          "loss": 0.7374756336212158,
+          "loss_after_clean_step": 0.7321164608001709,
+          "gradient_rms": 0.017278995364904404,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.017278995364904404,
+          "correction_rms": 0.017278995364904404
+        },
+        {
+          "flow_step": 8,
+          "after_flow_step": 8,
+          "loss": 0.737107515335083,
+          "loss_after_clean_step": 0.7324965000152588,
+          "gradient_rms": 0.017259633168578148,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.017259633168578148,
+          "correction_rms": 0.017259633168578148
+        },
+        {
+          "flow_step": 9,
+          "after_flow_step": 9,
+          "loss": 0.7353066205978394,
+          "loss_after_clean_step": 0.7330009937286377,
+          "gradient_rms": 0.01715063862502575,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.01715063862502575,
+          "correction_rms": 0.01715063862502575
+        }
+      ],
+      "action_effect": {
+        "pose_rms": 0.017267750576138496,
+        "relative_pose_rms": 0.07793641090393066,
+        "position_command_rms": 0.024214914068579674,
+        "rotation_command_rms": 0.003160445485264063,
+        "gripper_command_changes": 0
+      },
+      "physical_effect": {
+        "position_mm_by_step": [
+          0.21737686992080701,
+          0.5806299229001028,
+          1.121563161654998,
+          1.8264544447061597,
+          2.396010276961585,
+          2.7755075402993037,
+          3.1555482069063245,
+          3.5853421708066096
+        ],
+        "rotation_deg_by_step": [
+          0.019351525081299215,
+          0.04922500417415344,
+          0.07924575006992979,
+          0.1132741728132289,
+          0.13521386621768347,
+          0.14777397123689262,
+          0.1616857702652559,
+          0.17854940050750756
+        ],
+        "final_position_mm": 3.5853421708066096,
+        "max_position_mm": 3.5853421708066096,
+        "final_rotation_deg": 0.17854940050750756,
+        "max_rotation_deg": 0.17854940050750756
+      },
+      "motion": {
+        "final_mm": 3.5853421708066096,
+        "max_mm": 3.5853421708066096,
+        "final_deg": 0.17854940050750756,
+        "max_deg": 0.17854940050750756,
+        "action_rms": 0.017267750576138496,
+        "relative_action_rms": 0.07793641090393066
+      }
+    },
+    {
+      "task": 536,
+      "seed": 42,
+      "replan": 18,
+      "control_step": 144,
+      "repeat_mse": 0.0,
+      "branches": {
+        "A": {
+          "prediction_mse": 0.40156862139701843,
+          "predicted_target_mse": 0.7536910176277161,
+          "actual_target_mse": 0.6759032011032104
+        },
+        "B": {
+          "prediction_mse": 0.37630653381347656,
+          "predicted_target_mse": 0.8719317317008972,
+          "actual_target_mse": 0.874258816242218
+        }
+      },
+      "predicted_target_mse_improvement": -0.11824071407318115,
+      "actual_target_mse_improvement": -0.19835561513900757,
+      "matched_previous_baseline": true,
+      "guidance_diagnostics": [
+        {
+          "flow_step": 7,
+          "after_flow_step": 7,
+          "loss": 0.752495527267456,
+          "loss_after_clean_step": 0.8960832953453064,
+          "gradient_rms": 0.052129052579402924,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.052129052579402924,
+          "correction_rms": 0.052129052579402924
+        },
+        {
+          "flow_step": 8,
+          "after_flow_step": 8,
+          "loss": 0.7531764507293701,
+          "loss_after_clean_step": 0.9469385147094727,
+          "gradient_rms": 0.05760993808507919,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.05760993808507919,
+          "correction_rms": 0.05760993808507919
+        },
+        {
+          "flow_step": 9,
+          "after_flow_step": 9,
+          "loss": 0.7476462721824646,
+          "loss_after_clean_step": 0.8730803728103638,
+          "gradient_rms": 0.046270400285720825,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.046270400285720825,
+          "correction_rms": 0.046270400285720825
+        }
+      ],
+      "action_effect": {
+        "pose_rms": 0.04709937795996666,
+        "relative_pose_rms": 0.3106386661529541,
+        "position_command_rms": 0.0661766529083252,
+        "rotation_command_rms": 0.007573169656097889,
+        "gripper_command_changes": 0
+      },
+      "physical_effect": {
+        "position_mm_by_step": [
+          0.8775777345287362,
+          2.1944059820853727,
+          3.730630353524305,
+          5.725420760875698,
+          7.504086382936691,
+          8.625695171834268,
+          9.61845542601708,
+          10.807612611057287
+        ],
+        "rotation_deg_by_step": [
+          0.02070260803770135,
+          0.051888177598140524,
+          0.09771533003481465,
+          0.1585364447870304,
+          0.2065021269523541,
+          0.2501570269055031,
+          0.3079237293386261,
+          0.3592054076954248
+        ],
+        "final_position_mm": 10.807612611057287,
+        "max_position_mm": 10.807612611057287,
+        "final_rotation_deg": 0.3592054076954248,
+        "max_rotation_deg": 0.3592054076954248
+      },
+      "motion": {
+        "final_mm": 10.807612611057287,
+        "max_mm": 10.807612611057287,
+        "final_deg": 0.3592054076954248,
+        "max_deg": 0.3592054076954248,
+        "action_rms": 0.04709937795996666,
+        "relative_action_rms": 0.3106386661529541
+      }
+    },
+    {
+      "task": 536,
+      "seed": 42,
+      "replan": 35,
+      "control_step": 280,
+      "repeat_mse": 0.0,
+      "branches": {
+        "A": {
+          "prediction_mse": 0.35647764801979065,
+          "predicted_target_mse": 0.7669060826301575,
+          "actual_target_mse": 0.696528971195221
+        },
+        "B": {
+          "prediction_mse": 0.35823896527290344,
+          "predicted_target_mse": 0.7648738026618958,
+          "actual_target_mse": 0.7393404841423035
+        }
+      },
+      "predicted_target_mse_improvement": 0.0020322799682617188,
+      "actual_target_mse_improvement": -0.04281151294708252,
+      "matched_previous_baseline": true,
+      "guidance_diagnostics": [
+        {
+          "flow_step": 7,
+          "after_flow_step": 7,
+          "loss": 0.769145131111145,
+          "loss_after_clean_step": 0.7800960540771484,
+          "gradient_rms": 0.033090490847826004,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.033090490847826004,
+          "correction_rms": 0.033090490847826004
+        },
+        {
+          "flow_step": 8,
+          "after_flow_step": 8,
+          "loss": 0.7693599462509155,
+          "loss_after_clean_step": 0.7803052663803101,
+          "gradient_rms": 0.03300744667649269,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.03300744667649269,
+          "correction_rms": 0.03300744667649269
+        },
+        {
+          "flow_step": 9,
+          "after_flow_step": 9,
+          "loss": 0.7641528844833374,
+          "loss_after_clean_step": 0.7652956247329712,
+          "gradient_rms": 0.02199462428689003,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.02199462428689003,
+          "correction_rms": 0.02199462428689003
+        }
+      ],
+      "action_effect": {
+        "pose_rms": 0.021265491843223572,
+        "relative_pose_rms": 0.0794968456029892,
+        "position_command_rms": 0.02947130799293518,
+        "rotation_command_rms": 0.005990359466522932,
+        "gripper_command_changes": 0
+      },
+      "physical_effect": {
+        "position_mm_by_step": [
+          0.1337114103215754,
+          0.5153635627472644,
+          1.1687044510367406,
+          2.0020969872333407,
+          2.7420458154589147,
+          3.351582282041455,
+          3.8723736007353518,
+          4.439890308088002
+        ],
+        "rotation_deg_by_step": [
+          0.03853011753630123,
+          0.08930595054542852,
+          0.11893921479293078,
+          0.1544389983582176,
+          0.20664141375190606,
+          0.2487967733551879,
+          0.27423964957523217,
+          0.29863778987323675
+        ],
+        "final_position_mm": 4.439890308088002,
+        "max_position_mm": 4.439890308088002,
+        "final_rotation_deg": 0.29863778987323675,
+        "max_rotation_deg": 0.29863778987323675
+      },
+      "motion": {
+        "final_mm": 4.439890308088002,
+        "max_mm": 4.439890308088002,
+        "final_deg": 0.29863778987323675,
+        "max_deg": 0.29863778987323675,
+        "action_rms": 0.021265491843223572,
+        "relative_action_rms": 0.0794968456029892
+      }
+    },
+    {
+      "task": 551,
+      "seed": 42,
+      "replan": 0,
+      "control_step": 0,
+      "repeat_mse": 0.0,
+      "branches": {
+        "A": {
+          "prediction_mse": 0.3428652882575989,
+          "predicted_target_mse": 0.7526354789733887,
+          "actual_target_mse": 0.7436934113502502
+        },
+        "B": {
+          "prediction_mse": 0.3614265024662018,
+          "predicted_target_mse": 0.74587082862854,
+          "actual_target_mse": 0.7298455834388733
+        }
+      },
+      "predicted_target_mse_improvement": 0.006764650344848633,
+      "actual_target_mse_improvement": 0.013847827911376953,
+      "matched_previous_baseline": true,
+      "guidance_diagnostics": [
+        {
+          "flow_step": 7,
+          "after_flow_step": 7,
+          "loss": 0.7523021697998047,
+          "loss_after_clean_step": 0.7460985779762268,
+          "gradient_rms": 0.015690045431256294,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.015690045431256294,
+          "correction_rms": 0.015690045431256294
+        },
+        {
+          "flow_step": 8,
+          "after_flow_step": 8,
+          "loss": 0.7527372241020203,
+          "loss_after_clean_step": 0.745975911617279,
+          "gradient_rms": 0.01595776155591011,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.01595776155591011,
+          "correction_rms": 0.01595776155591011
+        },
+        {
+          "flow_step": 9,
+          "after_flow_step": 9,
+          "loss": 0.7520458698272705,
+          "loss_after_clean_step": 0.745821475982666,
+          "gradient_rms": 0.015353969298303127,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.015353969298303127,
+          "correction_rms": 0.015353969298303127
+        }
+      ],
+      "action_effect": {
+        "pose_rms": 0.015132761560380459,
+        "relative_pose_rms": 0.08105312287807465,
+        "position_command_rms": 0.021188318729400635,
+        "rotation_command_rms": 0.0030093363020569086,
+        "gripper_command_changes": 0
+      },
+      "physical_effect": {
+        "position_mm_by_step": [
+          0.18632948913165379,
+          0.48300339910430246,
+          0.9061887308737457,
+          1.4901728926767186,
+          2.0231849235015673,
+          2.4037465153211146,
+          2.7551517766937375,
+          3.1675882532852473
+        ],
+        "rotation_deg_by_step": [
+          0.01824732488591583,
+          0.042655333291396064,
+          0.05314677778892935,
+          0.057973115907997794,
+          0.0720420780645646,
+          0.09387747887826338,
+          0.10140655614143577,
+          0.09577354230790808
+        ],
+        "final_position_mm": 3.1675882532852473,
+        "max_position_mm": 3.1675882532852473,
+        "final_rotation_deg": 0.09577354230790808,
+        "max_rotation_deg": 0.10140655614143577
+      },
+      "motion": {
+        "final_mm": 3.1675882532852473,
+        "max_mm": 3.1675882532852473,
+        "final_deg": 0.09577354230790808,
+        "max_deg": 0.10140655614143577,
+        "action_rms": 0.015132761560380459,
+        "relative_action_rms": 0.08105312287807465
+      }
+    },
+    {
+      "task": 551,
+      "seed": 42,
+      "replan": 18,
+      "control_step": 144,
+      "repeat_mse": 0.0,
+      "branches": {
+        "A": {
+          "prediction_mse": 0.3546120226383209,
+          "predicted_target_mse": 0.7441437840461731,
+          "actual_target_mse": 0.659952700138092
+        },
+        "B": {
+          "prediction_mse": 0.3564859926700592,
+          "predicted_target_mse": 0.7476953864097595,
+          "actual_target_mse": 0.7130016684532166
+        }
+      },
+      "predicted_target_mse_improvement": -0.0035516023635864258,
+      "actual_target_mse_improvement": -0.05304896831512451,
+      "matched_previous_baseline": true,
+      "guidance_diagnostics": [
+        {
+          "flow_step": 7,
+          "after_flow_step": 7,
+          "loss": 0.7460094094276428,
+          "loss_after_clean_step": 0.7455610036849976,
+          "gradient_rms": 0.020013850182294846,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.020013850182294846,
+          "correction_rms": 0.020013850182294846
+        },
+        {
+          "flow_step": 8,
+          "after_flow_step": 8,
+          "loss": 0.7454078197479248,
+          "loss_after_clean_step": 0.745804488658905,
+          "gradient_rms": 0.019494717940688133,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.019494717940688133,
+          "correction_rms": 0.019494717940688133
+        },
+        {
+          "flow_step": 9,
+          "after_flow_step": 9,
+          "loss": 0.7433748245239258,
+          "loss_after_clean_step": 0.7479408979415894,
+          "gradient_rms": 0.018696218729019165,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.018696218729019165,
+          "correction_rms": 0.018696218729019165
+        }
+      ],
+      "action_effect": {
+        "pose_rms": 0.018642937764525414,
+        "relative_pose_rms": 0.07150236517190933,
+        "position_command_rms": 0.02610473893582821,
+        "rotation_command_rms": 0.0036960614379495382,
+        "gripper_command_changes": 0
+      },
+      "physical_effect": {
+        "position_mm_by_step": [
+          0.2626115266346858,
+          0.7146619192493675,
+          1.308220928191288,
+          2.085059814479176,
+          2.7718005030970296,
+          3.2012368479791466,
+          3.6567550931487065,
+          4.225281275387322
+        ],
+        "rotation_deg_by_step": [
+          0.005245398794648765,
+          0.010925072666602214,
+          0.03249062071630417,
+          0.07608312488891752,
+          0.10367789121477045,
+          0.11476481385499251,
+          0.14471534785657436,
+          0.17951414815176428
+        ],
+        "final_position_mm": 4.225281275387322,
+        "max_position_mm": 4.225281275387322,
+        "final_rotation_deg": 0.17951414815176428,
+        "max_rotation_deg": 0.17951414815176428
+      },
+      "motion": {
+        "final_mm": 4.225281275387322,
+        "max_mm": 4.225281275387322,
+        "final_deg": 0.17951414815176428,
+        "max_deg": 0.17951414815176428,
+        "action_rms": 0.018642937764525414,
+        "relative_action_rms": 0.07150236517190933
+      }
+    },
+    {
+      "task": 551,
+      "seed": 42,
+      "replan": 36,
+      "control_step": 288,
+      "repeat_mse": 0.0,
+      "branches": {
+        "A": {
+          "prediction_mse": 0.4086681604385376,
+          "predicted_target_mse": 0.7714603543281555,
+          "actual_target_mse": 0.8525868654251099
+        },
+        "B": {
+          "prediction_mse": 0.4313178062438965,
+          "predicted_target_mse": 0.7675852179527283,
+          "actual_target_mse": 0.8663864135742188
+        }
+      },
+      "predicted_target_mse_improvement": 0.003875136375427246,
+      "actual_target_mse_improvement": -0.013799548149108887,
+      "matched_previous_baseline": true,
+      "guidance_diagnostics": [
+        {
+          "flow_step": 7,
+          "after_flow_step": 7,
+          "loss": 0.7721456289291382,
+          "loss_after_clean_step": 0.7703288793563843,
+          "gradient_rms": 0.006557698827236891,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.006557698827236891,
+          "correction_rms": 0.006557698827236891
+        },
+        {
+          "flow_step": 8,
+          "after_flow_step": 8,
+          "loss": 0.7720094919204712,
+          "loss_after_clean_step": 0.7699613571166992,
+          "gradient_rms": 0.007085287943482399,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.007085287943482399,
+          "correction_rms": 0.007085287943482399
+        },
+        {
+          "flow_step": 9,
+          "after_flow_step": 9,
+          "loss": 0.7713950872421265,
+          "loss_after_clean_step": 0.7675902843475342,
+          "gradient_rms": 0.009092720225453377,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.009092720225453377,
+          "correction_rms": 0.009092720225453377
+        }
+      ],
+      "action_effect": {
+        "pose_rms": 0.007209154311567545,
+        "relative_pose_rms": 0.06483764201402664,
+        "position_command_rms": 0.00972056109458208,
+        "rotation_command_rms": 0.00307481549680233,
+        "gripper_command_changes": 0
+      },
+      "physical_effect": {
+        "position_mm_by_step": [
+          0.03254297084261925,
+          0.06597484049407416,
+          0.09801311792424224,
+          0.09043676952505952,
+          0.11913365050213745,
+          0.16695860021248546,
+          0.22278935657164206,
+          0.2847034185352954
+        ],
+        "rotation_deg_by_step": [
+          0.01780795416239442,
+          0.0486009813295194,
+          0.07127843040040079,
+          0.09494845042231624,
+          0.11234813846943702,
+          0.1264558791438342,
+          0.1386439958068824,
+          0.14895138498389643
+        ],
+        "final_position_mm": 0.2847034185352954,
+        "max_position_mm": 0.2847034185352954,
+        "final_rotation_deg": 0.14895138498389643,
+        "max_rotation_deg": 0.14895138498389643
+      },
+      "motion": {
+        "final_mm": 0.2847034185352954,
+        "max_mm": 0.2847034185352954,
+        "final_deg": 0.14895138498389643,
+        "max_deg": 0.14895138498389643,
+        "action_rms": 0.007209154311567545,
+        "relative_action_rms": 0.06483764201402664
+      }
+    },
+    {
+      "task": 565,
+      "seed": 43,
+      "replan": 0,
+      "control_step": 0,
+      "repeat_mse": 0.0,
+      "branches": {
+        "A": {
+          "prediction_mse": 0.3888867199420929,
+          "predicted_target_mse": 0.8115306496620178,
+          "actual_target_mse": 0.8422724604606628
+        },
+        "B": {
+          "prediction_mse": 0.41483041644096375,
+          "predicted_target_mse": 0.8003919720649719,
+          "actual_target_mse": 0.8062476515769958
+        }
+      },
+      "predicted_target_mse_improvement": 0.011138677597045898,
+      "actual_target_mse_improvement": 0.03602480888366699,
+      "matched_previous_baseline": true,
+      "guidance_diagnostics": [
+        {
+          "flow_step": 7,
+          "after_flow_step": 7,
+          "loss": 0.8118438720703125,
+          "loss_after_clean_step": 0.8005388975143433,
+          "gradient_rms": 0.021148663014173508,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.021148663014173508,
+          "correction_rms": 0.021148663014173508
+        },
+        {
+          "flow_step": 8,
+          "after_flow_step": 8,
+          "loss": 0.8119752407073975,
+          "loss_after_clean_step": 0.8004708886146545,
+          "gradient_rms": 0.02112596295773983,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.02112596295773983,
+          "correction_rms": 0.02112596295773983
+        },
+        {
+          "flow_step": 9,
+          "after_flow_step": 9,
+          "loss": 0.8099957704544067,
+          "loss_after_clean_step": 0.800372838973999,
+          "gradient_rms": 0.018594274297356606,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.018594274297356606,
+          "correction_rms": 0.018594274297356606
+        }
+      ],
+      "action_effect": {
+        "pose_rms": 0.01908707059919834,
+        "relative_pose_rms": 0.08596573770046234,
+        "position_command_rms": 0.026686126366257668,
+        "rotation_command_rms": 0.004059959203004837,
+        "gripper_command_changes": 0
+      },
+      "physical_effect": {
+        "position_mm_by_step": [
+          0.2204918431920564,
+          0.6149419278239854,
+          1.2572515331662513,
+          2.037792528877082,
+          2.6365033047598763,
+          3.0422217387013464,
+          3.4705827182000872,
+          3.952320643337232
+        ],
+        "rotation_deg_by_step": [
+          0.02424952501385037,
+          0.06363116353301497,
+          0.09357056544887508,
+          0.12221470764300682,
+          0.15544663882325235,
+          0.191014025696769,
+          0.22130389065928172,
+          0.24620310752636035
+        ],
+        "final_position_mm": 3.952320643337232,
+        "max_position_mm": 3.952320643337232,
+        "final_rotation_deg": 0.24620310752636035,
+        "max_rotation_deg": 0.24620310752636035
+      },
+      "motion": {
+        "final_mm": 3.952320643337232,
+        "max_mm": 3.952320643337232,
+        "final_deg": 0.24620310752636035,
+        "max_deg": 0.24620310752636035,
+        "action_rms": 0.01908707059919834,
+        "relative_action_rms": 0.08596573770046234
+      }
+    },
+    {
+      "task": 565,
+      "seed": 43,
+      "replan": 18,
+      "control_step": 144,
+      "repeat_mse": 0.0,
+      "branches": {
+        "A": {
+          "prediction_mse": 0.3712763786315918,
+          "predicted_target_mse": 0.7414073348045349,
+          "actual_target_mse": 0.6729925274848938
+        },
+        "B": {
+          "prediction_mse": 0.3511919677257538,
+          "predicted_target_mse": 0.7518802881240845,
+          "actual_target_mse": 0.7515052556991577
+        }
+      },
+      "predicted_target_mse_improvement": -0.01047295331954956,
+      "actual_target_mse_improvement": -0.07851272821426392,
+      "matched_previous_baseline": true,
+      "guidance_diagnostics": [
+        {
+          "flow_step": 7,
+          "after_flow_step": 7,
+          "loss": 0.7438602447509766,
+          "loss_after_clean_step": 0.7549986839294434,
+          "gradient_rms": 0.03219347074627876,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.03219347074627876,
+          "correction_rms": 0.03219347074627876
+        },
+        {
+          "flow_step": 8,
+          "after_flow_step": 8,
+          "loss": 0.7436296939849854,
+          "loss_after_clean_step": 0.7542405128479004,
+          "gradient_rms": 0.031765829771757126,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.031765829771757126,
+          "correction_rms": 0.031765829771757126
+        },
+        {
+          "flow_step": 9,
+          "after_flow_step": 9,
+          "loss": 0.7375040054321289,
+          "loss_after_clean_step": 0.7520099878311157,
+          "gradient_rms": 0.02731367200613022,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.02731367200613022,
+          "correction_rms": 0.02731367200613022
+        }
+      ],
+      "action_effect": {
+        "pose_rms": 0.028708724305033684,
+        "relative_pose_rms": 0.11030902713537216,
+        "position_command_rms": 0.04024365544319153,
+        "rotation_command_rms": 0.005369342863559723,
+        "gripper_command_changes": 0
+      },
+      "physical_effect": {
+        "position_mm_by_step": [
+          0.44976398633085624,
+          1.1540331273831659,
+          2.1092579546921812,
+          3.4335170381422193,
+          4.512239257232919,
+          5.121705151328062,
+          5.678483624362277,
+          6.413273288769411
+        ],
+        "rotation_deg_by_step": [
+          0.016885579225035658,
+          0.03165286602522503,
+          0.02528257079575426,
+          0.06242719594725276,
+          0.08500443329654502,
+          0.09796645506699861,
+          0.1298383851555635,
+          0.16456701986505468
+        ],
+        "final_position_mm": 6.413273288769411,
+        "max_position_mm": 6.413273288769411,
+        "final_rotation_deg": 0.16456701986505468,
+        "max_rotation_deg": 0.16456701986505468
+      },
+      "motion": {
+        "final_mm": 6.413273288769411,
+        "max_mm": 6.413273288769411,
+        "final_deg": 0.16456701986505468,
+        "max_deg": 0.16456701986505468,
+        "action_rms": 0.028708724305033684,
+        "relative_action_rms": 0.11030902713537216
+      }
+    },
+    {
+      "task": 565,
+      "seed": 43,
+      "replan": 36,
+      "control_step": 288,
+      "repeat_mse": 0.0,
+      "branches": {
+        "A": {
+          "prediction_mse": 0.36812713742256165,
+          "predicted_target_mse": 0.728985607624054,
+          "actual_target_mse": 0.7067640423774719
+        },
+        "B": {
+          "prediction_mse": 0.3807901442050934,
+          "predicted_target_mse": 0.7274401187896729,
+          "actual_target_mse": 0.6995619535446167
+        }
+      },
+      "predicted_target_mse_improvement": 0.0015454888343811035,
+      "actual_target_mse_improvement": 0.007202088832855225,
+      "matched_previous_baseline": true,
+      "guidance_diagnostics": [
+        {
+          "flow_step": 7,
+          "after_flow_step": 7,
+          "loss": 0.7287166118621826,
+          "loss_after_clean_step": 0.7274017333984375,
+          "gradient_rms": 0.005450861994177103,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.005450861994177103,
+          "correction_rms": 0.005450861994177103
+        },
+        {
+          "flow_step": 8,
+          "after_flow_step": 8,
+          "loss": 0.7288058996200562,
+          "loss_after_clean_step": 0.7275010347366333,
+          "gradient_rms": 0.005414318758994341,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.005414318758994341,
+          "correction_rms": 0.005414318758994341
+        },
+        {
+          "flow_step": 9,
+          "after_flow_step": 9,
+          "loss": 0.7288607954978943,
+          "loss_after_clean_step": 0.727446436882019,
+          "gradient_rms": 0.005846619606018066,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.005846619606018066,
+          "correction_rms": 0.005846619606018066
+        }
+      ],
+      "action_effect": {
+        "pose_rms": 0.004523054230958223,
+        "relative_pose_rms": 0.0704856589436531,
+        "position_command_rms": 0.005982756614685059,
+        "rotation_command_rms": 0.002263328991830349,
+        "gripper_command_changes": 0
+      },
+      "physical_effect": {
+        "position_mm_by_step": [
+          0.05924794989028748,
+          0.1710112624820496,
+          0.3667143653673504,
+          0.4760611898265998,
+          0.5276535077510371,
+          0.5809218897573819,
+          0.6474950320500573,
+          0.7474290960564183
+        ],
+        "rotation_deg_by_step": [
+          0.015108632037551665,
+          0.031012690166752562,
+          0.046823925079754525,
+          0.07749904494838779,
+          0.14511965506482385,
+          0.20304603515652248,
+          0.2210426152528641,
+          0.23007298240924406
+        ],
+        "final_position_mm": 0.7474290960564183,
+        "max_position_mm": 0.7474290960564183,
+        "final_rotation_deg": 0.23007298240924406,
+        "max_rotation_deg": 0.23007298240924406
+      },
+      "motion": {
+        "final_mm": 0.7474290960564183,
+        "max_mm": 0.7474290960564183,
+        "final_deg": 0.23007298240924406,
+        "max_deg": 0.23007298240924406,
+        "action_rms": 0.004523054230958223,
+        "relative_action_rms": 0.0704856589436531
+      }
+    },
+    {
+      "task": 566,
+      "seed": 43,
+      "replan": 0,
+      "control_step": 0,
+      "repeat_mse": 0.0,
+      "branches": {
+        "A": {
+          "prediction_mse": 0.3491475284099579,
+          "predicted_target_mse": 0.8215768933296204,
+          "actual_target_mse": 0.793718159198761
+        },
+        "B": {
+          "prediction_mse": 0.3386790454387665,
+          "predicted_target_mse": 0.8190532326698303,
+          "actual_target_mse": 0.793131947517395
+        }
+      },
+      "predicted_target_mse_improvement": 0.002523660659790039,
+      "actual_target_mse_improvement": 0.0005862116813659668,
+      "matched_previous_baseline": true,
+      "guidance_diagnostics": [
+        {
+          "flow_step": 7,
+          "after_flow_step": 7,
+          "loss": 0.8212227821350098,
+          "loss_after_clean_step": 0.8191099166870117,
+          "gradient_rms": 0.00933829415589571,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.00933829415589571,
+          "correction_rms": 0.00933829415589571
+        },
+        {
+          "flow_step": 8,
+          "after_flow_step": 8,
+          "loss": 0.8213227987289429,
+          "loss_after_clean_step": 0.8189696669578552,
+          "gradient_rms": 0.00899826642125845,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.00899826642125845,
+          "correction_rms": 0.00899826642125845
+        },
+        {
+          "flow_step": 9,
+          "after_flow_step": 9,
+          "loss": 0.8214216232299805,
+          "loss_after_clean_step": 0.8190666437149048,
+          "gradient_rms": 0.008795909583568573,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.008795909583568573,
+          "correction_rms": 0.008795909583568573
+        }
+      ],
+      "action_effect": {
+        "pose_rms": 0.006770518142729998,
+        "relative_pose_rms": 0.039015717804431915,
+        "position_command_rms": 0.008905816823244095,
+        "rotation_command_rms": 0.0035165713634341955,
+        "gripper_command_changes": 0
+      },
+      "physical_effect": {
+        "position_mm_by_step": [
+          0.15544268640615078,
+          0.2842203472672317,
+          0.34588116502139576,
+          0.4421848830290889,
+          0.5426762946253485,
+          0.5982441809441922,
+          0.6905326323555689,
+          0.8596749213269451
+        ],
+        "rotation_deg_by_step": [
+          0.020643851187514304,
+          0.05013965481202112,
+          0.08590868449780184,
+          0.1387686681394715,
+          0.1781537272669446,
+          0.1971860878973653,
+          0.21944134753945832,
+          0.25627944402534686
+        ],
+        "final_position_mm": 0.8596749213269451,
+        "max_position_mm": 0.8596749213269451,
+        "final_rotation_deg": 0.25627944402534686,
+        "max_rotation_deg": 0.25627944402534686
+      },
+      "motion": {
+        "final_mm": 0.8596749213269451,
+        "max_mm": 0.8596749213269451,
+        "final_deg": 0.25627944402534686,
+        "max_deg": 0.25627944402534686,
+        "action_rms": 0.006770518142729998,
+        "relative_action_rms": 0.039015717804431915
+      }
+    },
+    {
+      "task": 566,
+      "seed": 43,
+      "replan": 33,
+      "control_step": 264,
+      "repeat_mse": 0.0,
+      "branches": {
+        "A": {
+          "prediction_mse": 0.33577483892440796,
+          "predicted_target_mse": 0.7965689897537231,
+          "actual_target_mse": 0.7590891122817993
+        },
+        "B": {
+          "prediction_mse": 0.32793283462524414,
+          "predicted_target_mse": 0.7902341485023499,
+          "actual_target_mse": 0.7473734021186829
+        }
+      },
+      "predicted_target_mse_improvement": 0.006334841251373291,
+      "actual_target_mse_improvement": 0.011715710163116455,
+      "matched_previous_baseline": true,
+      "guidance_diagnostics": [
+        {
+          "flow_step": 7,
+          "after_flow_step": 7,
+          "loss": 0.7987451553344727,
+          "loss_after_clean_step": 0.789826512336731,
+          "gradient_rms": 0.021127941086888313,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.021127941086888313,
+          "correction_rms": 0.021127941086888313
+        },
+        {
+          "flow_step": 8,
+          "after_flow_step": 8,
+          "loss": 0.7976137399673462,
+          "loss_after_clean_step": 0.7900492548942566,
+          "gradient_rms": 0.020807454362511635,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.020807454362511635,
+          "correction_rms": 0.020807454362511635
+        },
+        {
+          "flow_step": 9,
+          "after_flow_step": 9,
+          "loss": 0.7960359454154968,
+          "loss_after_clean_step": 0.7902557849884033,
+          "gradient_rms": 0.020342566072940826,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.020342566072940826,
+          "correction_rms": 0.020342566072940826
+        }
+      ],
+      "action_effect": {
+        "pose_rms": 0.020594313740730286,
+        "relative_pose_rms": 0.6524770259857178,
+        "position_command_rms": 0.02895856462419033,
+        "rotation_command_rms": 0.003106949618086219,
+        "gripper_command_changes": 0
+      },
+      "physical_effect": {
+        "position_mm_by_step": [
+          0.23594265640672818,
+          0.5338994767515944,
+          0.9261951799522186,
+          1.6043299470982955,
+          2.0910037272978443,
+          2.112190287962773,
+          2.3104375744147827,
+          3.0187259300197797
+        ],
+        "rotation_deg_by_step": [
+          0.008404855662716842,
+          0.017773077682412628,
+          0.027969069397384052,
+          0.055596916659351084,
+          0.0520323425146462,
+          0.03375969222548353,
+          0.06350220120901211,
+          0.1185279983614878
+        ],
+        "final_position_mm": 3.0187259300197797,
+        "max_position_mm": 3.0187259300197797,
+        "final_rotation_deg": 0.1185279983614878,
+        "max_rotation_deg": 0.1185279983614878
+      },
+      "motion": {
+        "final_mm": 3.0187259300197797,
+        "max_mm": 3.0187259300197797,
+        "final_deg": 0.1185279983614878,
+        "max_deg": 0.1185279983614878,
+        "action_rms": 0.020594313740730286,
+        "relative_action_rms": 0.6524770259857178
+      }
+    },
+    {
+      "task": 566,
+      "seed": 43,
+      "replan": 66,
+      "control_step": 528,
+      "repeat_mse": 0.0,
+      "branches": {
+        "A": {
+          "prediction_mse": 0.43752923607826233,
+          "predicted_target_mse": 0.7280439138412476,
+          "actual_target_mse": 0.6619250774383545
+        },
+        "B": {
+          "prediction_mse": 0.4458562135696411,
+          "predicted_target_mse": 0.7246249318122864,
+          "actual_target_mse": 0.6744385957717896
+        }
+      },
+      "predicted_target_mse_improvement": 0.0034189820289611816,
+      "actual_target_mse_improvement": -0.012513518333435059,
+      "matched_previous_baseline": true,
+      "guidance_diagnostics": [
+        {
+          "flow_step": 7,
+          "after_flow_step": 7,
+          "loss": 0.728040337562561,
+          "loss_after_clean_step": 0.7246732115745544,
+          "gradient_rms": 0.008083822205662727,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.008083822205662727,
+          "correction_rms": 0.008083822205662727
+        },
+        {
+          "flow_step": 8,
+          "after_flow_step": 8,
+          "loss": 0.7278590202331543,
+          "loss_after_clean_step": 0.7246284484863281,
+          "gradient_rms": 0.00794667936861515,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.00794667936861515,
+          "correction_rms": 0.00794667936861515
+        },
+        {
+          "flow_step": 9,
+          "after_flow_step": 9,
+          "loss": 0.727638304233551,
+          "loss_after_clean_step": 0.7246452569961548,
+          "gradient_rms": 0.00769016332924366,
+          "normalize_gradient": false,
+          "unclipped_delta_rms": 0.00769016332924366,
+          "correction_rms": 0.00769016332924366
+        }
+      ],
+      "action_effect": {
+        "pose_rms": 0.007460560649633408,
+        "relative_pose_rms": 0.05235971882939339,
+        "position_command_rms": 0.010138306766748428,
+        "rotation_command_rms": 0.002921415725722909,
+        "gripper_command_changes": 0
+      },
+      "physical_effect": {
+        "position_mm_by_step": [
+          0.022944309629046308,
+          0.035953442237885734,
+          0.04075804462068459,
+          0.044696466237043424,
+          0.08189153403862565,
+          0.14187879592385913,
+          0.28845127274217136,
+          0.5641120547820978
+        ],
+        "rotation_deg_by_step": [
+          0.016723555880459567,
+          0.04215399828741978,
+          0.06450580376510852,
+          0.08612247850495999,
+          0.09952434397163734,
+          0.11547773460983943,
+          0.13682405526222735,
+          0.17088617417767785
+        ],
+        "final_position_mm": 0.5641120547820978,
+        "max_position_mm": 0.5641120547820978,
+        "final_rotation_deg": 0.17088617417767785,
+        "max_rotation_deg": 0.17088617417767785
+      },
+      "motion": {
+        "final_mm": 0.5641120547820978,
+        "max_mm": 0.5641120547820978,
+        "final_deg": 0.17088617417767785,
+        "max_deg": 0.17088617417767785,
+        "action_rms": 0.007460560649633408,
+        "relative_action_rms": 0.05235971882939339
+      }
+    }
+  ],
+  "prediction_mse": {
+    "A": 0.3719749450683594,
+    "B": 0.3727394640445709,
+    "reduction_percent": -0.20552969664960874
+  },
+  "predicted_target_mse": {
+    "A": 0.7627517879009247,
+    "B": 0.7703827569882075,
+    "reduction_percent": -1.0004524680673683
+  },
+  "actual_target_mse": {
+    "A": 0.7297551929950714,
+    "B": 0.7590366552273432,
+    "reduction_percent": -4.012504811660799
+  }
+}

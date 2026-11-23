@@ -1,0 +1,52 @@
+{
+  "provenance": "Selected values from server readouts verified against completed run logs on November 18 and November 23. This file is a summary, not an original runtime log.",
+  "demo_fivearm_collect_20261117": {
+    "completed": 600,
+    "failures": 0,
+    "mean_t8_eef_error_mm": {"A": 3.859339, "final025": 3.748427, "final1": 5.271554, "old789": 4.988681}
+  },
+  "demo_sixarm_diag_20261118": {
+    "completed": 100,
+    "failures": 0,
+    "positive_beats_reverse_on_real_target_mse": 81,
+    "early_and_middle": {
+      "n": 68,
+      "mean_t4_eef_error_mm": {"A": 1.816723, "final025": 1.674458},
+      "mean_t8_eef_error_mm": {"A": 3.229438, "final025": 3.002890},
+      "mean_real_target_mse": {"A": 0.095815, "final025": 0.091312}
+    },
+    "matched_demo_replay_t8": {
+      "n": 100,
+      "before": {"mean_mm": 1.2369918062, "over_1mm": 22},
+      "after": {"mean_mm": 0.2992272384, "over_1mm": 4}
+    }
+  },
+  "final025_closedloop_resume_gpu0_20261118": {
+    "completed": 28,
+    "pairs": 14,
+    "fields": ["seed", "task", "group", "baseline_success", "final025_success", "baseline_steps", "final025_steps", "final025_updates", "final025_updates_with_higher_loss"],
+    "rows": [
+      [42, 289, "soup_tomato", true, true, 264, 262, 33, 0],
+      [42, 321, "soup_tomato", false, false, 700, 700, 88, 0],
+      [42, 531, "white_mug", true, true, 226, 231, 29, 0],
+      [42, 565, "white_mug", true, true, 256, 564, 71, 1],
+      [42, 566, "white_mug", false, false, 700, 700, 88, 0],
+      [42, 567, "soup_cheese", true, true, 212, 218, 28, 0],
+      [42, 590, "soup_cheese", false, false, 700, 700, 88, 0],
+      [43, 289, "soup_tomato", true, true, 255, 256, 32, 0],
+      [43, 321, "soup_tomato", false, false, 700, 700, 88, 0],
+      [43, 531, "white_mug", true, true, 214, 216, 27, 0],
+      [43, 565, "white_mug", true, true, 303, 261, 33, 0],
+      [43, 566, "white_mug", false, false, 700, 700, 88, 0],
+      [43, 567, "soup_cheese", true, true, 218, 218, 28, 0],
+      [43, 590, "soup_cheese", false, false, 700, 700, 88, 0]
+    ],
+    "final025_updates": {"total": 809, "lower_loss": 808, "higher_loss": 1}
+  },
+  "fastwam_ar2_alignment_pilot_20261118": {
+    "state": "stopped_during_preflight",
+    "new_checkpoint_written": false,
+    "intended_steps_per_arm": 250,
+    "heldout_action_pairs_in_preflight": 20
+  }
+}

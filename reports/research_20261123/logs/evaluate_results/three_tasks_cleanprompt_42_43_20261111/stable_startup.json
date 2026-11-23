@@ -1,0 +1,212 @@
+{
+  "stable": true,
+  "time": "2026-11-11 13:51:05",
+  "seeds": [
+    42,
+    43
+  ],
+  "total_episodes": 488,
+  "prompt_suffix_removed": true,
+  "arms": {
+    "control": {
+      "pid": 918909,
+      "gpu": 6,
+      "uuid": "[gpu-id-redacted]",
+      "egl": 5,
+      "arm": "control",
+      "cpu_preload_first": true,
+      "started": "2026-11-11 13:46:14",
+      "ready": {
+        "pid": 918909,
+        "gpu": 6,
+        "transfer_and_t5_s": 4.005056284368038,
+        "allocated_mib": 12829.69775390625,
+        "shared_t5_sha256": "523a73e362af18d5d9049bdde6e92519ddc5af33b0b799238f2444db49c4f26f",
+        "cpu_preload": true,
+        "time": "2026-11-11 13:50:00"
+      },
+      "cpu_ready": {
+        "ready": true,
+        "pid": 918909,
+        "time": "2026-11-11 13:47:40",
+        "all_weights_loaded_on_cpu": true,
+        "wam_parameters": 6725399267,
+        "jepa_loaded": false,
+        "t5_loaded": false
+      },
+      "formal_replans": 28,
+      "preflight": {
+        "rows": [
+          {
+            "task_id": 525,
+            "passed": true,
+            "unguided_full32_sha256": "6be2f95442305261067777fbe65ba4a678942cf2b4d290268a6d22c295983480",
+            "arm_full32_sha256": "6be2f95442305261067777fbe65ba4a678942cf2b4d290268a6d22c295983480"
+          }
+        ]
+      },
+      "objective": {
+        "seed": 42,
+        "task": "white_mug",
+        "arm": "control",
+        "all_weights_one": false,
+        "guidance": false,
+        "loss": "mse",
+        "beta": 0,
+        "fixed_weights_sha256": null,
+        "text_cache_sha256": "523a73e362af18d5d9049bdde6e92519ddc5af33b0b799238f2444db49c4f26f",
+        "step_size": 1,
+        "max_delta_rms": null
+      },
+      "prompt": {
+        "seed": 42,
+        "task_id": 525,
+        "raw": "put the white mug on the plate and put the chocolate pudding to the right of the plate view 0 0 100 0 0 initstate 7",
+        "clean": "put the white mug on the plate and put the chocolate pudding to the right of the plate",
+        "prompt": "A video recorded from a robot's point of view executing the following instruction: put the white mug on the plate and put the chocolate pudding to the right of the plate"
+      },
+      "actual_guidance": {
+        "enabled": false,
+        "overlap_encoder_with_action": true,
+        "compile_predictor": false,
+        "after_flow_steps": [
+          7,
+          8,
+          9
+        ],
+        "last_flow_steps": 2,
+        "step_size": 1,
+        "normalize_gradient": false,
+        "max_delta_rms": null,
+        "ac_steps": 2,
+        "verify_descent": true,
+        "trigger": {
+          "enabled": false,
+          "reference_step": 0,
+          "decision_step": 5,
+          "ratio_threshold": 0.9576,
+          "force_first_replans": 0
+        },
+        "loss": "mse"
+      },
+      "paired_unguided_sha256": "6be2f95442305261067777fbe65ba4a678942cf2b4d290268a6d22c295983480"
+    },
+    "unweighted": {
+      "pid": 918899,
+      "gpu": 2,
+      "uuid": "[gpu-id-redacted]",
+      "egl": 1,
+      "arm": "unweighted",
+      "cpu_preload_first": true,
+      "started": "2026-11-11 13:46:14",
+      "ready": {
+        "pid": 918899,
+        "gpu": 2,
+        "transfer_and_t5_s": 14.005992773920298,
+        "allocated_mib": 15161.44189453125,
+        "shared_t5_sha256": "523a73e362af18d5d9049bdde6e92519ddc5af33b0b799238f2444db49c4f26f",
+        "cpu_preload": true,
+        "time": "2026-11-11 13:50:00"
+      },
+      "cpu_ready": {
+        "ready": true,
+        "pid": 918899,
+        "time": "2026-11-11 13:49:45",
+        "all_weights_loaded_on_cpu": true,
+        "wam_parameters": 6725399267,
+        "jepa_loaded": true,
+        "t5_loaded": true
+      },
+      "formal_replans": 13,
+      "preflight": {
+        "rows": [
+          {
+            "task_id": 525,
+            "passed": true,
+            "unguided_full32_sha256": "6be2f95442305261067777fbe65ba4a678942cf2b4d290268a6d22c295983480",
+            "arm_full32_sha256": "78a559861cbafd010848132b9001a6dab204bbbbed4d64ea5a1727c060573ec3"
+          }
+        ]
+      },
+      "objective": {
+        "seed": 42,
+        "task": "white_mug",
+        "arm": "unweighted",
+        "all_weights_one": true,
+        "guidance": true,
+        "loss": "mse",
+        "beta": 0,
+        "fixed_weights_sha256": null,
+        "text_cache_sha256": "523a73e362af18d5d9049bdde6e92519ddc5af33b0b799238f2444db49c4f26f",
+        "step_size": 1,
+        "max_delta_rms": null
+      },
+      "prompt": {
+        "seed": 42,
+        "task_id": 525,
+        "raw": "put the white mug on the plate and put the chocolate pudding to the right of the plate view 0 0 100 0 0 initstate 7",
+        "clean": "put the white mug on the plate and put the chocolate pudding to the right of the plate",
+        "prompt": "A video recorded from a robot's point of view executing the following instruction: put the white mug on the plate and put the chocolate pudding to the right of the plate"
+      },
+      "actual_guidance": {
+        "enabled": true,
+        "overlap_encoder_with_action": true,
+        "compile_predictor": false,
+        "after_flow_steps": [
+          7,
+          8,
+          9
+        ],
+        "last_flow_steps": 2,
+        "step_size": 1,
+        "normalize_gradient": false,
+        "max_delta_rms": null,
+        "ac_steps": 2,
+        "verify_descent": true,
+        "trigger": {
+          "enabled": false,
+          "reference_step": 0,
+          "decision_step": 5,
+          "ratio_threshold": 0.9576,
+          "force_first_replans": 0
+        },
+        "loss": "mse"
+      },
+      "paired_unguided_sha256": "6be2f95442305261067777fbe65ba4a678942cf2b4d290268a6d22c295983480",
+      "gripper_gradient_checks": 45
+    }
+  },
+  "shared_text_cache": {
+    "path": "/research-workspace/PACT-WAM/evaluate_results/three_tasks_cleanprompt_42_43_20261111/clean_text_contexts.pt",
+    "sha256": "523a73e362af18d5d9049bdde6e92519ddc5af33b0b799238f2444db49c4f26f",
+    "identity": {
+      "text_checkpoint": "/research-workspace/FastWAM/checkpoints/Wan-AI/Wan2.2-TI2V-5B/models_t5_umt5-xxl-enc-bf16.pth",
+      "text_checkpoint_bytes": 11361920418,
+      "text_checkpoint_mtime_ns": 1789881970078103437,
+      "tokenizer": "/research-workspace/FastWAM/checkpoints/Wan-AI/Wan2.1-T2V-1.3B/google/umt5-xxl",
+      "tokenizer_files": {
+        "special_tokens_map.json": "7b8a9f5040adb67b5805abdfd42c1f8d0f3d0e711f10726580eb3789cd0ad61d",
+        "spiece.model": "e3909a67b780650b35cf529ac782ad2b6b26e6d1f849d3fbb6a872905f452458",
+        "tokenizer.json": "6e197b4d3dbd71da14b4eb255f4fa91c9c1f2068b20a2de2472967ca3d22602b",
+        "tokenizer_config.json": "ed9a3a8b0faa71a70a32847e0435fe036e6e112d4df4edb7bb48a921e344dc05"
+      },
+      "context_len": 128,
+      "dtype": "torch.bfloat16",
+      "encoding_batch_size": 1,
+      "torch_version": "2.7.1+cu128"
+    },
+    "prompt_count": 3,
+    "reencoded": true,
+    "prompt_suffix_removed": true,
+    "shared_across_seeds": [
+      42,
+      43
+    ],
+    "shared_across_arms": [
+      "control",
+      "unweighted"
+    ]
+  },
+  "same_initial_native_actions": true,
+  "gpu_processes": "1670782, [gpu-id-redacted], 356 MiB\n122885, [gpu-id-redacted], 21368 MiB\n1670333, [gpu-id-redacted], 356 MiB\n3553909, [gpu-id-redacted], 21464 MiB\n918899, [gpu-id-redacted], 19731 MiB\n271439, [gpu-id-redacted], 404 MiB\n276705, [gpu-id-redacted], 6605 MiB\n314019, [gpu-id-redacted], 6456 MiB\n4178279, [gpu-id-redacted], 21008 MiB\n4178281, [gpu-id-redacted], 22564 MiB\n2067187, [gpu-id-redacted], 4544 MiB\n918909, [gpu-id-redacted], 15079 MiB\n4178283, [gpu-id-redacted], 20390 MiB\n"
+}

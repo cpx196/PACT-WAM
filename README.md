@@ -1,5 +1,11 @@
 # PACT-WAM
 
+## Recent experiments (2026-11-23)
+
+The final-action 0.25× update reduced 8-step tracking error by **7.0%** on the 68 early/middle demonstration windows, but both methods achieved **8/14** on the matched OOD closed-loop pilot. The AR2 training audit confirmed a one-step observation/action offset. The next priority is to correct that offset and verify the predictor's response to action changes before retesting guidance.
+
+[Experiment report, raw JSON/JSONL logs, and verification script](reports/research_20261123/README.md).
+
 ## Latest results (2026-11-02)
 
 The seven-task, 271-version robot-initial-pose study completed all 813 episodes. Results: **224/271 no guidance**, **221/271 unweighted guidance**, **220/271 weighted guidance**. Weighted guidance rescued 11 failures and introduced 15 failures. The earlier two positive tasks do not establish broad improvement. [Complete results and scope](reports/research_20261102/README.md).

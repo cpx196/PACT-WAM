@@ -1,0 +1,413 @@
+{
+  "criteria": {
+    "id_only": true,
+    "native_camera_required": true,
+    "policy": "original FastWAM, guidance disabled",
+    "same_initial_state_required": true,
+    "task_priority": null,
+    "seed_unrestricted": true
+  },
+  "scope": "existing vanilla LIBERO-10 40 episodes and 500 available demos; additional result inventory saved separately",
+  "completed_episodes": 40,
+  "failures": 36,
+  "matched_pairs_verified": 0,
+  "source_hash_checks": {
+    "scripts/eval_original40.py": true,
+    "experiments/libero/eval_libero_single.py": true,
+    "scripts/launch_original40.py": true
+  },
+  "runtime_config": {
+    "action_infer_mode": "idm",
+    "guidance_enabled": false,
+    "jepa_enabled": false,
+    "replan_steps": 8,
+    "num_steps_wait": 30,
+    "camera_override": {
+      "preset": "robot_left_60_high",
+      "position": [
+        0.3293,
+        -0.5703643309324312,
+        1.6104
+      ],
+      "quaternion": [
+        0.8715703672034573,
+        0.4163865954915577,
+        0.1115704520011075,
+        0.23353657603906355
+      ],
+      "fovy": 45
+    },
+    "checkpoint": "/research-workspace/PACT-WAM/checkpoints/fastwam/libero_optional_idm_2cam224.pt"
+  },
+  "tasks": [
+    {
+      "task_id": 0,
+      "instruction": "put both the alphabet soup and the tomato sauce in the basket",
+      "failed_seeds": [
+        7,
+        17,
+        27,
+        37
+      ],
+      "demo_count": 50,
+      "same_initial_state_verified": false,
+      "status": "excluded_camera_override_and_unconfirmed_initial_state_mapping",
+      "failures": [
+        {
+          "seed": 7,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/gpu0_task0_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/videos/2026_10_22-10_39_15--episode=task0_trial0--success=False--task=put_both_the_alphabet_soup_and_the_tomato_sauce_in.mp4",
+          "video_bytes": 412767
+        },
+        {
+          "seed": 17,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/gpu0_task0_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/videos/2026_10_22-10_39_15--episode=task0_trial0--success=False--task=put_both_the_alphabet_soup_and_the_tomato_sauce_in.mp4",
+          "video_bytes": 528753
+        },
+        {
+          "seed": 27,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/gpu0_task0_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/videos/2026_10_22-10_39_15--episode=task0_trial0--success=False--task=put_both_the_alphabet_soup_and_the_tomato_sauce_in.mp4",
+          "video_bytes": 419889
+        },
+        {
+          "seed": 37,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/gpu0_task0_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/videos/2026_10_22-10_39_15--episode=task0_trial0--success=False--task=put_both_the_alphabet_soup_and_the_tomato_sauce_in.mp4",
+          "video_bytes": 417522
+        }
+      ]
+    },
+    {
+      "task_id": 1,
+      "instruction": "put both the cream cheese box and the butter in the basket",
+      "failed_seeds": [
+        7,
+        17,
+        27,
+        37
+      ],
+      "demo_count": 50,
+      "same_initial_state_verified": false,
+      "status": "excluded_camera_override_and_unconfirmed_initial_state_mapping",
+      "failures": [
+        {
+          "seed": 7,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/gpu0_task1_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/videos/2026_10_22-10_39_15--episode=task1_trial0--success=False--task=put_both_the_cream_cheese_box_and_the_butter_in_th.mp4",
+          "video_bytes": 391487
+        },
+        {
+          "seed": 17,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/gpu0_task1_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/videos/2026_10_22-10_39_15--episode=task1_trial0--success=False--task=put_both_the_cream_cheese_box_and_the_butter_in_th.mp4",
+          "video_bytes": 510402
+        },
+        {
+          "seed": 27,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/gpu0_task1_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/videos/2026_10_22-10_39_15--episode=task1_trial0--success=False--task=put_both_the_cream_cheese_box_and_the_butter_in_th.mp4",
+          "video_bytes": 337004
+        },
+        {
+          "seed": 37,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/gpu0_task1_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/videos/2026_10_22-10_39_15--episode=task1_trial0--success=False--task=put_both_the_cream_cheese_box_and_the_butter_in_th.mp4",
+          "video_bytes": 479099
+        }
+      ]
+    },
+    {
+      "task_id": 2,
+      "instruction": "turn on the stove and put the moka pot on it",
+      "failed_seeds": [
+        7,
+        17,
+        37
+      ],
+      "demo_count": 50,
+      "same_initial_state_verified": false,
+      "status": "excluded_camera_override_and_unconfirmed_initial_state_mapping",
+      "failures": [
+        {
+          "seed": 7,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/gpu0_task2_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/videos/2026_10_22-10_39_15--episode=task2_trial0--success=False--task=turn_on_the_stove_and_put_the_moka_pot_on_it.mp4",
+          "video_bytes": 756405
+        },
+        {
+          "seed": 17,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/gpu0_task2_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/videos/2026_10_22-10_39_15--episode=task2_trial0--success=False--task=turn_on_the_stove_and_put_the_moka_pot_on_it.mp4",
+          "video_bytes": 789453
+        },
+        {
+          "seed": 37,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/gpu0_task2_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/videos/2026_10_22-10_39_15--episode=task2_trial0--success=False--task=turn_on_the_stove_and_put_the_moka_pot_on_it.mp4",
+          "video_bytes": 389109
+        }
+      ]
+    },
+    {
+      "task_id": 3,
+      "instruction": "put the black bowl in the bottom drawer of the cabinet and close it",
+      "failed_seeds": [
+        7,
+        17,
+        27,
+        37
+      ],
+      "demo_count": 50,
+      "same_initial_state_verified": false,
+      "status": "excluded_camera_override_and_unconfirmed_initial_state_mapping",
+      "failures": [
+        {
+          "seed": 7,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/gpu0_task3_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/videos/2026_10_22-10_39_15--episode=task3_trial0--success=False--task=put_the_black_bowl_in_the_bottom_drawer_of_the_cab.mp4",
+          "video_bytes": 919960
+        },
+        {
+          "seed": 17,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/gpu0_task3_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/videos/2026_10_22-10_39_15--episode=task3_trial0--success=False--task=put_the_black_bowl_in_the_bottom_drawer_of_the_cab.mp4",
+          "video_bytes": 1314905
+        },
+        {
+          "seed": 27,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/gpu0_task3_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/videos/2026_10_22-10_39_15--episode=task3_trial0--success=False--task=put_the_black_bowl_in_the_bottom_drawer_of_the_cab.mp4",
+          "video_bytes": 1156907
+        },
+        {
+          "seed": 37,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/gpu0_task3_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/videos/2026_10_22-10_39_15--episode=task3_trial0--success=False--task=put_the_black_bowl_in_the_bottom_drawer_of_the_cab.mp4",
+          "video_bytes": 685027
+        }
+      ]
+    },
+    {
+      "task_id": 4,
+      "instruction": "put the white mug on the left plate and put the yellow and white mug on the right plate",
+      "failed_seeds": [
+        7,
+        17,
+        27,
+        37
+      ],
+      "demo_count": 50,
+      "same_initial_state_verified": false,
+      "status": "excluded_camera_override_and_unconfirmed_initial_state_mapping",
+      "failures": [
+        {
+          "seed": 7,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/gpu0_task4_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/videos/2026_10_22-10_39_15--episode=task4_trial0--success=False--task=put_the_white_mug_on_the_left_plate_and_put_the_ye.mp4",
+          "video_bytes": 448277
+        },
+        {
+          "seed": 17,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/gpu0_task4_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/videos/2026_10_22-10_39_15--episode=task4_trial0--success=False--task=put_the_white_mug_on_the_left_plate_and_put_the_ye.mp4",
+          "video_bytes": 479059
+        },
+        {
+          "seed": 27,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/gpu0_task4_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/videos/2026_10_22-10_39_15--episode=task4_trial0--success=False--task=put_the_white_mug_on_the_left_plate_and_put_the_ye.mp4",
+          "video_bytes": 457259
+        },
+        {
+          "seed": 37,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/gpu0_task4_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/videos/2026_10_22-10_39_15--episode=task4_trial0--success=False--task=put_the_white_mug_on_the_left_plate_and_put_the_ye.mp4",
+          "video_bytes": 470744
+        }
+      ]
+    },
+    {
+      "task_id": 5,
+      "instruction": "pick up the book and place it in the back compartment of the caddy",
+      "failed_seeds": [
+        37
+      ],
+      "demo_count": 50,
+      "same_initial_state_verified": false,
+      "status": "excluded_camera_override_and_unconfirmed_initial_state_mapping",
+      "failures": [
+        {
+          "seed": 37,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/gpu0_task5_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/videos/2026_10_22-10_39_15--episode=task5_trial0--success=False--task=pick_up_the_book_and_place_it_in_the_back_compartm.mp4",
+          "video_bytes": 348612
+        }
+      ]
+    },
+    {
+      "task_id": 6,
+      "instruction": "put the white mug on the plate and put the chocolate pudding to the right of the plate",
+      "failed_seeds": [
+        7,
+        17,
+        27,
+        37
+      ],
+      "demo_count": 50,
+      "same_initial_state_verified": false,
+      "status": "excluded_camera_override_and_unconfirmed_initial_state_mapping",
+      "failures": [
+        {
+          "seed": 7,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/gpu0_task6_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/videos/2026_10_22-10_39_15--episode=task6_trial0--success=False--task=put_the_white_mug_on_the_plate_and_put_the_chocola.mp4",
+          "video_bytes": 394229
+        },
+        {
+          "seed": 17,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/gpu0_task6_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/videos/2026_10_22-10_39_15--episode=task6_trial0--success=False--task=put_the_white_mug_on_the_plate_and_put_the_chocola.mp4",
+          "video_bytes": 445776
+        },
+        {
+          "seed": 27,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/gpu0_task6_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/videos/2026_10_22-10_39_15--episode=task6_trial0--success=False--task=put_the_white_mug_on_the_plate_and_put_the_chocola.mp4",
+          "video_bytes": 247044
+        },
+        {
+          "seed": 37,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/gpu0_task6_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/videos/2026_10_22-10_39_15--episode=task6_trial0--success=False--task=put_the_white_mug_on_the_plate_and_put_the_chocola.mp4",
+          "video_bytes": 399514
+        }
+      ]
+    },
+    {
+      "task_id": 7,
+      "instruction": "put both the alphabet soup and the cream cheese box in the basket",
+      "failed_seeds": [
+        7,
+        17,
+        27,
+        37
+      ],
+      "demo_count": 50,
+      "same_initial_state_verified": false,
+      "status": "excluded_camera_override_and_unconfirmed_initial_state_mapping",
+      "failures": [
+        {
+          "seed": 7,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/gpu0_task7_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/videos/2026_10_22-10_39_15--episode=task7_trial0--success=False--task=put_both_the_alphabet_soup_and_the_cream_cheese_bo.mp4",
+          "video_bytes": 519752
+        },
+        {
+          "seed": 17,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/gpu0_task7_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/videos/2026_10_22-10_39_15--episode=task7_trial0--success=False--task=put_both_the_alphabet_soup_and_the_cream_cheese_bo.mp4",
+          "video_bytes": 625214
+        },
+        {
+          "seed": 27,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/gpu0_task7_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/videos/2026_10_22-10_39_15--episode=task7_trial0--success=False--task=put_both_the_alphabet_soup_and_the_cream_cheese_bo.mp4",
+          "video_bytes": 543341
+        },
+        {
+          "seed": 37,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/gpu0_task7_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/videos/2026_10_22-10_39_15--episode=task7_trial0--success=False--task=put_both_the_alphabet_soup_and_the_cream_cheese_bo.mp4",
+          "video_bytes": 530903
+        }
+      ]
+    },
+    {
+      "task_id": 8,
+      "instruction": "put both moka pots on the stove",
+      "failed_seeds": [
+        7,
+        17,
+        27,
+        37
+      ],
+      "demo_count": 50,
+      "same_initial_state_verified": false,
+      "status": "excluded_camera_override_and_unconfirmed_initial_state_mapping",
+      "failures": [
+        {
+          "seed": 7,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/gpu0_task8_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/videos/2026_10_22-10_39_15--episode=task8_trial0--success=False--task=put_both_moka_pots_on_the_stove.mp4",
+          "video_bytes": 819672
+        },
+        {
+          "seed": 17,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/gpu0_task8_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/videos/2026_10_22-10_39_15--episode=task8_trial0--success=False--task=put_both_moka_pots_on_the_stove.mp4",
+          "video_bytes": 986682
+        },
+        {
+          "seed": 27,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/gpu0_task8_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/videos/2026_10_22-10_39_15--episode=task8_trial0--success=False--task=put_both_moka_pots_on_the_stove.mp4",
+          "video_bytes": 838113
+        },
+        {
+          "seed": 37,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/gpu0_task8_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/videos/2026_10_22-10_39_15--episode=task8_trial0--success=False--task=put_both_moka_pots_on_the_stove.mp4",
+          "video_bytes": 697366
+        }
+      ]
+    },
+    {
+      "task_id": 9,
+      "instruction": "put the yellow and white mug in the microwave and close it",
+      "failed_seeds": [
+        7,
+        17,
+        27,
+        37
+      ],
+      "demo_count": 50,
+      "same_initial_state_verified": false,
+      "status": "excluded_camera_override_and_unconfirmed_initial_state_mapping",
+      "failures": [
+        {
+          "seed": 7,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/gpu0_task9_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_7/libero_10/videos/2026_10_22-10_39_15--episode=task9_trial0--success=False--task=put_the_yellow_and_white_mug_in_the_microwave_and_.mp4",
+          "video_bytes": 721599
+        },
+        {
+          "seed": 17,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/gpu0_task9_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_17/libero_10/videos/2026_10_22-10_39_15--episode=task9_trial0--success=False--task=put_the_yellow_and_white_mug_in_the_microwave_and_.mp4",
+          "video_bytes": 679543
+        },
+        {
+          "seed": 27,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/gpu0_task9_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_27/libero_10/videos/2026_10_22-10_39_15--episode=task9_trial0--success=False--task=put_the_yellow_and_white_mug_in_the_microwave_and_.mp4",
+          "video_bytes": 612968
+        },
+        {
+          "seed": 37,
+          "result": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/gpu0_task9_results.json",
+          "video": "/research-workspace/Documents/ChatGPT/PACT/outputs/libero10_manual_review/local_data/libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021/seed_37/libero_10/videos/2026_10_22-10_39_15--episode=task9_trial0--success=False--task=put_the_yellow_and_white_mug_in_the_microwave_and_.mp4",
+          "video_bytes": 581347
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Camera pose explicitly overridden: benchmark naming vanilla does not establish an unmodified ID camera.",
+    "No equality between historical benchmark init0 and stored demo states; this alone does not disprove a shared pre-trimming origin.",
+    "Dataset conversion source skips first five steps; raw init0-to-demonstration provenance is not present in inspected metadata.",
+    "Stored reward/done final=1 is written by dataset conversion, not an independent replay verification.",
+    "No new policy rollout or GPU experiment was launched."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "libero10long_seeds7_17_27_37_replan8_40_sameT5_20261021",
+  "seeds": [
+    7,
+    17,
+    27,
+    37
+  ],
+  "order": "seed-major",
+  "initial_state_index": 0,
+  "trials_per_task_per_seed": 1,
+  "total_tasks": 10,
+  "total_episodes": 40,
+  "replan_steps": 8,
+  "guidance": false,
+  "benchmark": "vanilla LIBERO10 Long; not LIBERO-Plus",
+  "source_sha256": {
+    "scripts/eval_original40.py": "d32345d677826f5ec6ff70617dcd8d84c29f47084c75cae8696a10f5829ff6b8",
+    "scripts/launch_original40.py": "3eb61ec8811c339afdd26a8f2bbb88174bec4c6f2844062de49ef58a978bec39",
+    "experiments/libero/eval_libero_single.py": "25d1940d14035d9416ac26e42fb01d7350f61a8a330a09c48fc12c49b9d93d1b",
+    "experiments/libero/text_context_cache.py": "12e83e34e28f32e8b6429b8b6808c76ca03f93479573c083d4967dbc8ab8a0d6",
+    "configs/sim_libero.yaml": "d35910d4d8620f0a467cbb09fda18308d2b768878cad272f9ed7319c9036a1ef"
+  },
+  "default_overrides": "Only dataset/checkpoint/output, seeds7/17/27/37, replan8, trials1, and T5 offloading to persist contexts; retain default compile=true, IDM mode, shifts=1, max steps=700."
+}

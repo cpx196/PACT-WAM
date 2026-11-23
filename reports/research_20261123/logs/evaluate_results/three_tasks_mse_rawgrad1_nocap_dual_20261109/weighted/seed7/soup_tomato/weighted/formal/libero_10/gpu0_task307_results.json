@@ -1,0 +1,754 @@
+{
+    "task_suite": "libero_10",
+    "task_id": 307,
+    "task_description": "put both the alphabet soup and the tomato sauce in the basket view 0 0 100 0 0 initstate 261",
+    "successes": 0,
+    "total_episodes": 1,
+    "gpu_id": 0,
+    "success_episodes": [],
+    "failure_episodes": [
+        0
+    ],
+    "start_time": "2026-11-10 02:16:59",
+    "duration": 348.43762040138245,
+    "memory_snapshots": {
+        "fastwam_only_after_load": {
+            "allocated_gib": 12.529001712799072,
+            "reserved_gib": 12.533203125,
+            "peak_allocated_gib": 12.529001712799072,
+            "peak_reserved_gib": 12.533203125
+        },
+        "fastwam_plus_jepa_after_load": {
+            "allocated_gib": 14.811344623565674,
+            "reserved_gib": 14.822265625,
+            "peak_allocated_gib": 14.811344623565674,
+            "peak_reserved_gib": 14.822265625
+        },
+        "after_rollout": {
+            "allocated_gib": 15.089054584503174,
+            "reserved_gib": 20.380859375,
+            "peak_allocated_gib": 16.32923650741577,
+            "peak_reserved_gib": 20.380859375
+        }
+    },
+    "episode_future_video_psnr": [
+        26.248154692086715
+    ],
+    "future_video_psnr_mean": 26.248154692086715,
+    "episode_timings": [
+        {
+            "episode_wall_s": 275.8607564140111,
+            "replan_count": 88,
+            "policy_replan_total_s": 257.83208872564137,
+            "policy_replan_mean_s": 2.9299100991550158,
+            "env_step_total_s": 14.180442787706852,
+            "low_level_action_steps": 700,
+            "per_replan": [
+                {
+                    "preprocess_s": 0.004561789333820343,
+                    "infer_video_s": 0.5755730532109737,
+                    "decode_video_s": 0.19535135105252266,
+                    "infer_action_s": 2.2361518554389477,
+                    "action_postprocess_s": 0.00026350654661655426,
+                    "total_s": 3.016657629981637
+                },
+                {
+                    "preprocess_s": 0.004581885412335396,
+                    "infer_video_s": 0.5711556170135736,
+                    "decode_video_s": 0.19533811695873737,
+                    "infer_action_s": 2.181354034692049,
+                    "action_postprocess_s": 0.0003633350133895874,
+                    "total_s": 2.9574391674250364
+                },
+                {
+                    "preprocess_s": 0.00420730747282505,
+                    "infer_video_s": 0.5711888000369072,
+                    "decode_video_s": 0.1949586644768715,
+                    "infer_action_s": 2.219478664919734,
+                    "action_postprocess_s": 0.0002370160073041916,
+                    "total_s": 2.9941444490104914
+                },
+                {
+                    "preprocess_s": 0.004760731011629105,
+                    "infer_video_s": 0.5691115818917751,
+                    "decode_video_s": 0.19847226701676846,
+                    "infer_action_s": 2.203278759494424,
+                    "action_postprocess_s": 0.0002489592880010605,
+                    "total_s": 2.9802297614514828
+                },
+                {
+                    "preprocess_s": 0.00411924347281456,
+                    "infer_video_s": 0.5708092153072357,
+                    "decode_video_s": 0.19623330049216747,
+                    "infer_action_s": 2.1969499234110117,
+                    "action_postprocess_s": 0.0003073476254940033,
+                    "total_s": 2.972765751183033
+                },
+                {
+                    "preprocess_s": 0.004144931212067604,
+                    "infer_video_s": 0.5617020130157471,
+                    "decode_video_s": 0.19651188515126705,
+                    "infer_action_s": 2.194398080930114,
+                    "action_postprocess_s": 0.000234309583902359,
+                    "total_s": 2.961193513125181
+                },
+                {
+                    "preprocess_s": 0.004358883947134018,
+                    "infer_video_s": 0.5706212520599365,
+                    "decode_video_s": 0.19644745253026485,
+                    "infer_action_s": 2.220734942704439,
+                    "action_postprocess_s": 0.00023338012397289276,
+                    "total_s": 2.9964335467666388
+                },
+                {
+                    "preprocess_s": 0.004288041964173317,
+                    "infer_video_s": 0.5743134617805481,
+                    "decode_video_s": 0.19628238491714,
+                    "infer_action_s": 2.2288897540420294,
+                    "action_postprocess_s": 0.00022971071302890778,
+                    "total_s": 3.008407970890403
+                },
+                {
+                    "preprocess_s": 0.004375457763671875,
+                    "infer_video_s": 0.5733779724687338,
+                    "decode_video_s": 0.1965718101710081,
+                    "infer_action_s": 2.2300360836088657,
+                    "action_postprocess_s": 0.0002547893673181534,
+                    "total_s": 3.0106390696018934
+                },
+                {
+                    "preprocess_s": 0.004550697281956673,
+                    "infer_video_s": 0.5682896245270967,
+                    "decode_video_s": 0.19599025510251522,
+                    "infer_action_s": 2.1556174643337727,
+                    "action_postprocess_s": 0.00022201798856258392,
+                    "total_s": 2.929404590278864
+                },
+                {
+                    "preprocess_s": 0.004292992874979973,
+                    "infer_video_s": 0.5572212282568216,
+                    "decode_video_s": 0.19662876799702644,
+                    "infer_action_s": 2.1271915286779404,
+                    "action_postprocess_s": 0.000231252983212471,
+                    "total_s": 2.8895571641623974
+                },
+                {
+                    "preprocess_s": 0.0042366329580545425,
+                    "infer_video_s": 0.5581957511603832,
+                    "decode_video_s": 0.19679000787436962,
+                    "infer_action_s": 2.193014385178685,
+                    "action_postprocess_s": 0.00022954121232032776,
+                    "total_s": 2.9568325746804476
+                },
+                {
+                    "preprocess_s": 0.004424087703227997,
+                    "infer_video_s": 0.569823931902647,
+                    "decode_video_s": 0.19606545567512512,
+                    "infer_action_s": 2.183089843019843,
+                    "action_postprocess_s": 0.00024561211466789246,
+                    "total_s": 2.9576678182929754
+                },
+                {
+                    "preprocess_s": 0.004215577617287636,
+                    "infer_video_s": 0.579968037083745,
+                    "decode_video_s": 0.19573629833757877,
+                    "infer_action_s": 2.1970502119511366,
+                    "action_postprocess_s": 0.00023973174393177032,
+                    "total_s": 2.9814874790608883
+                },
+                {
+                    "preprocess_s": 0.004189249128103256,
+                    "infer_video_s": 0.568066293373704,
+                    "decode_video_s": 0.19557208754122257,
+                    "infer_action_s": 2.202258149161935,
+                    "action_postprocess_s": 0.0003823116421699524,
+                    "total_s": 2.9744606018066406
+                },
+                {
+                    "preprocess_s": 0.004370206966996193,
+                    "infer_video_s": 0.5736261215060949,
+                    "decode_video_s": 0.1950861755758524,
+                    "infer_action_s": 2.1707140132784843,
+                    "action_postprocess_s": 0.00023553334176540375,
+                    "total_s": 2.9480843767523766
+                },
+                {
+                    "preprocess_s": 0.004878092557191849,
+                    "infer_video_s": 0.5715609192848206,
+                    "decode_video_s": 0.1952145043760538,
+                    "infer_action_s": 2.269135620445013,
+                    "action_postprocess_s": 0.00023653358221054077,
+                    "total_s": 3.0451736338436604
+                },
+                {
+                    "preprocess_s": 0.004149312153458595,
+                    "infer_video_s": 0.572379894554615,
+                    "decode_video_s": 0.19551585242152214,
+                    "infer_action_s": 2.258591800928116,
+                    "action_postprocess_s": 0.0002508442848920822,
+                    "total_s": 3.035087876021862
+                },
+                {
+                    "preprocess_s": 0.004028312861919403,
+                    "infer_video_s": 0.5814069770276546,
+                    "decode_video_s": 0.19578127935528755,
+                    "infer_action_s": 2.2085752617567778,
+                    "action_postprocess_s": 0.0002559814602136612,
+                    "total_s": 2.994252221658826
+                },
+                {
+                    "preprocess_s": 0.004281939938664436,
+                    "infer_video_s": 0.5824065189808607,
+                    "decode_video_s": 0.1950202789157629,
+                    "infer_action_s": 2.2734094355255365,
+                    "action_postprocess_s": 0.00041307881474494934,
+                    "total_s": 3.05981214530766
+                },
+                {
+                    "preprocess_s": 0.004244999960064888,
+                    "infer_video_s": 0.576441440731287,
+                    "decode_video_s": 0.1965323481708765,
+                    "infer_action_s": 2.185060603544116,
+                    "action_postprocess_s": 0.0002432689070701599,
+                    "total_s": 2.9672908764332533
+                },
+                {
+                    "preprocess_s": 0.004405423998832703,
+                    "infer_video_s": 0.5716751981526613,
+                    "decode_video_s": 0.1951653715223074,
+                    "infer_action_s": 2.2129725702106953,
+                    "action_postprocess_s": 0.00030994415283203125,
+                    "total_s": 2.989248691126704
+                },
+                {
+                    "preprocess_s": 0.004235314205288887,
+                    "infer_video_s": 0.5671396777033806,
+                    "decode_video_s": 0.1958368644118309,
+                    "infer_action_s": 2.231623651459813,
+                    "action_postprocess_s": 0.00036584027111530304,
+                    "total_s": 3.003553433343768
+                },
+                {
+                    "preprocess_s": 0.004253968596458435,
+                    "infer_video_s": 0.5720030553638935,
+                    "decode_video_s": 0.1954512521624565,
+                    "infer_action_s": 2.186331557109952,
+                    "action_postprocess_s": 0.00022837892174720764,
+                    "total_s": 2.962359681725502
+                },
+                {
+                    "preprocess_s": 0.0043234992772340775,
+                    "infer_video_s": 0.5709739159792662,
+                    "decode_video_s": 0.19605554826557636,
+                    "infer_action_s": 2.1831699032336473,
+                    "action_postprocess_s": 0.00021477602422237396,
+                    "total_s": 2.9584868624806404
+                },
+                {
+                    "preprocess_s": 0.004153711721301079,
+                    "infer_video_s": 0.5446418970823288,
+                    "decode_video_s": 0.19566586427390575,
+                    "infer_action_s": 2.1915857288986444,
+                    "action_postprocess_s": 0.0002318359911441803,
+                    "total_s": 2.9405761025846004
+                },
+                {
+                    "preprocess_s": 0.00426875613629818,
+                    "infer_video_s": 0.5584513433277607,
+                    "decode_video_s": 0.1954033188521862,
+                    "infer_action_s": 2.1924357879906893,
+                    "action_postprocess_s": 0.0004021059721708298,
+                    "total_s": 2.9548710752278566
+                },
+                {
+                    "preprocess_s": 0.004344910383224487,
+                    "infer_video_s": 0.5683719180524349,
+                    "decode_video_s": 0.196409173309803,
+                    "infer_action_s": 2.1738864183425903,
+                    "action_postprocess_s": 0.00020731985569000244,
+                    "total_s": 2.947243394330144
+                },
+                {
+                    "preprocess_s": 0.0041138846427202225,
+                    "infer_video_s": 0.5417483896017075,
+                    "decode_video_s": 0.1962662823498249,
+                    "infer_action_s": 2.2050831262022257,
+                    "action_postprocess_s": 0.00022295117378234863,
+                    "total_s": 2.951703989878297
+                },
+                {
+                    "preprocess_s": 0.004200657829642296,
+                    "infer_video_s": 0.5692408550530672,
+                    "decode_video_s": 0.19660592451691628,
+                    "infer_action_s": 2.2067259289324284,
+                    "action_postprocess_s": 0.00028057023882865906,
+                    "total_s": 2.9819189943373203
+                },
+                {
+                    "preprocess_s": 0.004264747723937035,
+                    "infer_video_s": 0.5688149016350508,
+                    "decode_video_s": 0.19626327976584435,
+                    "infer_action_s": 2.15252392180264,
+                    "action_postprocess_s": 0.000232817605137825,
+                    "total_s": 2.9265982192009687
+                },
+                {
+                    "preprocess_s": 0.00423162616789341,
+                    "infer_video_s": 0.5684725604951382,
+                    "decode_video_s": 0.19657583720982075,
+                    "infer_action_s": 2.2108275927603245,
+                    "action_postprocess_s": 0.00033094361424446106,
+                    "total_s": 2.9846309181302786
+                },
+                {
+                    "preprocess_s": 0.00409773550927639,
+                    "infer_video_s": 0.5434654895216227,
+                    "decode_video_s": 0.19521472416818142,
+                    "infer_action_s": 2.182522227987647,
+                    "action_postprocess_s": 0.0003871489316225052,
+                    "total_s": 2.929631309583783
+                },
+                {
+                    "preprocess_s": 0.0041818320751190186,
+                    "infer_video_s": 0.5643587037920952,
+                    "decode_video_s": 0.1963866427540779,
+                    "infer_action_s": 2.1885546129196882,
+                    "action_postprocess_s": 0.00033182278275489807,
+                    "total_s": 2.9579194225370884
+                },
+                {
+                    "preprocess_s": 0.004140276461839676,
+                    "infer_video_s": 0.5397823564708233,
+                    "decode_video_s": 0.19608894921839237,
+                    "infer_action_s": 2.174532463774085,
+                    "action_postprocess_s": 0.00022006593644618988,
+                    "total_s": 2.9189596604555845
+                },
+                {
+                    "preprocess_s": 0.0049368757754564285,
+                    "infer_video_s": 0.5538585670292377,
+                    "decode_video_s": 0.19781330786645412,
+                    "infer_action_s": 2.154682455584407,
+                    "action_postprocess_s": 0.0002475176006555557,
+                    "total_s": 2.9156317841261625
+                },
+                {
+                    "preprocess_s": 0.00484967976808548,
+                    "infer_video_s": 0.5675571840256453,
+                    "decode_video_s": 0.1981057971715927,
+                    "infer_action_s": 2.172741813585162,
+                    "action_postprocess_s": 0.0002277512103319168,
+                    "total_s": 2.9476582556962967
+                },
+                {
+                    "preprocess_s": 0.004250211641192436,
+                    "infer_video_s": 0.5700630322098732,
+                    "decode_video_s": 0.19635524414479733,
+                    "infer_action_s": 2.1880999263375998,
+                    "action_postprocess_s": 0.0003048926591873169,
+                    "total_s": 2.9635113812983036
+                },
+                {
+                    "preprocess_s": 0.004175659269094467,
+                    "infer_video_s": 0.5473125111311674,
+                    "decode_video_s": 0.1979871243238449,
+                    "infer_action_s": 2.1209911108016968,
+                    "action_postprocess_s": 0.000267883762717247,
+                    "total_s": 2.8749202117323875
+                },
+                {
+                    "preprocess_s": 0.004131907597184181,
+                    "infer_video_s": 0.5482430569827557,
+                    "decode_video_s": 0.1987852267920971,
+                    "infer_action_s": 2.136996580287814,
+                    "action_postprocess_s": 0.00022682920098304749,
+                    "total_s": 2.8924954142421484
+                },
+                {
+                    "preprocess_s": 0.00429869256913662,
+                    "infer_video_s": 0.5486949570477009,
+                    "decode_video_s": 0.19609618373215199,
+                    "infer_action_s": 2.1074920259416103,
+                    "action_postprocess_s": 0.0002472084015607834,
+                    "total_s": 2.860773427411914
+                },
+                {
+                    "preprocess_s": 0.004187963902950287,
+                    "infer_video_s": 0.547488946467638,
+                    "decode_video_s": 0.19741159118711948,
+                    "infer_action_s": 2.1402966137975454,
+                    "action_postprocess_s": 0.00025626085698604584,
+                    "total_s": 2.893621828407049
+                },
+                {
+                    "preprocess_s": 0.004108963534235954,
+                    "infer_video_s": 0.5409189686179161,
+                    "decode_video_s": 0.1969623938202858,
+                    "infer_action_s": 2.1539771798998117,
+                    "action_postprocess_s": 0.00028200075030326843,
+                    "total_s": 2.9006562642753124
+                },
+                {
+                    "preprocess_s": 0.005136091262102127,
+                    "infer_video_s": 0.5588202625513077,
+                    "decode_video_s": 0.19870230928063393,
+                    "infer_action_s": 2.185548070818186,
+                    "action_postprocess_s": 0.0003063660115003586,
+                    "total_s": 2.952870175242424
+                },
+                {
+                    "preprocess_s": 0.004857316613197327,
+                    "infer_video_s": 0.5622350852936506,
+                    "decode_video_s": 0.19828053563833237,
+                    "infer_action_s": 2.183629147708416,
+                    "action_postprocess_s": 0.00028591975569725037,
+                    "total_s": 2.9539394099265337
+                },
+                {
+                    "preprocess_s": 0.004130516201257706,
+                    "infer_video_s": 0.5582691077142954,
+                    "decode_video_s": 0.19651765562593937,
+                    "infer_action_s": 2.174129033461213,
+                    "action_postprocess_s": 0.00028615817427635193,
+                    "total_s": 2.937639646232128
+                },
+                {
+                    "preprocess_s": 0.004472300410270691,
+                    "infer_video_s": 0.5570588614791632,
+                    "decode_video_s": 0.19645358808338642,
+                    "infer_action_s": 2.1835822016000748,
+                    "action_postprocess_s": 0.0002867691218852997,
+                    "total_s": 2.9463238436728716
+                },
+                {
+                    "preprocess_s": 0.004146656021475792,
+                    "infer_video_s": 0.55056725256145,
+                    "decode_video_s": 0.19638990610837936,
+                    "infer_action_s": 2.1115276236087084,
+                    "action_postprocess_s": 0.0003339909017086029,
+                    "total_s": 2.8670943304896355
+                },
+                {
+                    "preprocess_s": 0.004215124994516373,
+                    "infer_video_s": 0.5575962122529745,
+                    "decode_video_s": 0.19612431526184082,
+                    "infer_action_s": 2.1804618276655674,
+                    "action_postprocess_s": 0.0003017093986272812,
+                    "total_s": 2.943200273439288
+                },
+                {
+                    "preprocess_s": 0.004148006439208984,
+                    "infer_video_s": 0.5564004816114902,
+                    "decode_video_s": 0.19668077304959297,
+                    "infer_action_s": 2.1415420789271593,
+                    "action_postprocess_s": 0.00024360790848731995,
+                    "total_s": 2.9036473147571087
+                },
+                {
+                    "preprocess_s": 0.004304215312004089,
+                    "infer_video_s": 0.546574492007494,
+                    "decode_video_s": 0.19614823162555695,
+                    "infer_action_s": 2.064360747113824,
+                    "action_postprocess_s": 0.00023791752755641937,
+                    "total_s": 2.8160387128591537
+                },
+                {
+                    "preprocess_s": 0.0049591753631830215,
+                    "infer_video_s": 0.5385168045759201,
+                    "decode_video_s": 0.19833502918481827,
+                    "infer_action_s": 2.093134056776762,
+                    "action_postprocess_s": 0.0003370847553014755,
+                    "total_s": 2.8390841092914343
+                },
+                {
+                    "preprocess_s": 0.004689007997512817,
+                    "infer_video_s": 0.538247536867857,
+                    "decode_video_s": 0.19779729470610619,
+                    "infer_action_s": 2.1082117427140474,
+                    "action_postprocess_s": 0.00023577548563480377,
+                    "total_s": 2.853089975193143
+                },
+                {
+                    "preprocess_s": 0.004240110516548157,
+                    "infer_video_s": 0.5566640067845583,
+                    "decode_video_s": 0.19573492370545864,
+                    "infer_action_s": 2.12336309440434,
+                    "action_postprocess_s": 0.0003072693943977356,
+                    "total_s": 2.884486110880971
+                },
+                {
+                    "preprocess_s": 0.004111591726541519,
+                    "infer_video_s": 0.5651850812137127,
+                    "decode_video_s": 0.1962969619780779,
+                    "infer_action_s": 2.1478817611932755,
+                    "action_postprocess_s": 0.00026590190827846527,
+                    "total_s": 2.9179244693368673
+                },
+                {
+                    "preprocess_s": 0.0040940046310424805,
+                    "infer_video_s": 0.5563927348703146,
+                    "decode_video_s": 0.19660369865596294,
+                    "infer_action_s": 2.1442996188998222,
+                    "action_postprocess_s": 0.00023475103080272675,
+                    "total_s": 2.9059874191880226
+                },
+                {
+                    "preprocess_s": 0.004151763394474983,
+                    "infer_video_s": 0.5434953980147839,
+                    "decode_video_s": 0.19791915640234947,
+                    "infer_action_s": 2.1471666283905506,
+                    "action_postprocess_s": 0.0002454519271850586,
+                    "total_s": 2.8968991190195084
+                },
+                {
+                    "preprocess_s": 0.004024466499686241,
+                    "infer_video_s": 0.5477429404854774,
+                    "decode_video_s": 0.196086086332798,
+                    "infer_action_s": 2.127632152289152,
+                    "action_postprocess_s": 0.0003088805824518204,
+                    "total_s": 2.8799804802984
+                },
+                {
+                    "preprocess_s": 0.003933608531951904,
+                    "infer_video_s": 0.5591406691819429,
+                    "decode_video_s": 0.19621932692825794,
+                    "infer_action_s": 2.1294648814946413,
+                    "action_postprocess_s": 0.000239470973610878,
+                    "total_s": 2.8933963626623154
+                },
+                {
+                    "preprocess_s": 0.00476532056927681,
+                    "infer_video_s": 0.5548081323504448,
+                    "decode_video_s": 0.19792643934488297,
+                    "infer_action_s": 2.0838370714336634,
+                    "action_postprocess_s": 0.0003250204026699066,
+                    "total_s": 2.845504194498062
+                },
+                {
+                    "preprocess_s": 0.004048911854624748,
+                    "infer_video_s": 0.5442365314811468,
+                    "decode_video_s": 0.1961648352444172,
+                    "infer_action_s": 2.0856626499444246,
+                    "action_postprocess_s": 0.000277690589427948,
+                    "total_s": 2.834396803751588
+                },
+                {
+                    "preprocess_s": 0.003943786025047302,
+                    "infer_video_s": 0.5412660390138626,
+                    "decode_video_s": 0.19608517177402973,
+                    "infer_action_s": 2.1166335362941027,
+                    "action_postprocess_s": 0.00041467882692813873,
+                    "total_s": 2.86228246986866
+                },
+                {
+                    "preprocess_s": 0.003884732723236084,
+                    "infer_video_s": 0.541929829865694,
+                    "decode_video_s": 0.1969271209090948,
+                    "infer_action_s": 2.069969980046153,
+                    "action_postprocess_s": 0.0003058239817619324,
+                    "total_s": 2.816844690591097
+                },
+                {
+                    "preprocess_s": 0.004034273326396942,
+                    "infer_video_s": 0.5444740206003189,
+                    "decode_video_s": 0.19672377593815327,
+                    "infer_action_s": 2.0726502146571875,
+                    "action_postprocess_s": 0.0002435985952615738,
+                    "total_s": 2.8222090136259794
+                },
+                {
+                    "preprocess_s": 0.003936741501092911,
+                    "infer_video_s": 0.542804379016161,
+                    "decode_video_s": 0.1958943735808134,
+                    "infer_action_s": 2.121217565611005,
+                    "action_postprocess_s": 0.00035242363810539246,
+                    "total_s": 2.868289789184928
+                },
+                {
+                    "preprocess_s": 0.005705269053578377,
+                    "infer_video_s": 0.553556066006422,
+                    "decode_video_s": 0.19816715456545353,
+                    "infer_action_s": 2.0959461219608784,
+                    "action_postprocess_s": 0.0003314334899187088,
+                    "total_s": 2.857901657000184
+                },
+                {
+                    "preprocess_s": 0.003989871591329575,
+                    "infer_video_s": 0.5434237532317638,
+                    "decode_video_s": 0.19524049200117588,
+                    "infer_action_s": 2.0939293149858713,
+                    "action_postprocess_s": 0.0002602189779281616,
+                    "total_s": 2.8406435512006283
+                },
+                {
+                    "preprocess_s": 0.004059894010424614,
+                    "infer_video_s": 0.5564742498099804,
+                    "decode_video_s": 0.1961751040071249,
+                    "infer_action_s": 2.1163139156997204,
+                    "action_postprocess_s": 0.00026912614703178406,
+                    "total_s": 2.8775997068732977
+                },
+                {
+                    "preprocess_s": 0.004215054214000702,
+                    "infer_video_s": 0.5764287281781435,
+                    "decode_video_s": 0.19747896865010262,
+                    "infer_action_s": 2.180967438966036,
+                    "action_postprocess_s": 0.00033995136618614197,
+                    "total_s": 2.963732408359647
+                },
+                {
+                    "preprocess_s": 0.00415186770260334,
+                    "infer_video_s": 0.5689528118818998,
+                    "decode_video_s": 0.19723477587103844,
+                    "infer_action_s": 2.1830736733973026,
+                    "action_postprocess_s": 0.00038393400609493256,
+                    "total_s": 2.959287401288748
+                },
+                {
+                    "preprocess_s": 0.004063408821821213,
+                    "infer_video_s": 0.5706215836107731,
+                    "decode_video_s": 0.19699347391724586,
+                    "infer_action_s": 2.1430610548704863,
+                    "action_postprocess_s": 0.00033120252192020416,
+                    "total_s": 2.9194583278149366
+                },
+                {
+                    "preprocess_s": 0.0040227919816970825,
+                    "infer_video_s": 0.5518031157553196,
+                    "decode_video_s": 0.19573314115405083,
+                    "infer_action_s": 2.116438541561365,
+                    "action_postprocess_s": 0.00023567117750644684,
+                    "total_s": 2.873670080676675
+                },
+                {
+                    "preprocess_s": 0.005022827535867691,
+                    "infer_video_s": 0.5657461155205965,
+                    "decode_video_s": 0.1985833551734686,
+                    "infer_action_s": 2.1591628789901733,
+                    "action_postprocess_s": 0.0002223290503025055,
+                    "total_s": 2.9329991303384304
+                },
+                {
+                    "preprocess_s": 0.004180300980806351,
+                    "infer_video_s": 0.566745737567544,
+                    "decode_video_s": 0.19625179842114449,
+                    "infer_action_s": 2.109840467572212,
+                    "action_postprocess_s": 0.000346451997756958,
+                    "total_s": 2.881102029234171
+                },
+                {
+                    "preprocess_s": 0.004281459376215935,
+                    "infer_video_s": 0.5695384852588177,
+                    "decode_video_s": 0.1961127072572708,
+                    "infer_action_s": 2.1481306813657284,
+                    "action_postprocess_s": 0.00029097869992256165,
+                    "total_s": 2.922087710350752
+                },
+                {
+                    "preprocess_s": 0.004237545654177666,
+                    "infer_video_s": 0.5449469797313213,
+                    "decode_video_s": 0.1951268408447504,
+                    "infer_action_s": 2.1501472871750593,
+                    "action_postprocess_s": 0.00029295124113559723,
+                    "total_s": 2.8987219016999006
+                },
+                {
+                    "preprocess_s": 0.004094168543815613,
+                    "infer_video_s": 0.5641516838222742,
+                    "decode_video_s": 0.19648998603224754,
+                    "infer_action_s": 2.2354785706847906,
+                    "action_postprocess_s": 0.0002967286854982376,
+                    "total_s": 3.0049057211726904
+                },
+                {
+                    "preprocess_s": 0.0040883272886276245,
+                    "infer_video_s": 0.5792117845267057,
+                    "decode_video_s": 0.1966395378112793,
+                    "infer_action_s": 2.2264319267123938,
+                    "action_postprocess_s": 0.00029226019978523254,
+                    "total_s": 3.011000683531165
+                },
+                {
+                    "preprocess_s": 0.004793044179677963,
+                    "infer_video_s": 0.5542578883469105,
+                    "decode_video_s": 0.19856060482561588,
+                    "infer_action_s": 2.2075063697993755,
+                    "action_postprocess_s": 0.00023872032761573792,
+                    "total_s": 2.969634911045432
+                },
+                {
+                    "preprocess_s": 0.004788834601640701,
+                    "infer_video_s": 0.5622276831418276,
+                    "decode_video_s": 0.1981584168970585,
+                    "infer_action_s": 2.1644569281488657,
+                    "action_postprocess_s": 0.0003964472562074661,
+                    "total_s": 2.9341539051383734
+                },
+                {
+                    "preprocess_s": 0.004187803715467453,
+                    "infer_video_s": 0.583526749163866,
+                    "decode_video_s": 0.19713417999446392,
+                    "infer_action_s": 2.1940944641828537,
+                    "action_postprocess_s": 0.0004321932792663574,
+                    "total_s": 2.9835603069514036
+                },
+                {
+                    "preprocess_s": 0.004096562042832375,
+                    "infer_video_s": 0.5692807901650667,
+                    "decode_video_s": 0.19627546332776546,
+                    "infer_action_s": 2.2052273210138083,
+                    "action_postprocess_s": 0.0002385396510362625,
+                    "total_s": 2.9794276766479015
+                },
+                {
+                    "preprocess_s": 0.0041537806391716,
+                    "infer_video_s": 0.5528985802084208,
+                    "decode_video_s": 0.19617038406431675,
+                    "infer_action_s": 2.140495488420129,
+                    "action_postprocess_s": 0.0002179797738790512,
+                    "total_s": 2.8979225866496563
+                },
+                {
+                    "preprocess_s": 0.004190938547253609,
+                    "infer_video_s": 0.5436677392572165,
+                    "decode_video_s": 0.1958038341253996,
+                    "infer_action_s": 2.1304650958627462,
+                    "action_postprocess_s": 0.0004942789673805237,
+                    "total_s": 2.8784301206469536
+                },
+                {
+                    "preprocess_s": 0.004090599715709686,
+                    "infer_video_s": 0.5563052631914616,
+                    "decode_video_s": 0.19671078212559223,
+                    "infer_action_s": 2.115835051983595,
+                    "action_postprocess_s": 0.00034403614699840546,
+                    "total_s": 2.8771466836333275
+                },
+                {
+                    "preprocess_s": 0.004028983414173126,
+                    "infer_video_s": 0.542713575065136,
+                    "decode_video_s": 0.19613328389823437,
+                    "infer_action_s": 2.135612705722451,
+                    "action_postprocess_s": 0.00044567883014678955,
+                    "total_s": 2.8825807850807905
+                },
+                {
+                    "preprocess_s": 0.004765521734952927,
+                    "infer_video_s": 0.5447321236133575,
+                    "decode_video_s": 0.19801385141909122,
+                    "infer_action_s": 2.1093683876097202,
+                    "action_postprocess_s": 0.00023857876658439636,
+                    "total_s": 2.8610202036798
+                },
+                {
+                    "preprocess_s": 0.00476323626935482,
+                    "infer_video_s": 0.5469538383185863,
+                    "decode_video_s": 0.19761854968965054,
+                    "infer_action_s": 2.136418616399169,
+                    "action_postprocess_s": 0.00025277771055698395,
+                    "total_s": 2.8899799827486277
+                }
+            ]
+        }
+    ]
+}
