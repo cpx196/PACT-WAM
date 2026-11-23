@@ -1,0 +1,184 @@
+{
+  "task": "STUDY_SCENE1_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy_demo",
+  "demo": "demo_4",
+  "t": 0,
+  "state_index": 1,
+  "target_indices": [
+    4,
+    8
+  ],
+  "video_indices": [
+    0,
+    4,
+    8,
+    12,
+    16,
+    20,
+    24,
+    28,
+    32
+  ],
+  "action_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "phase": "start",
+  "seed": 42,
+  "alignment_mm": 0.1478632801448629,
+  "alignment_pixel_mse": 1.170654296875,
+  "alignment_over_1mm": false,
+  "repeat_mse": null,
+  "seconds": 39.91120318695903,
+  "branches": {
+    "A": {
+      "actual_target_mse": 0.051769573241472244,
+      "eef_target_error_mm_4": 1.2192082408543707,
+      "eef_target_error_mm_8": 1.6506464325394625,
+      "success_by_step": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predicted_target_mse": 0.11816326528787613,
+      "prediction_mse": 0.11562333256006241,
+      "eef_difference_from_A_mm_8": 0.0
+    },
+    "final025": {
+      "actual_target_mse": 0.051917169243097305,
+      "eef_target_error_mm_4": 0.6860938889849603,
+      "eef_target_error_mm_8": 0.738528079367361,
+      "success_by_step": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predicted_target_mse": 0.10501623153686523,
+      "prediction_mse": 0.11250841617584229,
+      "eef_difference_from_A_mm_8": 1.738483139583662
+    },
+    "final1": {
+      "actual_target_mse": 0.07328494638204575,
+      "eef_target_error_mm_4": 2.255063906872582,
+      "eef_target_error_mm_8": 5.48744846057242,
+      "success_by_step": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predicted_target_mse": 0.10813543945550919,
+      "prediction_mse": 0.11292096227407455,
+      "eef_difference_from_A_mm_8": 6.939018361244932
+    },
+    "old789": {
+      "actual_target_mse": 0.07659618556499481,
+      "eef_target_error_mm_4": 2.179524075663096,
+      "eef_target_error_mm_8": 5.5409034325320885,
+      "success_by_step": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predicted_target_mse": 0.107790507376194,
+      "prediction_mse": 0.11193118244409561,
+      "eef_difference_from_A_mm_8": 6.969473534672975
+    },
+    "demo": {
+      "actual_target_mse": 0.03738481551408768,
+      "eef_target_error_mm_4": 0.17534407891040033,
+      "eef_target_error_mm_8": 0.3067461656000663,
+      "success_by_step": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predicted_target_mse": 0.10756989568471909,
+      "prediction_mse": 0.1147141233086586,
+      "eef_difference_from_A_mm_8": 1.7941462201987206
+    }
+  },
+  "info": {
+    "video_shape": [
+      1,
+      3,
+      9,
+      224,
+      448
+    ],
+    "latent_shape": [
+      1,
+      48,
+      3,
+      14,
+      28
+    ],
+    "old789": [
+      {
+        "flow_step": 7,
+        "after_flow_step": 7,
+        "loss": 0.11406152695417404,
+        "loss_after_clean_step": 0.10771538317203522,
+        "gradient_rms": 0.0309907253831625,
+        "normalize_gradient": false,
+        "unclipped_delta_rms": 0.0309907253831625,
+        "correction_rms": 0.0309907253831625
+      },
+      {
+        "flow_step": 8,
+        "after_flow_step": 8,
+        "loss": 0.11571565270423889,
+        "loss_after_clean_step": 0.10797096788883209,
+        "gradient_rms": 0.03226098045706749,
+        "normalize_gradient": false,
+        "unclipped_delta_rms": 0.03226098045706749,
+        "correction_rms": 0.03226098045706749
+      },
+      {
+        "flow_step": 9,
+        "after_flow_step": 9,
+        "loss": 0.11424615979194641,
+        "loss_after_clean_step": 0.10780622810125351,
+        "gradient_rms": 0.03173639252781868,
+        "normalize_gradient": false,
+        "unclipped_delta_rms": 0.03173639252781868,
+        "correction_rms": 0.03173639252781868
+      }
+    ],
+    "gradient_rms": 0.03662657365202904
+  }
+}

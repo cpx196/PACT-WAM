@@ -1,0 +1,39 @@
+[
+  {
+    "item": {
+      "task": "KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it_demo",
+      "demo": "demo_3",
+      "t": 0,
+      "state_index": 1,
+      "target_indices": [
+        4,
+        8
+      ],
+      "video_indices": [
+        0,
+        4,
+        8,
+        12,
+        16,
+        20,
+        24,
+        28,
+        32
+      ],
+      "action_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "phase": "start",
+      "seed": 42,
+      "repeat": true
+    },
+    "traceback": "Traceback (most recent call last):\n  File \"/research-workspace/PACT-WAM/evaluate_results/demo_sixarm_smoke_gpu6_20261118/experiment.py\", line 152, in run\n    row=self.collect(item,d,repeat);self.completed+=1;durations.append(row['seconds']);consecutive_failures=0\n  File \"/research-workspace/PACT-WAM/evaluate_results/demo_sixarm_smoke_gpu6_20261118/experiment.py\", line 90, in collect\n    commands,predictions,target,frames,info=self.four_plans(obs,d,t)\n  File \"/research-workspace/PACT-WAM/evaluate_results/demo_sixarm_smoke_gpu6_20261118/demo_base.py\", line 94, in four_plans\n    q=a.clone().requires_grad_(True);g=torch.autograd.grad(energy(q),q)[0]\n  File \"/research-workspace/PACT-WAM/experiments/libero/eval_libero_single.py\", line 597, in guidance_energy\n    return ac_ranker.differentiable_energy(\n  File \"/research-workspace/PACT-WAM/evaluate_results/demo_sixarm_smoke_gpu6_20261118/core.py\", line 255, in differentiable_energy\n    p2 = self.predictor(p1,actions[:,4:8],state,1)\n  File \"/research-workspace/envs/jepa-wam/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1751, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n  File \"/research-workspace/envs/jepa-wam/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1762, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/research-workspace/PACT-WAM/evaluate_results/demo_sixarm_smoke_gpu6_20261118/fastwam_ar2_eval.py\", line 23, in forward\n    return super().forward(z + self.phase.weight[phase][None, None], a, s)\n  File \"/research-workspace/PACT-WAM/artifacts/predictor2.1ac1009/smoke_joint_predictor.py\", line 44, in forward\n    else:x=block(x,**kwargs)\n  File \"/research-workspace/envs/jepa-wam/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1751, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n  File \"/research-workspace/envs/jepa-wam/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1762, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/research-workspace/vjepa2/src/models/utils/modules.py\", line 493, in forward\n    y = self.attn(y, mask=mask, attn_mask=attn_mask, T=T, H=H, W=W, action_tokens=action_tokens)\n  File \"/research-workspace/envs/jepa-wam/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1751, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n  File \"/research-workspace/envs/jepa-wam/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1762, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/research-workspace/PACT-WAM/artifacts/predictor2.1ac1009/vectorized_ac_attention.py\", line 35, in forward_vectorized\n    q=rotate(q);k=rotate(k)\n  File \"/research-workspace/PACT-WAM/artifacts/predictor2.1ac1009/vectorized_ac_attention.py\", line 30, in rotate\n    parts=[rotate_queries_or_keys(t[...,:d],d_mask),\n  File \"/research-workspace/vjepa2/src/models/utils/modules.py\", line 55, in rotate_queries_or_keys\n    return (x * emb_cos) + (y * emb_sin)\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.00 MiB. GPU 6 has a total capacity of 23.55 GiB of which 216.06 MiB is free. Process 2067187 has 4.44 GiB memory in use. Process 581156 has 2.61 GiB memory in use. Including non-PyTorch memory, this process has 16.25 GiB memory in use. 15.62 GiB allowed; Of the allocated memory 15.54 GiB is allocated by PyTorch, and 81.94 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+  }
+]

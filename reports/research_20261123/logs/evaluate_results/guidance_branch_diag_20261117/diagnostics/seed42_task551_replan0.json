@@ -1,0 +1,284 @@
+{
+  "seed": 42,
+  "task_id": 551,
+  "replan": 0,
+  "baseline_loss": 0.7526354789733887,
+  "nodes": [
+    {
+      "node": 7,
+      "local_before": 0.7523021697998047,
+      "new_grad_rms": 0.00014574066153727472,
+      "old_grad_rms": 0.007845022715628147,
+      "finite_difference": [
+        {
+          "eps_rms": 0.001,
+          "plus_loss": 0.7522709965705872,
+          "minus_loss": 0.7523105144500732,
+          "observed_difference": -3.9517879486083984e-05,
+          "predicted_linear_difference": 7.098913192749023e-05,
+          "realized_rms": 0.0022216085344552994,
+          "gripper_clean_max_change": 0.00234377384185791
+        },
+        {
+          "eps_rms": 0.01,
+          "plus_loss": 0.7526015043258667,
+          "minus_loss": 0.7520240545272827,
+          "observed_difference": 0.0005774497985839844,
+          "predicted_linear_difference": 0.0006527267396450043,
+          "realized_rms": 0.0199989415705204,
+          "gripper_clean_max_change": 0.00468754768371582
+        },
+        {
+          "eps_rms": 0.1,
+          "plus_loss": 0.7536020278930664,
+          "minus_loss": 0.7509030103683472,
+          "observed_difference": 0.0026990175247192383,
+          "predicted_linear_difference": 0.006530736573040485,
+          "realized_rms": 0.20004817843437195,
+          "gripper_clean_max_change": 0.004687488079071045
+        }
+      ],
+      "branches": [
+        {
+          "kind": "old",
+          "eta": 1.0,
+          "final_loss": 0.7523963451385498,
+          "delta_final_loss": -0.0002391338348388672,
+          "correction_rms": 0.007852422073483467,
+          "final_pose_delta_rms": 0.0008515808149240911
+        },
+        {
+          "kind": "new",
+          "eta": 1.0,
+          "final_loss": 0.7527368068695068,
+          "delta_final_loss": 0.00010132789611816406,
+          "correction_rms": 0.00011212874233024195,
+          "final_pose_delta_rms": 0.0006384425214491785,
+          "input_only_local_loss": 0.7523020505905151
+        },
+        {
+          "kind": "new",
+          "eta": 0.5,
+          "final_loss": 0.7525458931922913,
+          "delta_final_loss": -8.958578109741211e-05,
+          "correction_rms": 3.995688894065097e-05,
+          "final_pose_delta_rms": 0.00046881992602720857,
+          "input_only_local_loss": 0.7523880004882812
+        },
+        {
+          "kind": "new",
+          "eta": 0.25,
+          "final_loss": 0.75264573097229,
+          "delta_final_loss": 1.0251998901367188e-05,
+          "correction_rms": 1.1534560144355055e-05,
+          "final_pose_delta_rms": 0.0006592550780624151,
+          "input_only_local_loss": 0.7523021697998047
+        },
+        {
+          "kind": "new",
+          "eta": 0.125,
+          "final_loss": 0.7526872158050537,
+          "delta_final_loss": 5.173683166503906e-05,
+          "correction_rms": 8.156165677064564e-06,
+          "final_pose_delta_rms": 0.0005085245938971639,
+          "input_only_local_loss": 0.7523021697998047
+        }
+      ]
+    },
+    {
+      "node": 8,
+      "local_before": 0.7523088455200195,
+      "new_grad_rms": 0.00013976593618281186,
+      "old_grad_rms": 0.007752783130854368,
+      "finite_difference": [
+        {
+          "eps_rms": 0.001,
+          "plus_loss": 0.752459704875946,
+          "minus_loss": 0.7525415420532227,
+          "observed_difference": -8.183717727661133e-05,
+          "predicted_linear_difference": 6.0439109802246094e-05,
+          "realized_rms": 0.001974061829969287,
+          "gripper_clean_max_change": 0.0031250715255737305
+        },
+        {
+          "eps_rms": 0.01,
+          "plus_loss": 0.7524251341819763,
+          "minus_loss": 0.7522252798080444,
+          "observed_difference": 0.00019985437393188477,
+          "predicted_linear_difference": 0.0006237160414457321,
+          "realized_rms": 0.0199270136654377,
+          "gripper_clean_max_change": 0.0031250715255737305
+        },
+        {
+          "eps_rms": 0.1,
+          "plus_loss": 0.7531015872955322,
+          "minus_loss": 0.7524837255477905,
+          "observed_difference": 0.0006178617477416992,
+          "predicted_linear_difference": 0.0062609510496258736,
+          "realized_rms": 0.19998234510421753,
+          "gripper_clean_max_change": 0.00390625
+        }
+      ],
+      "branches": [
+        {
+          "kind": "old",
+          "eta": 1.0,
+          "final_loss": 0.7522362470626831,
+          "delta_final_loss": -0.0003992319107055664,
+          "correction_rms": 0.007766421884298325,
+          "final_pose_delta_rms": 0.0010792469838634133
+        },
+        {
+          "kind": "new",
+          "eta": 1.0,
+          "final_loss": 0.7525366544723511,
+          "delta_final_loss": -9.882450103759766e-05,
+          "correction_rms": 0.00010452947026351467,
+          "final_pose_delta_rms": 0.0005436356295831501,
+          "input_only_local_loss": 0.7522708773612976
+        },
+        {
+          "kind": "new",
+          "eta": 0.5,
+          "final_loss": 0.752585768699646,
+          "delta_final_loss": -4.971027374267578e-05,
+          "correction_rms": 3.932760955649428e-05,
+          "final_pose_delta_rms": 0.0005459150415845215,
+          "input_only_local_loss": 0.7524213194847107
+        },
+        {
+          "kind": "new",
+          "eta": 0.25,
+          "final_loss": 0.7525162696838379,
+          "delta_final_loss": -0.00011920928955078125,
+          "correction_rms": 5.7672800721775275e-06,
+          "final_pose_delta_rms": 0.00046616370673291385,
+          "input_only_local_loss": 0.7524542212486267
+        },
+        {
+          "kind": "new",
+          "eta": 0.125,
+          "final_loss": 0.7527210712432861,
+          "delta_final_loss": 8.559226989746094e-05,
+          "correction_rms": 4.559435183182359e-06,
+          "final_pose_delta_rms": 0.00045264881919138134,
+          "input_only_local_loss": 0.7523088455200195
+        }
+      ]
+    },
+    {
+      "node": 9,
+      "local_before": 0.7526956796646118,
+      "new_grad_rms": 0.00029101636027917266,
+      "old_grad_rms": 0.008032114244997501,
+      "finite_difference": [
+        {
+          "eps_rms": 0.001,
+          "plus_loss": 0.7527334690093994,
+          "minus_loss": 0.7525848150253296,
+          "observed_difference": 0.00014865398406982422,
+          "predicted_linear_difference": 0.0001307521015405655,
+          "realized_rms": 0.002037071157246828,
+          "gripper_clean_max_change": 0.0017578601837158203
+        },
+        {
+          "eps_rms": 0.01,
+          "plus_loss": 0.7530850172042847,
+          "minus_loss": 0.7521218061447144,
+          "observed_difference": 0.0009632110595703125,
+          "predicted_linear_difference": 0.0013035100419074297,
+          "realized_rms": 0.019998664036393166,
+          "gripper_clean_max_change": 0.0015624761581420898
+        },
+        {
+          "eps_rms": 0.1,
+          "plus_loss": 0.7599532604217529,
+          "minus_loss": 0.748092770576477,
+          "observed_difference": 0.011860489845275879,
+          "predicted_linear_difference": 0.013034285977482796,
+          "realized_rms": 0.19995048642158508,
+          "gripper_clean_max_change": 0.00468754768371582
+        }
+      ],
+      "branches": [
+        {
+          "kind": "old",
+          "eta": 1.0,
+          "final_loss": 0.7458244562149048,
+          "delta_final_loss": -0.006811022758483887,
+          "correction_rms": 0.008029842749238014,
+          "final_pose_delta_rms": 0.017346443608403206
+        },
+        {
+          "kind": "new",
+          "eta": 1.0,
+          "final_loss": 0.7522546052932739,
+          "delta_final_loss": -0.0003808736801147461,
+          "correction_rms": 0.0003303876437712461,
+          "final_pose_delta_rms": 0.0007137188804335892,
+          "input_only_local_loss": 0.7525879740715027
+        },
+        {
+          "kind": "new",
+          "eta": 0.5,
+          "final_loss": 0.7525054216384888,
+          "delta_final_loss": -0.00013005733489990234,
+          "correction_rms": 0.00015400501433759928,
+          "final_pose_delta_rms": 0.00033268885454162955,
+          "input_only_local_loss": 0.7526286840438843
+        },
+        {
+          "kind": "new",
+          "eta": 0.25,
+          "final_loss": 0.7526369094848633,
+          "delta_final_loss": 1.430511474609375e-06,
+          "correction_rms": 1.6852958651725203e-05,
+          "final_pose_delta_rms": 3.64065526810009e-05,
+          "input_only_local_loss": 0.7526756525039673
+        },
+        {
+          "kind": "new",
+          "eta": 0.125,
+          "final_loss": 0.75263512134552,
+          "delta_final_loss": -3.5762786865234375e-07,
+          "correction_rms": 7.136645308492007e-06,
+          "final_pose_delta_rms": 1.5416915630339645e-05,
+          "input_only_local_loss": 0.7526757717132568
+        }
+      ]
+    }
+  ],
+  "full_paths": {
+    "new789": {
+      "loss": 0.7521233558654785,
+      "delta_loss": -0.0005121231079101562
+    },
+    "old789": {
+      "loss": 0.74587082862854,
+      "delta_loss": -0.006764650344848633
+    },
+    "new9": {
+      "loss": 0.7522546052932739,
+      "delta_loss": -0.0003808736801147461
+    },
+    "final_direct_1.0": {
+      "loss": 0.7457916736602783,
+      "delta_loss": -0.0068438053131103516
+    },
+    "final_direct_0.5": {
+      "loss": 0.7471091747283936,
+      "delta_loss": -0.005526304244995117
+    },
+    "final_direct_0.25": {
+      "loss": 0.7492430210113525,
+      "delta_loss": -0.003392457962036133
+    },
+    "final_direct_0.125": {
+      "loss": 0.7509007453918457,
+      "delta_loss": -0.0017347335815429688
+    }
+  },
+  "duration_s": 28.222161401063204,
+  "peak_allocated_mib": 17102.232421875,
+  "score_contract": "normalized final actions -> original execution denormalization/gripper -> predictor; no simulator branch execution"
+}

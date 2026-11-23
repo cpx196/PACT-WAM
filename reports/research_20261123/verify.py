@@ -16,12 +16,72 @@ def read(path):
     return json.loads(path.read_text())
 
 
+def demo_metrics(run):
+    root = EVAL / run
+    samples = read(root / "manifest.json")["samples"]
+    expected = {(s["task"], s["demo"], s["t"], s["seed"]) for s in samples}
+    completed = []
+    for marker in (root / "results").glob("*/*/complete.json"):
+        if read(marker)["complete"]:
+            completed.append(read(marker.with_name("metrics.json")))
+    actual = {(s["task"], s["demo"], s["t"], s["seed"]) for s in completed}
+    assert len(expected) == len(samples) == len(completed) and actual == expected, run
+    return completed
+
+
+def verify_demo_logs():
+    old = demo_metrics("demo_fivearm_collect_20261117")
+    new = demo_metrics("demo_sixarm_diag_20261118")
+    assert (len(old), len(new)) == (600, 100)
+    assert [round(mean(s["branches"][a]["eef_target_error_mm_8"] for s in old), 2)
+            for a in ("A", "final025", "final1", "old789")] == [3.86, 3.75, 5.27, 4.99]
+    assert sum(s["branches"]["final025"]["actual_target_mse"] <
+               s["branches"]["reverse025"]["actual_target_mse"] for s in new) == 81
+    front = [s for s in new if s["phase"] in {"start", "middle"}]
+    assert len(front) == 68
+    for metric, expected in (("eef_target_error_mm_4", 7.8), ("eef_target_error_mm_8", 7.0),
+                             ("actual_target_mse", 4.7)):
+        a, b = (mean(s["branches"][arm][metric] for s in front) for arm in ("A", "final025"))
+        assert round(100 * (1 - b / a), 1) == expected, (metric, a, b)
+    old_by_key = {(s["task"], s["demo"], s["t"], s["seed"]): s for s in old}
+    matched_old = [old_by_key[(s["task"], s["demo"], s["t"], s["seed"])] for s in new]
+    for group, expected_mean, expected_count in ((matched_old, 1.24, 22), (new, .30, 4)):
+        errors = [s["branches"]["demo"]["eef_target_error_mm_8"] for s in group]
+        assert (round(mean(errors), 2), sum(e > 1 for e in errors)) == (expected_mean, expected_count)
+
+
+def verify_closed_loop_logs():
+    run = EVAL / "final025_closedloop_resume_gpu0_20261118"
+    rows = read(run / "completed.json")["rows"]
+    by_arm = {arm: {(r["seed"], r["task"]): r for r in rows if r["arm"] == arm}
+              for arm in ("A", "final025")}
+    a, b = by_arm["A"], by_arm["final025"]
+    assert len(rows) == 28 and len(a) == len(b) == 14 and a.keys() == b.keys()
+    assert Counter((a[k]["success"], b[k]["success"]) for k in a) == {(True, True): 8, (False, False): 6}
+    assert [mean(r["steps"] for r in arm.values() if r["success"]) for arm in (a, b)] == [243.5, 278.25]
+    assert median(b[k]["steps"] - a[k]["steps"] for k in a if a[k]["success"]) == 1.5
+
+    updates = Counter()
+    for row in b.values():
+        source = EVAL / Path(row["reused_from"]).name if row.get("reused_from") else run
+        path = source / f"task{row['task']}_seed{row['seed']}/final025/updates.jsonl"
+        with path.open() as f:
+            for update in map(json.loads, f):
+                change = update["predicted_after"] - update["predicted_before"]
+                updates[(change > 0) - (change < 0)] += 1
+    assert updates == {-1: 808, 1: 1}, updates
+
+
 def report_counts():
     clean = read(EVAL / "three_tasks_cleanprompt_42_43_20261111/final_results_20261113.json")
     assert tuple(clean["totals"][k] for k in ("episodes","baseline","mse","rescued","harmed")) == (244,212,207,6,11)
     gradient = read(EVAL / "input_gradient_two_tasks_20261116/paired_report.json")
     assert [sum(r[k] for r in gradient["rows"]) for k in ("n","control","new","unweighted")] == [162,133,133,128]
     assert [len(gradient["paired"]["control"][k]) for k in ("rescues","harms")] == [4,4]
+    rollout = read(EVAL / "input_gradient_two_tasks_20261116/combined_162_results.json")
+    rows = rollout["rollouts"]
+    assert len(rows) == len({(r["task_id"], r["seed"]) for r in rows}) == 162
+    assert sum(r["successes"] for r in rows) == rollout["successes"] == 133
 
     snapshot=read(HERE/"server_verified_summary.json")
     old=snapshot["demo_fivearm_collect_20261117"]
@@ -100,3 +160,6 @@ if __name__=="__main__":
     opts=parser.parse_args()
     manifest(opts.deep)
     report_counts()
+    verify_demo_logs()
+    verify_closed_loop_logs()
+    print("Recomputed demonstration and closed-loop metrics from archived source logs.")

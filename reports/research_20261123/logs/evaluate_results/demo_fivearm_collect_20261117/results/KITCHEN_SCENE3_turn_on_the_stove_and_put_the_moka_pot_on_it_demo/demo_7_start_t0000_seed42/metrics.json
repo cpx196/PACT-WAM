@@ -1,0 +1,184 @@
+{
+  "task": "KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it_demo",
+  "demo": "demo_7",
+  "t": 0,
+  "state_index": 1,
+  "target_indices": [
+    4,
+    8
+  ],
+  "video_indices": [
+    0,
+    4,
+    8,
+    12,
+    16,
+    20,
+    24,
+    28,
+    32
+  ],
+  "action_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "phase": "start",
+  "seed": 42,
+  "alignment_mm": 0.07210687966802688,
+  "alignment_pixel_mse": 1.0757649739583333,
+  "alignment_over_1mm": false,
+  "repeat_mse": null,
+  "seconds": 22.108716037124395,
+  "branches": {
+    "A": {
+      "actual_target_mse": 0.1444770246744156,
+      "eef_target_error_mm_4": 2.0218044480711312,
+      "eef_target_error_mm_8": 4.436844465003987,
+      "success_by_step": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predicted_target_mse": 0.12606824934482574,
+      "prediction_mse": 0.142515629529953,
+      "eef_difference_from_A_mm_8": 0.0
+    },
+    "final025": {
+      "actual_target_mse": 0.1411588191986084,
+      "eef_target_error_mm_4": 1.8620704730897142,
+      "eef_target_error_mm_8": 4.127240522073473,
+      "success_by_step": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predicted_target_mse": 0.12449725717306137,
+      "prediction_mse": 0.14235709607601166,
+      "eef_difference_from_A_mm_8": 0.5489690345687868
+    },
+    "final1": {
+      "actual_target_mse": 0.13466869294643402,
+      "eef_target_error_mm_4": 1.5831499279448393,
+      "eef_target_error_mm_8": 3.568864905517792,
+      "success_by_step": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predicted_target_mse": 0.12061137706041336,
+      "prediction_mse": 0.13923735916614532,
+      "eef_difference_from_A_mm_8": 2.179122499263879
+    },
+    "old789": {
+      "actual_target_mse": 0.1365460604429245,
+      "eef_target_error_mm_4": 1.569248722846866,
+      "eef_target_error_mm_8": 3.527345368845106,
+      "success_by_step": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predicted_target_mse": 0.1204419955611229,
+      "prediction_mse": 0.14007598161697388,
+      "eef_difference_from_A_mm_8": 2.2385420552266977
+    },
+    "demo": {
+      "actual_target_mse": 0.13046795129776,
+      "eef_target_error_mm_4": 0.0977174733354385,
+      "eef_target_error_mm_8": 0.11055385554577357,
+      "success_by_step": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predicted_target_mse": 0.11910290271043777,
+      "prediction_mse": 0.13969622552394867,
+      "eef_difference_from_A_mm_8": 4.417975150015672
+    }
+  },
+  "info": {
+    "video_shape": [
+      1,
+      3,
+      9,
+      224,
+      448
+    ],
+    "latent_shape": [
+      1,
+      48,
+      3,
+      14,
+      28
+    ],
+    "old789": [
+      {
+        "flow_step": 7,
+        "after_flow_step": 7,
+        "loss": 0.12568393349647522,
+        "loss_after_clean_step": 0.1206016093492508,
+        "gradient_rms": 0.010531586594879627,
+        "normalize_gradient": false,
+        "unclipped_delta_rms": 0.010531586594879627,
+        "correction_rms": 0.010531586594879627
+      },
+      {
+        "flow_step": 8,
+        "after_flow_step": 8,
+        "loss": 0.1259608417749405,
+        "loss_after_clean_step": 0.12073099613189697,
+        "gradient_rms": 0.010738171637058258,
+        "normalize_gradient": false,
+        "unclipped_delta_rms": 0.010738171637058258,
+        "correction_rms": 0.010738171637058258
+      },
+      {
+        "flow_step": 9,
+        "after_flow_step": 9,
+        "loss": 0.12561385333538055,
+        "loss_after_clean_step": 0.12040860950946808,
+        "gradient_rms": 0.010537217371165752,
+        "normalize_gradient": false,
+        "unclipped_delta_rms": 0.010537217371165752,
+        "correction_rms": 0.010537217371165752
+      }
+    ],
+    "gradient_rms": 0.011847084388136864
+  }
+}
